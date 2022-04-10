@@ -1,49 +1,92 @@
-html, main{
-  background-size: cover;
+:root {
+  --black-background: rgba(10, 15, 10, 1);
+}
+main {
   overflow: scroll;
   resize: both;
   min-width: 300px;
-  color: black;
+  color: white;
   font-size: 1.15em;
-  background-color: rgb(60, 140, 80,);
-  font-family: 'Open Sans', Arial, sans-serif;
+  font-family: "Open Sans", Arial, sans-serif;
+  line-height: 2;
+  padding: none;
+  border: none;
+}
+#navbar {
+  position: relative;
+  text-align: center;
+  top: 10px;
+  max-width: 100vw;
+  font-size: 20px;
+  font-family: sans-serif;
   line-height: 2;
 }
-#navbar{
-  position: fixed;
-    min-width: 290px;
-  max-width: inherit;
-  top: 0px;
-    left :0px; 
-  width 300px;
-  height 20%;
-
-
-}
-
-
-#navbar a{
-  width: inherit;
-  
-
-}
-
-
-header, h1{
-  color: black;
-  margin: 10px;
-  text-align: center;
-  font-size: 1.3em;
+#navbar li {
+  display: inline;
   text-decoration: none;
-  margin: auto;
-  padding: 0;
-  
 }
-
-main, ul{
+#navbar a {
+  color: #966f33;
+}
+#navbar a:link {
+  text-decoration: none;
+}
+#navbar a:visited {
+  text-decoration: none;
+}
+#navbar a:hover {
+  color: #966f33;
+  background: #33f669;
+  font-family: monospace;
+  text-transform: uppercase;
+  animation-name: embiggen;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  text-decoration: none;
+}
+#navbar a:active {
+  text-decoration: none;
+}
+@keyframes embiggen {
+  50% {
+    background-color: #33JF;
+    border-radius: 25%;
+  }
+  100% {
+    background-color: #66f3;
+    color: white;
+  }
+}
+hr {
+  width: 70%;
+}
+main {
   text-align: center;
   list-style: none;
 }
-@media only screen and (max width: 600px){
-  
+#column1 {
+  display: flex;
+}
+#column2 {
+  display: flex;
+}
+#right-side {
+  float: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#left-side {
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+@media only screen and (max-width: 600px) {
+  main {
+    font-size: 1em;
+  }
 }
