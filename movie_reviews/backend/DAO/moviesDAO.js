@@ -15,7 +15,7 @@ export default class MoviesDAO {
       console.error(`unable to connect in MoviesDAO: ${e}`);
     }
   }
-  static async getMoviesById(id) {
+  static async getMovieById(id) {
     try {
       return await movies
         .aggregate([
