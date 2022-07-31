@@ -1,5 +1,6 @@
 import "./App.css";
 import { Switch, Route, Link } from "react-router-dom";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Movie from "./components/Movie";
 import MoviesList from "./components/MoviesList";
@@ -10,15 +11,27 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  async function login(user = null) {
+    setUser(user);
+  }
+  async function logout() {
+    setUser(null);
+  }
+
   return (
     <div className="App">
-      <Navbar bg="primary" variant="dark">
+      <Navbar bg="primary" variant="light">
         <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="#home">Movie Reviews</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link>
+              <Link to={"/movies"}>Movies</Link>
+            </Nav.Link>
+            <Nav.Link>
+              {user ? <a>Logout User</a> : <Link to={"/login"}>Login</Link>}
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
