@@ -24,7 +24,7 @@ function App() {
     <div className="App">
       <Navbar bg="primary" variant="light">
         <Container>
-          <Navbar.Brand href="#home">Movie Reviews</Navbar.Brand>
+          <Navbar.Brand href="/">Movie Reviews</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link>
               <Link to={"/movies"}>Movies</Link>
