@@ -2,7 +2,7 @@ import "./App.css";
 import { Switch, Route, Link } from "react-router-dom";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Movie from "./components/Movie";
+import { Movie } from "./components/Movie";
 import { MoviesList } from "./components/MoviesList";
 import Login from "./components/Login";
 import AddReview from "./components/AddReview";
