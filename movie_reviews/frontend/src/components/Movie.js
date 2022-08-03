@@ -50,7 +50,7 @@ export const Movie = (props) => {
               return (
                 <Card key={index}>
                   <Card.Body>
-                    <h5>{review.name + "reviewed on" + review.date}</h5>
+                    <h5>{review.name + " reviewed on " + review.date}</h5>
                     <p>{review.review}</p>
                     {props.user && props.user.id === review.user.id && (
                       <Row>
