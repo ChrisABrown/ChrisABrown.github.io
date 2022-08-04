@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import MovieDataService from "../services/movie";
 import { Link } from "react-router-dom";
 import { Card, Container, Image, Col, Row, Button } from "react-bootstrap";
@@ -10,6 +11,11 @@ export const Movie = (props) => {
     rated: "",
     reviews: [],
   });
+
+  useEffect(() => {
+    getMovie(props.match.params.id);
+  }, [props.match.params.id]);
+
   const getMovie = (id) => {
     MovieDataService.get(id)
       .then((response) => {
@@ -21,12 +27,8 @@ export const Movie = (props) => {
       });
   };
 
-  useEffect(() => {
-    setMovie(props.match.params.id);
-  }, [props.match.params.id]);
-
   return (
-    <>
+    <div>
       <Container>
         <Row>
           <Col>
@@ -44,21 +46,27 @@ export const Movie = (props) => {
                 )}
               </Card.Body>
             </Card>
+            <br></br>
             <h2>Reviews</h2>
-            {movie.reviews.map(({ reviews, index }) => {
+            <br></br>
+            {console.log(movie.reviews)}
+            {movie.reviews.map((review, index) => {
               return (
                 <Card key={index}>
                   <Card.Body>
-                    <h5>{reviews.name + " reviewed on " + reviews.date}</h5>
-                    <p>{reviews.review}</p>
-                    {props.user && props.user.id === reviews.user.id && (
+                    <h5>
+                      {review.name + " reviewed on "}
+                      {moment(review.date).format("Do MMMM YYY")}
+                    </h5>
+                    <p>{review.review}</p>
+                    {props.user && props.user.id === review.user_id && (
                       <Row>
                         <Col>
                           <Link
                             to={{
                               pathname:
-                                "/movies/" + props.match.params.id + "/reviews",
-                              state: { currentReview: reviews },
+                                "/movies/" + props.match.params.id + "/review",
+                              state: { currentReview: review },
                             }}
                           >
                             Edit
@@ -76,6 +84,6 @@ export const Movie = (props) => {
           </Col>
         </Row>
       </Container>
-    </>
+    </div>
   );
 };
