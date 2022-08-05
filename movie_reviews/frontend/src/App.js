@@ -3,7 +3,7 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Movie } from "./components/Movies";
 import { MoviesList } from "./components/MoviesList";
-import Login from "./components/Login";
+import { Login } from "./components/Login";
 import AddReview from "./components/AddReview";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -20,19 +20,33 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div>
+      <style type="text/css">
+        {`
+        .link{
+          color: white !important;
+          text-decoration: none;
+        }
+        `}
+      </style>
       <Navbar bg="primary" variant="light">
         <Container>
-          <Navbar.Brand href="/">Movie Reviews</Navbar.Brand>
+          <Navbar.Brand href="/" className="link">
+            Movie Reviews
+          </Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link>
-              <Link to={"/movies"}>Movies</Link>
+              <Link to={"/movies"} className="link">
+                Movies
+              </Link>
             </Nav.Link>
-            <Nav.Link>
+            <Nav.Link variant="flat">
               {user ? (
                 <a onClick={logout}>Logout User</a>
               ) : (
-                <Link to={"/login"}>Login</Link>
+                <Link to={"/login"} className="link">
+                  Login
+                </Link>
               )}
             </Nav.Link>
           </Nav>
