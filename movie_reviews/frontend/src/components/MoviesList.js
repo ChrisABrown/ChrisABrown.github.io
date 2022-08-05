@@ -104,7 +104,7 @@ export const MoviesList = (props) => {
             return (
               <Col>
                 <Card key={movie._id} style={{ width: "18rem" }}>
-                  <Card.Img src={movie.poster + "/100px180"} />
+                  <Card.Img key={movie._id} src={movie.poster + "/100px180"} />
                   <Card.Body>
                     <Card.Title>{movie.title}</Card.Title>
                     <Card.Text>Rating: {movie.rated}</Card.Text>
