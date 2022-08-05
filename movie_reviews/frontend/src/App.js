@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Movie } from "./components/Movies";
 import { MoviesList } from "./components/MoviesList";
 import { Login } from "./components/Login";
-import AddReview from "./components/AddReview";
+import { AddReview } from "./components/AddReview";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
