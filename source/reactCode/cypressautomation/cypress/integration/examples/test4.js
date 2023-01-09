@@ -20,5 +20,9 @@ describe("My Fourth Test Case", function () {
       expect(str).to.equal("Hello , Are you sure you want to confirm?");
     });
     cy.get("#opentab").invoke("removeAttr", "target").click();
+
+    cy.url().should("include", "rahulshetty");
+
+    cy.go("back");
   });
 });
