@@ -8,5 +8,8 @@ class ProductPage {
   getProductNames() {
     return cy.get("h4.card-title");
   }
+  productPrice() {
+    return cy.get("td:nth-of-type(4)>strong");
+  }
 }
 export default ProductPage;

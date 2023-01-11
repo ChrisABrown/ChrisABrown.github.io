@@ -9,7 +9,10 @@ class PurchasePage {
     return cy.get("#checkbox2");
   }
   completePurchaseButton() {
-    return cy.get("input.btn.btn-success.btn-lg");
+    return cy.get("input[type='submit']");
+  }
+  successfulPurchaseMessage() {
+    return cy.get(".alert");
   }
 }
 

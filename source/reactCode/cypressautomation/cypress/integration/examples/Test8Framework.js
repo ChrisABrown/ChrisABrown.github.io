@@ -9,6 +9,7 @@ const homePage = new HomePage();
 const productPage = new ProductPage();
 const checkoutPage = new CheckoutPage();
 const purchasePage = new PurchasePage();
+var sum = 0;
 
 describe("Hook testing", () => {
   beforeEach(function () {
@@ -50,6 +51,18 @@ describe("Hook testing", () => {
       cy.selectProduct(element);
     });
     productPage.getCheckoutButton().click();
+    productPage
+      .productPrice()
+      .each(($el, index, $list) => {
+        const price = $el.text();
+        var result = price.split(" ");
+        result = result[1].trim();
+        cy.log(result);
+        sum = Number(sum) + Number(result);
+      })
+      .then(() => {
+        cy.log(sum);
+      });
     checkoutPage.getCheckoutButton().click();
     purchasePage.getDeliveryLocationEditBox().type("India");
     ///Timeout targeting for specific
@@ -57,5 +70,9 @@ describe("Hook testing", () => {
     purchasePage.chooseDeliveryLocation().click();
     purchasePage.termsAndConditionsCheckBox().check({ force: true });
     purchasePage.completePurchaseButton().click();
+    purchasePage.successfulPurchaseMessage().then((element) => {
+      const successMessage = element.text();
+      expect(successMessage.includes("Success!")).to.be.true;
+    });
   });
 });
