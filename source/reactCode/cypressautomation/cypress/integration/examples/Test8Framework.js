@@ -1,12 +1,14 @@
 /// <reference types="Cypress" />
 
 import HomePage from "../pageObjects/HomePage";
-import CheckoutPage from "../pageObjects/CheckoutPage";
+import PurchasePage from "../pageObjects/PurchasePage";
 import ProductPage from "../pageObjects/ProductPage";
+import CheckoutPage from "../pageObjects/CheckoutPage";
 
 const homePage = new HomePage();
 const productPage = new ProductPage();
 const checkoutPage = new CheckoutPage();
+const purchasePage = new PurchasePage();
 
 describe("Hook testing", () => {
   beforeEach(function () {
@@ -20,6 +22,7 @@ describe("Hook testing", () => {
   });
   it("first test case", function () {
     // const homePage = new HomePage();
+
     homePage.getEditBox().type("Annie");
     homePage.getEditBox().should("have.attr", "minlength", "2");
     homePage.getEditBoxGender().select(this.data.gender);
@@ -39,5 +42,20 @@ describe("Hook testing", () => {
     checkoutPage.getContinueShoppingButton().should("be.enabled");
   });
 
-  // it("third test case", function () {});
+  it("third test case", function () {
+    homePage.getShopButton().click();
+
+    ///parameterized version of grabbing data from an array within the examples JSON
+    this.data.productName.forEach((element) => {
+      cy.selectProduct(element);
+    });
+    productPage.getCheckoutButton().click();
+    checkoutPage.getCheckoutButton().click();
+    purchasePage.getDeliveryLocationEditBox().type("India");
+    ///Timeout targeting for specific
+    Cypress.config("defaultCommandTimeout: 8000");
+    purchasePage.chooseDeliveryLocation().click();
+    purchasePage.termsAndConditionsCheckBox().check({ force: true });
+    purchasePage.completePurchaseButton().click();
+  });
 });

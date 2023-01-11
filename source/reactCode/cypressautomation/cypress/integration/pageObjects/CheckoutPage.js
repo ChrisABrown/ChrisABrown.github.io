@@ -10,8 +10,8 @@ class CheckoutPage {
   getCheckoutButton() {
     return cy.get("button.btn.btn-success");
   }
-  getProductPrices() {
-    return cy.get("");
+  getProductTotalPrice() {
+    return cy.get("tbody > :nth-child(1) > :nth-child(4)");
   }
 }
 
