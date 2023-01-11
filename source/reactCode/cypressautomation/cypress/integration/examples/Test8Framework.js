@@ -12,7 +12,7 @@ describe("Hook testing", () => {
     cy.get("input[name='bday']").as("editboxBottom");
     cy.get(":nth-child(2) > .nav-link").as("shopButton");
 
-    ///uses path of fixture folder can be "nested"
+    ///uses path of fixture folder can be "nested"ex: 'fixtures/example/data'
     cy.fixture("example").then((data) => {
       this.data = data;
     });
@@ -27,6 +27,10 @@ describe("Hook testing", () => {
 
   it("second test case", function () {
     cy.get("@shopButton").click();
-    cy.selectProduct("Samsung");
+
+    ///parameterized version of grabbing data from an array within the examples JSON
+    this.data.productName.forEach((element) => {
+      cy.selectProduct(element);
+    });
   });
 });
