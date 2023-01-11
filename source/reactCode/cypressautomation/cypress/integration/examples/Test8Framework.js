@@ -1,8 +1,12 @@
 /// <reference types="Cypress" />
 
 import HomePage from "../pageObjects/HomePage";
+import CheckoutPage from "../pageObjects/CheckoutPage";
+import ProductPage from "../pageObjects/ProductPage";
 
 const homePage = new HomePage();
+const productPage = new ProductPage();
+const checkoutPage = new CheckoutPage();
 
 describe("Hook testing", () => {
   beforeEach(function () {
@@ -31,5 +35,9 @@ describe("Hook testing", () => {
     this.data.productName.forEach((element) => {
       cy.selectProduct(element);
     });
+    productPage.getCheckoutButton().click();
+    checkoutPage.getContinueShoppingButton().should("be.enabled");
   });
+
+  // it("third test case", function () {});
 });
