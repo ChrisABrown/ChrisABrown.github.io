@@ -61,7 +61,11 @@ describe("Hook testing", () => {
         sum = Number(sum) + Number(result);
       })
       .then(() => {
-        cy.log(sum);
+        productPage.productTotalPrice().then((element) => {
+          const totalPrice = element.text().split(" ");
+          var total = Number(totalPrice[1]);
+          expect(sum).to.equal(total);
+        });
       });
     checkoutPage.getCheckoutButton().click();
     purchasePage.getDeliveryLocationEditBox().type("India");

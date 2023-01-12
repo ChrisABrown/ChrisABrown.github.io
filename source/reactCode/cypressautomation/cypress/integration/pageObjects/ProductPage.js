@@ -11,5 +11,8 @@ class ProductPage {
   productPrice() {
     return cy.get("td:nth-of-type(4)>strong");
   }
+  productTotalPrice() {
+    return cy.get("td:nth-of-type(5)>h3>strong");
+  }
 }
 export default ProductPage;
