@@ -14,7 +14,7 @@ var sum = 0;
 describe("Hook testing", () => {
   beforeEach(function () {
     ///Setting up variables to use and setting up the data
-    cy.visit("https://rahulshettyacademy.com/angularpractice/");
+    cy.visit(Cypress.env("url") + "/angularpractice/");
 
     ///uses path of fixture folder can be "nested"ex: 'fixtures/example/data'
     cy.fixture("example").then((data) => {
