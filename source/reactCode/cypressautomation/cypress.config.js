@@ -5,6 +5,7 @@ module.exports = defineConfig({
   env: {
     url: "https://rahulshettyacademy.com",
   },
+  projectId: "qmvq2c",
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
