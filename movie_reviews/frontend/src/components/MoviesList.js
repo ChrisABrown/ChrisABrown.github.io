@@ -11,7 +11,6 @@ export const MoviesList = (props) => {
   const [ratings, setRatings] = useState(["All Ratings"]);
   const [currentPage, setCurrentPage] = useState(0);
   const [entriesPerPage, setEntriesPerPage] = useState(0);
-  const [currentSearchMode, setCurrentSearchMode] = useState("");
 
   useEffect(() => {
     retrieveMovies();
@@ -19,25 +18,10 @@ export const MoviesList = (props) => {
   }, []);
 
   useEffect(() => {
-    setCurrentPage(0);
-  }, [currentSearchMode]);
-
-  useEffect(() => {
-    retrieveNextPage();
+    retrieveMovies();
   }, [currentPage]);
 
-  const retrieveNextPage = () => {
-    if (currentSearchMode === "findByTitle") {
-      findByTitle();
-    } else if (currentSearchMode === "findByRating") {
-      findByRating();
-    } else {
-      retrieveMovies();
-    }
-  };
-
   const retrieveMovies = () => {
-    setCurrentSearchMode("");
     MovieDataService.getAll(currentPage)
       .then((response) => {
         console.log(response.data);
@@ -60,7 +44,7 @@ export const MoviesList = (props) => {
       });
   };
   const find = (query, by) => {
-    MovieDataService.find(query, by, currentPage)
+    MovieDataService.find(query, by)
       .then((response) => {
         console.log(response.data);
         setMovies(response.data.movies);
@@ -70,11 +54,9 @@ export const MoviesList = (props) => {
       });
   };
   const findByTitle = () => {
-    setCurrentSearchMode("findByTitle");
     find(searchTitle, "title");
   };
   const findByRating = () => {
-    setCurrentSearchMode("findByRating");
     if (searchRating === "All Ratings") {
       retrieveMovies();
     } else {
@@ -131,7 +113,7 @@ export const MoviesList = (props) => {
             return (
               <Col>
                 <Card key={movie._id} style={{ width: "18rem" }}>
-                  <Card.Img key={movie._id} src={movie.poster + "/100px180"} />
+                  <Card.Img src={movie.poster + "/100px180"} />
                   <Card.Body>
                     <Card.Title>{movie.title}</Card.Title>
                     <Card.Text>Rating: {movie.rated}</Card.Text>

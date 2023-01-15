@@ -27,21 +27,6 @@ export const Movie = (props) => {
       });
   };
 
-  const deleteReview = (reviewId, index) => {
-    MovieDataService.deleteReview(reviewId, props.user.id)
-      .then((response) => {
-        setMovie((currState) => {
-          currState.reviews.splice(index, 1);
-          return {
-            ...currState,
-          };
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
   return (
     <div>
       <Container>
@@ -71,7 +56,7 @@ export const Movie = (props) => {
                   <Card.Body>
                     <h5>
                       {review.name + " reviewed on "}
-                      {moment(review.date).format("Do MMMM YYYY")}
+                      {moment(review.date).format("Do MMMM YYY")}
                     </h5>
                     <p>{review.review}</p>
                     {props.user && props.user.id === review.user_id && (
@@ -88,14 +73,7 @@ export const Movie = (props) => {
                           </Link>
                         </Col>
                         <Col>
-                          <Button
-                            variant="link"
-                            onClick={() => {
-                              deleteReview(review._id, index);
-                            }}
-                          >
-                            Delete
-                          </Button>
+                          <Button variant="link">Delete</Button>
                         </Col>
                       </Row>
                     )}
