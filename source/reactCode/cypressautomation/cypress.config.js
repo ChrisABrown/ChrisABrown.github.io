@@ -17,6 +17,7 @@ module.exports = defineConfig({
   projectId: "jm4rui",
   e2e: {
     setupNodeEvents,
+
     specPattern: "cypress/integration/examples/*.js",
   },
 });

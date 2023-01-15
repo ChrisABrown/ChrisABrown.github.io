@@ -19,5 +19,6 @@
     "@badeball/cypress-cucumber-preprocessor": "^15.0.0",
     "@cypress/browserify-preprocessor": "latest",
     "mochawesome": "^7.1.3"
+
   }
 }

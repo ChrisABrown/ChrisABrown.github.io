@@ -1,4 +1,3 @@
-//cypress - Spec
 /// <reference types="Cypress" />
 describe("My First Test Case", function () {
   it("first test", function () {
