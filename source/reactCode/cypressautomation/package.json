@@ -4,12 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test8": "node_modules\\.bin\\cypress run "
+    "test": "node_modules\\.bin\\cypress run ",
+    "headTest": "npm run test -- --headed",
+    "chromeTest": "npm run test -- --browser chrome"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^12.3.0",
     "cypress-iframe": "^1.0.1"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^15.1.1",
+    "mochawesome": "^7.1.3"
   }
 }
