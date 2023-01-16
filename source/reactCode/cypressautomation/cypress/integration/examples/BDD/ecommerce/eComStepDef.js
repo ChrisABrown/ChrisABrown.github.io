@@ -1,4 +1,4 @@
-///<reference types= "Cypress"/>
+///<reference types="Cypress"/>
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 import HomePage from "../../../pageObjects/HomePage";
 import ProductPage from "../../../pageObjects/ProductPage";
@@ -11,9 +11,7 @@ const checkoutPage = new CheckoutPage();
 const purchasePage = new PurchasePage();
 var sum = 0;
 
-Given("I open Ecommerce Page", () => {
-  cy.visit(Cypress.env("url") + "/angularpractice/");
-});
+Given("I open Ecommerce Page", () => {});
 
 //When I add items to the cart
 When("I add items to Cart", function () {
@@ -47,7 +45,7 @@ When("Validate the total prices", () => {
 });
 
 //Then select the country, submit and verify Success
-Then("select the country, submit and verify Success", () => {
+Then("select the country submit and verify Success message", () => {
   checkoutPage.getCheckoutButton().click();
   purchasePage.getDeliveryLocationEditBox().type("India");
   ///Timeout targeting for specific
