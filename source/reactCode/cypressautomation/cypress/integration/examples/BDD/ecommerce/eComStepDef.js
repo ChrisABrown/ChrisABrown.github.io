@@ -58,3 +58,15 @@ Then("select the country submit and verify Success message", () => {
     expect(successMessage.includes("Success!")).to.be.true;
   });
 });
+When("I fill in the form details", () => {
+  homePage.getEditBox().type("Annie");
+  homePage.getEditBox().should("have.attr", "minlength", "2");
+});
+Then("Validate the form behavior", function (dataTable) {
+  homePage.getEditBoxGender().select(dataTable.rawTable[1][0]);
+  homePage.getEditBox().should("have.value", dataTable.rawTable[1][1]);
+  homePage.getEntrepreneurCheckBox().should("not.be.enabled");
+});
+Then("Select the Shop Page", () => {
+  homePage.getShopButton().click();
+});
