@@ -1,5 +1,10 @@
 ///<reference types="Cypress"/>
-import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import {
+  Given,
+  When,
+  Then,
+  DataTable,
+} from "@badeball/cypress-cucumber-preprocessor";
 import HomePage from "../../../pageObjects/HomePage";
 import ProductPage from "../../../pageObjects/ProductPage";
 import CheckoutPage from "../../../pageObjects/CheckoutPage";
@@ -59,12 +64,13 @@ Then("select the country submit and verify Success message", () => {
   });
 });
 When("I fill in the form details", function (dataTable) {
+  //[joe, male]
+  name = dataTable.rawTable[1][0];
   homePage.getEditBox().type(dataTable.rawTable[1][0]);
   homePage.getEditBox().should("have.attr", "minlength", "2");
-});
-Then("Validate the form behavior", function (dataTable) {
-  let name = dataTable.rawTable[1][0];
   homePage.getEditBoxGender().select(dataTable.rawTable[1][1]);
+});
+Then("Validate the form behavior", function () {
   homePage.getEditBox().should("have.value", name);
   homePage.getEntrepreneurCheckBox().should("not.be.enabled");
 });
