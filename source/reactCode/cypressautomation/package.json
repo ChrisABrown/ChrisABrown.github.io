@@ -9,6 +9,12 @@
     "headTest": "npm run test -- --headed",
     "chromeTest": "npm run test -- --browser chrome"
   },
+  "cypress-cucumber-preprocessor": {
+    "json": {
+      "enabled": true,
+      "output": "cypress/cucumberReports/results.json"
+    }
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
