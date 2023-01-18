@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import "../Styling/NavBar.css";
 
 function NavBar(props) {
   return (
@@ -29,7 +29,5 @@ function NavBar(props) {
     </div>
   );
 }
-
-NavBar.propTypes = {};
 
 export default NavBar;
