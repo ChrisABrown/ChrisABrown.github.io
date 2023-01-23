@@ -1,0 +1,5 @@
+// "cypress-cucumber-preprocessor": {
+  //   "json": {
+  //     "enabled": true,
+  //     "output": "cypress/cucumberReports/results.json"
+  //   }

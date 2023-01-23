@@ -1,5 +1,11 @@
 #navbar {
-  position: left;
-  list-style: none;
+  align-items: flex-start;
+  justify-items: left;
   background-color: burlywood;
+}
+li > a {
+  align-items: flex-start;
+  justify-items: left;
+  list-style: none;
+  text-decoration: none;
 }

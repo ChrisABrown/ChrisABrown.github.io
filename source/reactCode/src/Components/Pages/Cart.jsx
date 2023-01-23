@@ -1,5 +1,11 @@
 import React from "react";
+import { useState } from "react";
 
 export default function Cart() {
-  return <div>Cart</div>;
+  const [items, setItems] = useState([""]);
+  return <div id="cart-page">
+   <div id ="cart-items-list"> items.map((item) => {
+      <p>{items.}</p>
+    })</div>
+  </div>;
 }
