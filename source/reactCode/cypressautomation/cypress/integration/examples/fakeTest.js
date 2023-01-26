@@ -1,15 +1,27 @@
 /// <reference types="Cypress"/>
+const url = Cypress.env("url");
+///cy.request(method, url, body).then((response)=>{"validation", response.body....etc})
+///Cypress.env('token', response.body.token) for JWT session
+
 describe("Testing Mock HTTP requests", () => {
   it("generating Stub Data", () => {
+    cy.visit(url);
+
     cy.intercept(
       {
-        //request body
-        methods: "GET",
-        url: "",
+        method: "GET",
+        url: url,
       },
+
       {
-        //response body
+        statusCode: 200,
+        body: [{}],
       }
-    ).as("httpRequest");
+    ).as("httpRequests");
+    cy.get("").click();
+    cy.wait("@httpRequests").should(({ request, response }) => {
+      cy.get("tr").should("have.length", response.body.length + 1);
+    });
+    cy.get("p").should("have.text", "Sorry we have only one book available");
   });
 });

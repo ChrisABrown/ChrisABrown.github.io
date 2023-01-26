@@ -13,14 +13,17 @@ export const Home = () => {
     <div id="home-page">
       <h1>TekTacos</h1>
       <NavBar />
-
+      {/* 
       <button id="home-page-enter" onClick={add}>
         Add
       </button>
       <p>Hits:{count}</p>
       <button id="home-page-remove" onClick={remove}>
         Remove
-      </button>
+      </button> */}
+      <img alt="large taco" src="/pic"></img>
+      <button id="btn-login">click to login</button>
+      <button id="btn-cart">click to go to cart</button>
     </div>
   );
 };

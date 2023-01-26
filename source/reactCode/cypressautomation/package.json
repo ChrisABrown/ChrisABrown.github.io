@@ -9,11 +9,17 @@
     "headTest": "npm run test -- --headed",
     "chromeTest": "npm run test -- --browser chrome"
   },
+  "eslintConfig": {
+    "extends": [
+      "plugin:cypress/recommended"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^12.3.0",
-    "cypress-iframe": "^1.0.1"
+    "cypress-iframe": "^1.0.1",
+    "neat-csv": "7.0.0"
   },
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^15.0.0",
