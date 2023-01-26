@@ -1,8 +1,12 @@
 import React from "react";
 import { useState } from "react";
+import NavBar from "../NavBar";
 
 export default function Cart() {
-  const [items, setItems] = useState([""]);
+  const [items, setItems] = useState([
+    "chocolate taco: 5.99",
+    "vanilla taco: 4.99",
+  ]);
   const itemsList = items.map((item, index) => {
     return (
       <li key={index}>
@@ -14,8 +18,13 @@ export default function Cart() {
   });
   return (
     <div id="cart-page">
-      <div id="cart-items-list">
-        <ul id="cart-items">{setItems(itemsList)}</ul>
+      <NavBar />
+      <div id="cart">
+        <h2>Cart</h2>
+        <div id="cart-items-list">
+          Items:
+          <ul id="cart-items">{itemsList}</ul>
+        </div>
       </div>
     </div>
   );

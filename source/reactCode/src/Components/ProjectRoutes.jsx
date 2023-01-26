@@ -1,8 +1,8 @@
 import React from "react";
 import { Home } from "../Views/HomePage/Home";
-import Menu from "../Components/Pages/Menu";
-import Login from "../Components/Pages/Login";
-import Cart from "../Components/Pages/Cart";
+import Menu from "../Components/MenuComponents/Menu";
+import Login from "../Components/LoginComponents/Login";
+import Cart from "../Components/CartComponents/Cart";
 import { Routes, Route } from "react-router-dom";
 
 export default function ProjectRoutes() {
