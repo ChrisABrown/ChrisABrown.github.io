@@ -22,7 +22,7 @@ function NavBar(props) {
         </li>
         <li>
           <a name="cart-page" href="/cart">
-            Cart
+            <img alt="cart" />
           </a>
         </li>
       </ul>
