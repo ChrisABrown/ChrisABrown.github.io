@@ -1,0 +1,23 @@
+[
+  {
+    "employeeId": 1,
+    "name": "John Williams",
+    "password": "cH1cK3n$",
+    "accessLevel": "admin",
+    "email": "johnnyboy@gmail.com"
+  },
+  {
+    "employeeId": 2,
+    "name": "Shirley Temple",
+    "password": "bu8813buTT@",
+    "accessLevel": "user",
+    "email": "shirtem@gmail.com"
+  },
+  {
+    "employeeId": 3,
+    "name": "Tyrone Biggums",
+    "password": "j03R0g@N",
+    "accessLevel": "user",
+    "email": "crackiswack@gmail.com"
+  }
+]
