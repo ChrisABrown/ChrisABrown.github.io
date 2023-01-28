@@ -1,0 +1,92 @@
+{
+  "inventory": [
+    {
+      "SKU": "501",
+      "name": "Basic TekTaco",
+      "product type": "Entree",
+      "inStock": 10,
+      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
+      "image": "someurl"
+    },
+    {
+      "SKU": "502",
+      "name": "Deluxe TekTaco",
+      "product type": "Entree",
+      "inStock": 10,
+      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
+      "image": "someurl"
+    },
+    {
+      "SKU": "502",
+      "name": "Deluxe TekTaco",
+      "product type": "Entree",
+      "inStock": 10,
+      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
+      "image": "someurl"
+    },
+    {
+      "SKU": "502",
+      "name": "Deluxe TekTaco",
+      "product type": "Entree",
+      "inStock": 10,
+      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
+      "image": "someurl"
+    },
+    {
+      "SKU": "502",
+      "name": "Deluxe TekTaco",
+      "product type": "Entree",
+      "inStock": 10,
+      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
+      "image": "someurl"
+    },
+    {
+      "SKU": "502",
+      "name": "Deluxe TekTaco",
+      "product type": "Entree",
+      "inStock": 10,
+      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
+      "image": "someurl"
+    },
+    {
+      "SKU": "502",
+      "name": "Deluxe TekTaco",
+      "product type": "Entree",
+      "inStock": 10,
+      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
+      "image": "someurl"
+    },
+    {
+      "SKU": "502",
+      "name": "Deluxe TekTaco",
+      "product type": "Entree",
+      "inStock": 10,
+      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
+      "image": "someurl"
+    },
+    {
+      "SKU": "502",
+      "name": "Deluxe TekTaco",
+      "product type": "Entree",
+      "inStock": 10,
+      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
+      "image": "someurl"
+    },
+    {
+      "SKU": "502",
+      "name": "Deluxe TekTaco",
+      "product type": "Entree",
+      "inStock": 10,
+      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
+      "image": "someurl"
+    },
+    {
+      "SKU": "502",
+      "name": "Deluxe TekTaco",
+      "product type": "Entree",
+      "inStock": 10,
+      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
+      "image": "someurl"
+    }
+  ]
+}
