@@ -9,7 +9,9 @@ export default function Menu({ inventory }) {
 
   return (
     <div id="menu-page">
-      <MenuList />
+      <div id="stylish-menu-box-border">
+        <MenuList inventory={inventory} />
+      </div>
     </div>
   );
 }
