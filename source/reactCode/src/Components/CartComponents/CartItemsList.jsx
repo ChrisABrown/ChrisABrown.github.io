@@ -19,9 +19,7 @@ const CartItemsList = () => {
     return (
       <li key={index}>
         {item}
-        <button class="btn-add-to-cart" onClick={addToCart}>
-          +
-        </button>
+
         <button class="btn-remove-from-cart" onClick={removeFromCart}>
           -
         </button>

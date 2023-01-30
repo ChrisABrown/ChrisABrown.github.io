@@ -3,90 +3,83 @@
     {
       "SKU": "501",
       "name": "Basic TekTaco",
-      "product type": "Entree",
+      "product-type": "Entree",
       "inStock": 10,
       "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl"
+      "image": "someurl",
+      "price": 5
     },
     {
       "SKU": "502",
       "name": "Deluxe TekTaco",
-      "product type": "Entree",
+      "product-type": "Entree",
       "inStock": 10,
-      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl"
+      "description": "Steak seasoned with house spices, topped with cheese, chopped cilantro, sauteed onions and your choice of spicy or mild salsa",
+      "image": "someurl",
+      "price": 6
     },
     {
-      "SKU": "502",
-      "name": "Deluxe TekTaco",
-      "product type": "Entree",
+      "SKU": "503",
+      "name": "Veggie TekTaco",
+      "product-type": "Entree",
       "inStock": 10,
-      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl"
+      "description": "Diced mushrooms seasoned with house spices, topped with vegan cheese, cabbage, fajita veggies and your choice of spicy or mild salsa ",
+      "image": "someurl",
+      "price": 5
     },
     {
-      "SKU": "502",
-      "name": "Deluxe TekTaco",
-      "product type": "Entree",
+      "SKU": "401",
+      "name": "Chips and Queso",
+      "product-type": "Side",
       "inStock": 10,
-      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl"
+      "description": "tortilla chips tossed in salt with a side of Queso",
+      "image": "someurl",
+      "price": 4
     },
     {
-      "SKU": "502",
-      "name": "Deluxe TekTaco",
-      "product type": "Entree",
+      "SKU": "402",
+      "name": "Chips and Guacamole",
+      "product-type": "Side",
       "inStock": 10,
-      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl"
+      "description": "tortilla chips tossed in salt with a side of Guacamole",
+      "image": "someurl",
+      "price": 4
     },
     {
-      "SKU": "502",
-      "name": "Deluxe TekTaco",
-      "product type": "Entree",
+      "SKU": "403",
+      "name": "Nachos",
+      "product-type": "Side",
       "inStock": 10,
-      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl"
+      "description": "tortilla chips tossed in salt and covered with Queso, jalapenos, and ground beef",
+      "image": "someurl",
+      "price": 6
     },
     {
-      "SKU": "502",
-      "name": "Deluxe TekTaco",
-      "product type": "Entree",
+      "SKU": "301",
+      "name": "Water",
+      "product-type": "Drink",
       "inStock": 10,
-      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl"
+      "description": "Natural Spring Water",
+      "image": "someurl",
+      "price": 2
     },
     {
-      "SKU": "502",
-      "name": "Deluxe TekTaco",
-      "product type": "Entree",
+      "SKU": "302",
+      "name": "Fountain soda",
+      "product-type": "Drink",
       "inStock": 10,
-      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl"
+      "description": "choice of Coke, Sprite, or Dr.Pepper",
+      "image": "someurl",
+      "price": 3
     },
     {
-      "SKU": "502",
-      "name": "Deluxe TekTaco",
-      "product type": "Entree",
+      "SKU": "303",
+      "name": "Juice",
+      "product-type": "Drink",
       "inStock": 10,
-      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl"
-    },
-    {
-      "SKU": "502",
-      "name": "Deluxe TekTaco",
-      "product type": "Entree",
-      "inStock": 10,
-      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl"
-    },
-    {
-      "SKU": "502",
-      "name": "Deluxe TekTaco",
-      "product type": "Entree",
-      "inStock": 10,
-      "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl"
+      "description": "choice of Apple, Cranberry, or Orange",
+      "image": "someurl",
+      "price": 2
     }
   ]
 }
