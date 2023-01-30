@@ -18,8 +18,8 @@
 #menu-image {
   display: flex;
   flex-flow: column nowrap;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
 }
 #quantity-label {
   display: flex;

@@ -6,7 +6,7 @@
       "product-type": "Entree",
       "inStock": 10,
       "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
-      "image": "someurl",
+      "image": "https://thumbs.dreamstime.com/b/two-beef-tacos-cheese-lettuce-tomatoes-has-lens-flare-background-40979675.jpg",
       "price": 5
     },
     {
@@ -15,7 +15,7 @@
       "product-type": "Entree",
       "inStock": 10,
       "description": "Steak seasoned with house spices, topped with cheese, chopped cilantro, sauteed onions and your choice of spicy or mild salsa",
-      "image": "someurl",
+      "image": "https://th.bing.com/th/id/R.cf1213ccf1b1e360d0eb182cdd97f4fc?rik=841e2dQDhcfwFQ&pid=ImgRaw&r=0",
       "price": 6
     },
     {
@@ -24,7 +24,7 @@
       "product-type": "Entree",
       "inStock": 10,
       "description": "Diced mushrooms seasoned with house spices, topped with vegan cheese, cabbage, fajita veggies and your choice of spicy or mild salsa ",
-      "image": "someurl",
+      "image": "https://www.wellplated.com/wp-content/uploads/2018/12/Vegetarian-Tofu-Mushroom-Tacos.jpg",
       "price": 5
     },
     {
@@ -33,7 +33,7 @@
       "product-type": "Side",
       "inStock": 10,
       "description": "tortilla chips tossed in salt with a side of Queso",
-      "image": "someurl",
+      "image": "https://media-cdn.tripadvisor.com/media/photo-s/07/6f/f3/e2/chips-queso.jpg",
       "price": 4
     },
     {
@@ -42,7 +42,7 @@
       "product-type": "Side",
       "inStock": 10,
       "description": "tortilla chips tossed in salt with a side of Guacamole",
-      "image": "someurl",
+      "image": "https://th.bing.com/th/id/R.d003c4d1c790d8b8095b6126599169a2?rik=4TK8u64so%2b16fg&pid=ImgRaw&r=0",
       "price": 4
     },
     {
@@ -51,7 +51,7 @@
       "product-type": "Side",
       "inStock": 10,
       "description": "tortilla chips tossed in salt and covered with Queso, jalapenos, and ground beef",
-      "image": "someurl",
+      "image": "https://ak1.picdn.net/shutterstock/videos/16286791/thumb/1.jpgl",
       "price": 6
     },
     {
@@ -60,7 +60,7 @@
       "product-type": "Drink",
       "inStock": 10,
       "description": "Natural Spring Water",
-      "image": "someurl",
+      "image": "https://tse2.mm.bing.net/th/id/OIP.yxE_YynmvOx8j42hxVOkUQHaFj?pid=ImgDet&rs=1",
       "price": 2
     },
     {
@@ -69,7 +69,7 @@
       "product-type": "Drink",
       "inStock": 10,
       "description": "choice of Coke, Sprite, or Dr.Pepper",
-      "image": "someurl",
+      "image": "https://tse2.mm.bing.net/th/id/OIP.1l_X-zVPNuCbrO4qITGUIAHaJm?pid=ImgDet&rs=1",
       "price": 3
     },
     {
@@ -77,8 +77,8 @@
       "name": "Juice",
       "product-type": "Drink",
       "inStock": 10,
-      "description": "choice of Apple, Cranberry, or Orange",
-      "image": "someurl",
+      "description": "freshly squeezed juice",
+      "image": "https://tse4.mm.bing.net/th/id/OIP.-VtyPfi_oyXQnLF9xLVkpQHaEo?pid=ImgDet&rs=1",
       "price": 2
     }
   ]

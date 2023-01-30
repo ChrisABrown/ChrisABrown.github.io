@@ -8,14 +8,10 @@ const Entrees = (product, addToCart) => {
     <div id="menu-item">
       <h3 id="name">{product.name}</h3>
       <figure id="menu-image">
-        <img id="image" alt="" src={product.image} />
+        <img id="image" alt="" src={product.image} height="400" width="400" />
         <figcaption id="description">{product.description}</figcaption>
       </figure>
-      <div id="add-to-cart">
-        <button className="btn-add-to-cart" onClick={addToCart}>
-          add to cart
-        </button>
-      </div>
+
       <label id="quantity-label">
         Quantity
         <input
@@ -26,6 +22,11 @@ const Entrees = (product, addToCart) => {
           placeholder="1"
         />
       </label>
+      <div id="add-to-cart">
+        <button className="btn-add-to-cart" onClick={addToCart}>
+          add to cart
+        </button>
+      </div>
       <p id="price">${priceWithTax}</p>
       <hr></hr>
     </div>

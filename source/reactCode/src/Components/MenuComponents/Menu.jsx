@@ -2,6 +2,7 @@ import React from "react";
 import Entrees from "./Entrees";
 import inventory from "../../Assets/Inventory.json";
 import "../../Styling/Menu.css";
+import NavBar from "../NavBar";
 
 export default function Menu(props) {
   function addToCart() {}
@@ -15,7 +16,7 @@ export default function Menu(props) {
 
   return (
     <div id="menu-page">
-      Menu
+      <NavBar />
       <section id="menu-box">{menuList}</section>
     </div>
   );
