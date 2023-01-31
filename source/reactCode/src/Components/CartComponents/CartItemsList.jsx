@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import ".././../App.css";
+import "../../Styling/Cart.css";
 
 const CartItemsList = () => {
   const [items, setItems] = useState([
