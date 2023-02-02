@@ -1,7 +1,7 @@
 import React from "react";
 import "../Styling/NavBar.css";
 
-function NavBar(props) {
+function NavBar() {
   return (
     <div id="Navbar">
       <ul name="navbar" id="navbar">
