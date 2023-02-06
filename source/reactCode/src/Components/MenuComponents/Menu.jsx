@@ -5,9 +5,6 @@ import "../../Styling/Menu.css";
 import NavBar from "../NavBar";
 
 export default function Menu(props) {
-  function addToCart() {}
-  function increment() {}
-  function decrement() {}
   props = inventory;
 
   const menuList = props.inventory.map((product) => (
