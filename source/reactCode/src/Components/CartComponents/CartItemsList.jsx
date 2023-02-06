@@ -1,12 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import "../../Styling/Cart.css";
-import { useEffect } from "react";
 
 const CartItemsList = (products) => {
   const [items, setItems] = useState();
-
-  console.log(items);
 
   function addToCart() {}
 
