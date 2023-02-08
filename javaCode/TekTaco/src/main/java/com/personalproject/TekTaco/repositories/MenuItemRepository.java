@@ -1,12 +1,17 @@
-package repositories;
+package com.personalproject.TekTaco.repositories;
 
-import models.MenuItem;
+import com.personalproject.TekTaco.models.MenuItem;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface MenuItemRepository extends MongoRepository<MenuItem, String> {
+
     @Query("{name:'?0'}")
     MenuItem findItemByName(String name);
     @Query(value="{productType:'?0'}", fields = "{'name' :1, 'inStock': 1}")

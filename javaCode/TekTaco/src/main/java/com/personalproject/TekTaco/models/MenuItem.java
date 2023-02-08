@@ -1,4 +1,4 @@
-package models;
+package com.personalproject.TekTaco.models;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Document(collection = "Inventory")
 public class MenuItem{
     @Id
-    private String _id;
     private String id;
     private String name;
     private int price;
@@ -15,10 +14,12 @@ public class MenuItem{
     private String description;
     private int SKU;
     private String productType;
+    public MenuItem(){
 
-    public MenuItem(String _id, String name, int price, int inStock, String description, int SKU, String productType) {
-        super();
-        this._id = _id;
+    }
+
+    public MenuItem(String id, String name, int price, int inStock, String description, int SKU, String productType) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.inStock = inStock;
@@ -28,6 +29,7 @@ public class MenuItem{
     }
 
     public MenuItem(String id, String name, int price) {
+        super();
         this.id = id;
         this.name = name;
         this.price = price;
