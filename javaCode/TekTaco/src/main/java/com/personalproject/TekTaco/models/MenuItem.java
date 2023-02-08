@@ -14,11 +14,10 @@ public class MenuItem{
     private String description;
     private int SKU;
     private String productType;
-    public MenuItem(){
-
-    }
+    public MenuItem(){}
 
     public MenuItem(String id, String name, int price, int inStock, String description, int SKU, String productType) {
+        super();
         this.id = id;
         this.name = name;
         this.price = price;
@@ -26,13 +25,6 @@ public class MenuItem{
         this.description = description;
         this.SKU = SKU;
         this.productType = productType;
-    }
-
-    public MenuItem(String id, String name, int price) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.price = price;
     }
 
 
