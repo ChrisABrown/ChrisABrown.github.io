@@ -1,18 +1,16 @@
 package com.personalproject.TekTaco.services;
 
 
-import com.personalproject.TekTaco.exceptions.ItemNotFoundException;
 import com.personalproject.TekTaco.models.MenuItem;
 import com.personalproject.TekTaco.repositories.MenuItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +25,15 @@ public class MenuItemService {
 
     public List<MenuItem> createNewMenuItems(List<MenuItem> newItems) {
         return menuItemRepo.saveAll(newItems);
+    }
+
+    public List<MenuItem> getAllMenuItemsByProductType(String productType) {
+        List<MenuItem> itemsByType = menuItemRepo.findAll(productType);
+        itemsByType.forEach(menuItem -> {
+            String details = getMenuItemDetails(menuItem);
+            System.out.println(details + "\n");
+        });
+        return itemsByType;
     }
 
     public List<MenuItem> getAllMenuItems(int page, int limit) {
@@ -46,39 +53,31 @@ public class MenuItemService {
         return "";
     }
 
-    public MenuItem updateMenuItem(String id, MenuItem itemDetails) {
+    public Optional<MenuItem> updateMenuItem(String id, MenuItem itemDetails) {
 
-       Optional<MenuItem> menuItem = menuItemRepo.findById(id);
-       try {
-           MenuItem newMenuItem = menuItem.get();
-           newMenuItem.setId(itemDetails.getId());
-           newMenuItem.setName(itemDetails.getName());
-           newMenuItem.setPrice(itemDetails.getPrice());
-           newMenuItem.setInStock(itemDetails.getInStock());
-           newMenuItem.setDescription(itemDetails.getDescription());
-           newMenuItem.setSKU(itemDetails.getSKU());
-           newMenuItem.setProductType(itemDetails.getProductType());
-           return menuItemRepo.save(newMenuItem);
-       }
-       catch (ItemNotFoundException exception){
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                   "No Item found for the id " + id);
-       }
+        Optional<MenuItem> menuItem = menuItemRepo.findById(id);
+        if (menuItem.isPresent()) {
+            MenuItem newMenuItem = menuItem.get();
+            newMenuItem.setId(itemDetails.getId());
+            newMenuItem.setName(itemDetails.getName());
+            newMenuItem.setPrice(itemDetails.getPrice());
+            newMenuItem.setInStock(itemDetails.getInStock());
+            newMenuItem.setDescription(itemDetails.getDescription());
+            newMenuItem.setSKU(itemDetails.getSKU());
+            newMenuItem.setProductType(itemDetails.getProductType());
+            return Optional.of(menuItemRepo.save(newMenuItem));
+        }
+        return menuItem;
     }
 
-    public void getMenuItemByName(String name) {
-        long count = menuItemRepo.count();
-        System.out.println("Looking for item :" + name);
-        menuItemRepo.findItemByName(name);
-        System.out.println("Found " + count + " of :" + name);
-    }
-
-    public void getMenuItemByType(String productType) {
-        System.out.println("Getting items of the type " + productType);
-        List<MenuItem> list = menuItemRepo.findAll(productType);
-
-        list.forEach(menuItem -> System.out.println("Name: " + menuItem.getName() + "InStock: " + menuItem.getInStock()));
-        System.out.println("Found " + productType + " items");
+    public Optional<MenuItem> getMenuItemByName(String name) {
+        Optional<MenuItem> menuItem = Optional.ofNullable(menuItemRepo.findItemByName(name));
+        if (menuItem.isPresent()) {
+            return menuItem;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No menu item found for the name " + name);
+        }
     }
 
     public void findTheAmountOfMenuItems() {
@@ -87,8 +86,13 @@ public class MenuItemService {
     }
 
     public void deleteMenuItem(String id) {
-        menuItemRepo.deleteById(id);
-        System.out.println(" Menu Item with id: " + id + " has been deleted...");
+        try {
+            menuItemRepo.deleteById(id);
+        } catch (EmptyResultDataAccessException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No menu item found for the id " + id);
+        }
+
     }
 
 
