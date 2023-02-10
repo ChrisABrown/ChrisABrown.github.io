@@ -85,7 +85,7 @@ public class MenuItemService {
 
     public void findTheAmountOfMenuItems() {
         long count = menuItemRepo.count();
-        System.out.println("Number of documents in this collection " + count);
+        System.out.println("Number of items on the Menu:  " + count);
     }
 
     public void deleteMenuItem(String id) {

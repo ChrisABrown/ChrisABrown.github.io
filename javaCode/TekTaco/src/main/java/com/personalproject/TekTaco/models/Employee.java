@@ -10,7 +10,7 @@ public class Employee {
     private Integer employeeId;
     private String name;
     private String password;
-    private String ACCESS_LEVEL;
+    private String accessLevel;
     private String email;
 
     public Employee() {
@@ -20,7 +20,7 @@ public class Employee {
         this.employeeId = employeeId;
         this.name = name;
         this.password = password;
-        this.ACCESS_LEVEL = ACCESS_LEVEL;
+        this.accessLevel = ACCESS_LEVEL;
         this.email = email;
     }
 
@@ -48,12 +48,12 @@ public class Employee {
         this.password = password;
     }
 
-    public String getACCESS_LEVEL() {
-        return ACCESS_LEVEL;
+    public String getAccessLevel() {
+        return accessLevel;
     }
 
-    public void setACCESS_LEVEL(String ACCESS_LEVEL) {
-        this.ACCESS_LEVEL = ACCESS_LEVEL;
+    public void setAccessLevel(String accessLevel) {
+        this.accessLevel = accessLevel;
     }
 
     public String getEmail() {
