@@ -37,7 +37,7 @@ public class MenuItemController {
         return menuItemService.updateMenuItem(id, itemDetails);
     }
 
-    @DeleteMapping("/{id")
+    @DeleteMapping("/{id}")
     public void deleteMenuItem(@PathVariable String id) {
         menuItemService.deleteMenuItem(id);
     }

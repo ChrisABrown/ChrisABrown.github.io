@@ -26,9 +26,9 @@ public class EmployeeService {
         return employeeRepo.findAll();
     }
 
-    public void findNumberOfEmployees(){
+    public String findNumberOfEmployees() {
         long count = employeeRepo.count();
-        System.out.println("Number of current employees: " + count);
+        return ("Number of current employees: " + count);
     }
 
     public List<Employee> getAccessLevelForEmployees(String accessLevel) {
