@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/menu")
 public class MenuItemController {
 
