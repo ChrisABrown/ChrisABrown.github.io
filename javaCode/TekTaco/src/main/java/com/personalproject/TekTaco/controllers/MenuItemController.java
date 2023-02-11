@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/menu")
 public class MenuItemController {
