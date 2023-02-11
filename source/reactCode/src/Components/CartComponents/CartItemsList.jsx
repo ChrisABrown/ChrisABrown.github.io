@@ -1,14 +1,16 @@
 import React from "react";
 import { useState } from "react";
 import "../../Styling/Cart.css";
-import { useEffect } from "react";
 
-const CartItemsList = (products) => {
-  const [items, setItems] = useState();
+const CartItemsList = (items) => {
+  items = items.items;
 
-  console.log(items);
+  const [item, setItem] = useState([]);
+  console.log();
 
-  function addToCart() {}
+  function addToCart(product) {
+    if (items["SKU"] === product.SKU) setItem(product);
+  }
 
   function removeFromCart() {}
   const itemsList = items.map((item) => {
@@ -20,7 +22,7 @@ const CartItemsList = (products) => {
           -
         </button>
         <button class="btn-add-to-cart" onClick={addToCart}>
-          -
+          +
         </button>
       </li>
     );
