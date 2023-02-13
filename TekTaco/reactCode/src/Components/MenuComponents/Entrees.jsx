@@ -1,6 +1,10 @@
 import React from "react";
 import "../../Styling/Menu.css";
 
+function addToCart() {
+
+}
+
 const Entrees = (product) => {
   product = product.props;
   const priceWithTax = (product.price * 0.0825 + product.price).toFixed(2);
