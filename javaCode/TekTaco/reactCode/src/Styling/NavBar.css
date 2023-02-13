@@ -1,0 +1,16 @@
+#navbar {
+  margin: 20px 20px;
+  width: 95vw;
+  font-size: larger;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-evenly;
+  list-style: none;
+}
+li > a {
+  align-items: flex-start;
+  justify-items: left;
+  list-style: none;
+  text-decoration: none;
+}
