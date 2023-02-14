@@ -5,9 +5,6 @@ import com.personalproject.TekTaco.models.MenuItem;
 import com.personalproject.TekTaco.repositories.MenuItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -35,19 +32,13 @@ public class MenuItemService {
         });
         return itemsByType;
     }
-    public MenuItem getMenuItemById(String id){
+
+    public MenuItem getMenuItemById(String id) {
         return menuItemRepo.findItemById(id);
     }
 
-    public List<MenuItem> getAllMenuItems(int page, int limit) {
-        Pageable paging = PageRequest.of(page, limit);
-        Page<MenuItem> pagedResults = menuItemRepo.findAll(paging);
-        menuItemRepo.findAll().forEach(menuItem -> System.out.println(getMenuItemDetails(menuItem)));
-        pagedResults.toList().forEach(menuItem -> {
-            String details = getMenuItemDetails(menuItem);
-            System.out.println(details + "\n");
-        });
-        return pagedResults.toList();
+    public List<MenuItem> getAllMenuItems() {
+        return menuItemRepo.findAll();
     }
 
     private String getMenuItemDetails(MenuItem menuItem) {

@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000/login")
-@RequestMapping("/login/admin")
+@RequestMapping("api-v1/admin")
 public class EmployeeController {
 
     @Autowired

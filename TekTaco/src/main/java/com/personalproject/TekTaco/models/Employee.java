@@ -16,11 +16,11 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int employeeId, String name, String password, String ACCESS_LEVEL, String email) {
+    public Employee(int employeeId, String name, String password, String accessLevel, String email) {
         this.employeeId = employeeId;
         this.name = name;
         this.password = password;
-        this.accessLevel = ACCESS_LEVEL;
+        this.accessLevel = accessLevel;
         this.email = email;
     }
 

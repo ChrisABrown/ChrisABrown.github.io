@@ -25,7 +25,7 @@ export const Home = () => {
       </button> */}
       <figure id="splash-image">
         <img
-          class="taco"
+          className="taco"
           src="https://cdn4.iconfinder.com/data/icons/food-delivery-21/64/taco-2-512.png"
           alt="Corn and flour tortilla"
         />

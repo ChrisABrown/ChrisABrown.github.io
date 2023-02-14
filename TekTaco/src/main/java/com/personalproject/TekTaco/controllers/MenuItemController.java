@@ -11,16 +11,16 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
-@RequestMapping("/menu")
+@CrossOrigin("http://localhost:3000/menu")
+@RequestMapping("api-v1/menu")
 public class MenuItemController {
 
     @Autowired
     MenuItemService menuItemService;
 
-    @GetMapping("/{page}/{limit}")
-    public List<MenuItem> getAllMenuItems(@RequestParam int page, @RequestParam int limit) {
-        return menuItemService.getAllMenuItems(page, limit);
+    @GetMapping("/")
+    public List<MenuItem> getAllMenuItems() {
+        return menuItemService.getAllMenuItems();
     }
 
     @GetMapping("/{id}")
