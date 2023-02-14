@@ -5,10 +5,9 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
 
-@Document(collection = "Employee")
+@Document(collection = "Employees")
 public class Employee {
     @Id
-    @Field
     private Integer employeeId;
     @Field
     private String name;
