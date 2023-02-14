@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends MongoRepository<Employee, String> {
-    @Query("{id :'?0'}")
+    @Query("{employeeId :'?0'}")
     Employee findEmployeeById(Integer id);
     @Query("{accessLevel :'?0'}")
     Employee findEmployeeByAccessLevel(String accessLevel);

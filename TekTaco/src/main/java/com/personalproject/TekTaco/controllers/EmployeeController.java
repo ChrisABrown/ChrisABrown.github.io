@@ -11,13 +11,19 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api-v1/admin")
+@CrossOrigin("/http://localhost:3000")
+@RequestMapping("api/admin")
 public class EmployeeController {
 
-    @Autowired
+    final
     EmployeeService employeeService;
 
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
     @GetMapping("/staff-list")
+    @CrossOrigin
     public List<Employee> getAllEmployees() {
         var count = employeeService.findNumberOfEmployees();
         System.out.println(count);

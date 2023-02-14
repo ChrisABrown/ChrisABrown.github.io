@@ -1,16 +1,25 @@
 package com.personalproject.TekTaco.models;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
 
 @Document(collection = "Employee")
 public class Employee {
     @Id
+    @Field
     private Integer employeeId;
+    @Field
     private String name;
+    @Field
+
     private String password;
+    @Field
+
     private String accessLevel;
+    @Field
+
     private String email;
 
     public Employee() {
@@ -22,6 +31,11 @@ public class Employee {
         this.password = password;
         this.accessLevel = accessLevel;
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Employee[employeeId='%s', name='%s', email='%s', accessLevel='%s']", employeeId, name, email, accessLevel);
     }
 
     public int getEmployeeId() {

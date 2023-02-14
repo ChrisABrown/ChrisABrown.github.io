@@ -1,6 +1,7 @@
 package com.personalproject.TekTaco.models;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.*;
 
@@ -8,11 +9,17 @@ import javax.persistence.*;
 public class MenuItem{
     @Id
     private String id;
+    @Field
     private String name;
+    @Field
     private int price;
+    @Field
     private int inStock;
+    @Field
     private String description;
+    @Field
     private int SKU;
+    @Field
     private String productType;
     public MenuItem(){}
 
