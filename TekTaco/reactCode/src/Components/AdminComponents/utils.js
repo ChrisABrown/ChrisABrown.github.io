@@ -2,7 +2,7 @@
 export function createMenuItem(newMenuItem){
     console.log(newMenuItem);
 
-    return fetch("http://localhost:8080/api-v1/menu", {
+    return fetch("http://localhost:8080/menu", {
         method: "POST",
         headers: {
             "Content-type": "application/json",
@@ -14,7 +14,7 @@ export function createMenuItem(newMenuItem){
 }
 
 export function getAllMenuItems(){
-    return fetch("http://localhost:8080/api/menu")
+    return fetch("http://localhost:8080/menu")
         .then((response) => response.json())
         .catch((error) => console.log(error))
 }

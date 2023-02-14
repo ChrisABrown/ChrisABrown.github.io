@@ -3,10 +3,10 @@ package com.personalproject.TekTaco.models;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.*;
+import javax.persistence.Id;
 
 @Document(collection = "Inventory")
-public class MenuItem{
+public class MenuItem {
     @Id
     private String id;
     @Field
@@ -17,21 +17,36 @@ public class MenuItem{
     private int inStock;
     @Field
     private String description;
+
+    @Field
+    private String image;
+
     @Field
     private int SKU;
     @Field
-    private String productType;
-    public MenuItem(){}
+    private String productType ;
 
-    public MenuItem(String id, String name, int price, int inStock, String description, int SKU, String productType) {
+    public MenuItem() {
+    }
+
+    public MenuItem(String id, String name, int price, int inStock, String description, String image, int SKU, String productType) {
         super();
         this.id = id;
         this.name = name;
         this.price = price;
         this.inStock = inStock;
         this.description = description;
+        this.image = image;
         this.SKU = SKU;
         this.productType = productType;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
 

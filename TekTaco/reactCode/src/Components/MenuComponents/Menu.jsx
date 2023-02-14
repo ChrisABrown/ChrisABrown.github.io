@@ -17,7 +17,7 @@ export default function Menu() {
     }, []);
 
     const menuList = menuItems.map((product) => {
-        return <Entrees key={product.SKU} data={product}/>
+        return <Entrees key={product.id} data={product}/>
     });
 
     return (

@@ -2,6 +2,7 @@ package com.personalproject.TekTaco.controllers;
 
 import com.personalproject.TekTaco.models.MenuItem;
 import com.personalproject.TekTaco.services.MenuItemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,18 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
-@RequestMapping("https://data.mongodb-api.com/app/data-iswxz/endpoint/data/v1")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/menu")
 public class MenuItemController {
 
-    final
-    MenuItemService menuItemService;
+  @Autowired
+  MenuItemService menuItemService;
 
-    public MenuItemController(MenuItemService menuItemService) {
-        this.menuItemService = menuItemService;
-    }
-
-    @GetMapping("/")
+    @GetMapping
     public List<MenuItem> getAllMenuItems() {
         return menuItemService.getAllMenuItems();
     }
@@ -30,7 +27,7 @@ public class MenuItemController {
         return menuItemService.getMenuItemById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping("/menu/newItems")
     public List<MenuItem> createMenuItem(@Validated @RequestBody List<MenuItem> itemsList) {
         return menuItemService.createNewMenuItems(itemsList);
     }

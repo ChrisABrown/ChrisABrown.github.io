@@ -26,15 +26,7 @@ public class TekTacoApplication {
         SpringApplication.run(TekTacoApplication.class, args);
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/menu").allowedOrigins("http://localhost:8080/");
-            }
-        };
-    }
+
 
 
 
