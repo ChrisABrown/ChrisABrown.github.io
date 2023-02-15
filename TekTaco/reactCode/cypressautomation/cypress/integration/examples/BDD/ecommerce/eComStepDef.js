@@ -11,7 +11,7 @@ import CheckoutPage from "../../../pageObjects/CheckoutPage";
 import PurchasePage from "../../../pageObjects/PurchasePage";
 
 const homePage = new HomePage();
-const productPage = new ProductPage();
+const productPage = new MenuPage();
 const checkoutPage = new CheckoutPage();
 const purchasePage = new PurchasePage();
 var sum = 0;

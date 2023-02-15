@@ -18,7 +18,7 @@ function createMenuItem(e) {
 
 const InventoryCard = (data) => {
   const product = data;
-  console.log(product);
+
   return (
     <div id="item-card">
       <h4>{product.data.name}</h4>
@@ -27,8 +27,8 @@ const InventoryCard = (data) => {
         id="menuItem-img"
         alt="menuItem pic"
         src={product.data.image}
-        height={200}
-        width={200}
+        height={100}
+        width={100}
       />
       <p id="menuItem-price">Current Price: {product.data.price}</p>
       <input placeholder="edit price"></input>

@@ -1,24 +1,35 @@
 #inventory-page {
-  display: flex;
-  align-content: center;
+  background-color: antiquewhite;
+}
+#cards-container {
+  font-size: 0.75em;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-content: space-around;
   justify-content: center;
+  height: 1080px;
+  gap: 10px;
+}
+#cards-container > div {
+  background-color: antiquewhite;
 }
 
 #item-card {
   background-color: bisque;
   color: darkslategray;
-  height: 400px;
-  width: 400px;
+  height: 250px;
+  width: 250px;
+  border: solid darkslategray 3px;
   border-radius: 20px;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
 }
 
 #menuItem-img {
-  border-radius: 20px;
+  border-radius: 21px;
 }
 #menuitem-price,
 #menuItem-inStock,
 #btn-console {
   display: block;
-  text-decoration: none;
+  padding: 5px;
 }

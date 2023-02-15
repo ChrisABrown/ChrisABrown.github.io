@@ -4,7 +4,7 @@ import "cypress-iframe";
 
 describe("Demo", () => {
   it("Frames Test", () => {
-    cy.visit("https://rahulshettyacademy.com/AutomationPractice/");
+    cy.visit(Cypress.env("url"));
     cy.frameLoaded("#courses-iframe");
 
     cy.iframe().find("a[href*='mentorship']").eq(0).click();

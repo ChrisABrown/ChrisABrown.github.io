@@ -10,9 +10,8 @@ async function setupNodeEvents(on, config) {
 module.exports = defineConfig({
   defaultCommandTimeout: 6000,
   env: {
-    url: "https://rahulshettyacademy.com",
+    url: "http://localhost:3000",
   },
-  projectId: "jm4rui",
   e2e: {
     setupNodeEvents,
     specPattern: "cypress/integration/examples/BDD/*",
