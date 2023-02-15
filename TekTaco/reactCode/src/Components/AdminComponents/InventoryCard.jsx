@@ -4,6 +4,7 @@ import {
   createMenuItemHandler,
   deleteMenuItemHandler,
 } from "./CrudMethodHandler";
+import "../../Styling/Inventory.css";
 
 function updateMenuItem(e) {
   updateMenuItemHandler(e.target.value);
@@ -16,16 +17,34 @@ function createMenuItem(e) {
 }
 
 const InventoryCard = (data) => {
+  const product = data;
+  console.log(product);
   return (
     <div id="item-card">
-      <h4>{data.name}</h4>
-      <p>{data.SKU}</p>
-      <p>{data.image}</p>
-      <p>{data.price}</p>
-      <p>{data.inStock}</p>
-      <button onClick={createMenuItem}>Edit</button>
-      <button onClick={updateMenuItem}>Update</button>
-      <button onClick={deleteItem}>Delete</button>
+      <h4>{product.data.name}</h4>
+      <p>{product.data.sku}</p>
+      <img
+        id="menuItem-img"
+        alt="menuItem pic"
+        src={product.data.image}
+        height={200}
+        width={200}
+      />
+      <p id="menuItem-price">Current Price: {product.data.price}</p>
+      <input placeholder="edit price"></input>
+      <p id="menuItem-inStock">Current InStock: {product.data.inStock}</p>
+      <input placeholder="edit inStock"></input>
+      <div id="btn-console">
+        <button id="btn-edit" onClick={createMenuItem}>
+          Edit
+        </button>
+        <button id="btn-update" onClick={updateMenuItem}>
+          Update
+        </button>
+        <button id="btn-delete" onClick={deleteItem}>
+          Delete
+        </button>
+      </div>
     </div>
   );
 };

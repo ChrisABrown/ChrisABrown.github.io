@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { getAllMenuItems } from "./utils";
 import InventoryCard from "./InventoryCard";
+import "../../Styling/Inventory.css";
 
 const Inventory = () => {
   const [inventory, setInventory] = useState([]);
