@@ -1,13 +1,15 @@
-#inventory-page {
-  background-color: antiquewhite;
+#inventory-title {
+  padding-bottom: 100px;
 }
+
 #cards-container {
-  font-size: 0.75em;
+  font-size: 1em;
   display: grid;
   grid-template-columns: auto auto auto;
   align-content: space-around;
   justify-content: center;
-  height: 1080px;
+  height: auto;
+  width: auto;
   gap: 10px;
 }
 #cards-container > div {
@@ -17,19 +19,25 @@
 #item-card {
   background-color: bisque;
   color: darkslategray;
-  height: 250px;
-  width: 250px;
+  height: auto;
+  width: auto;
   border: solid darkslategray 3px;
   border-radius: 20px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 
 #menuItem-img {
-  border-radius: 21px;
+  border-radius: 15px;
 }
 #menuitem-price,
 #menuItem-inStock,
 #btn-console {
   display: block;
   padding: 5px;
+}
+
+input {
+  font-size: 1em;
+  padding: 2%;
+  margin: 1%;
 }

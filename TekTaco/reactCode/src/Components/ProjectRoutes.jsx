@@ -14,6 +14,7 @@ export default function ProjectRoutes() {
       <Route path="/login" element={<Login />}></Route>
       <Route path="/cart" element={<Cart />}></Route>
       <Route path="/inventory" element={<Inventory />}></Route>
+      <Route path="/inventory" element={<Inventory />}></Route>
     </Routes>
   );
 }

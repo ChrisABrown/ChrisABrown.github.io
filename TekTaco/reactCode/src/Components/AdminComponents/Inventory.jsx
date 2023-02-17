@@ -16,7 +16,7 @@ const Inventory = () => {
   });
   return (
     <div id="inventory-page">
-      <h1>TekTaco Inventory</h1>
+      <h1 id="inventory-title">TekTaco Inventory</h1>
       <div id="cards-container">{cards}</div>
     </div>
   );

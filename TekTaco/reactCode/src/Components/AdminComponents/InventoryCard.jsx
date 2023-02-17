@@ -21,30 +21,41 @@ const InventoryCard = (data) => {
 
   return (
     <div id="item-card">
-      <h4>{product.data.name}</h4>
-      <p>SKU: {product.data.sku}</p>
-      <img
-        id="menuItem-img"
-        alt="menuItem pic"
-        src={product.data.image}
-        height={100}
-        width={100}
-      />
-      <p id="menuItem-price">Current Price: {product.data.price}</p>
-      <input placeholder="edit price"></input>
-      <p id="menuItem-inStock">Current InStock: {product.data.inStock}</p>
-      <input placeholder="edit inStock"></input>
-      <div id="btn-console">
-        <button id="btn-edit" onClick={createMenuItem}>
-          Edit
-        </button>
-        <button id="btn-update" onClick={updateMenuItem}>
-          Update
-        </button>
-        <button id="btn-delete" onClick={deleteItem}>
-          Delete
-        </button>
-      </div>
+      <form>
+        <div className="form-group">
+          <input placeholder={product.data.name}></input>
+          <figure>
+            <img
+              id="menuItem-img"
+              alt="menuItem pic"
+              src={product.data.image}
+              height={150}
+              width={150}
+            />
+            <figcaption>
+              <input placeholder={product.data.image}></input>
+            </figcaption>
+          </figure>
+          <p>SKU: {product.data.sku}</p>
+          <input placeholder="edit SKU"></input>
+          <p id="menuItem-price">Current Price: {product.data.price}</p>
+          <input placeholder="edit price"></input>
+          <p id="menuItem-inStock">Current InStock: {product.data.inStock}</p>
+          <input placeholder="edit inStock"></input>
+          <p id="menuItem-description">
+            Current Description: {product.data.description}
+          </p>
+          <input placeholder="edit description"></input>
+          <div id="btn-console">
+            <button id="btn-update" onClick={updateMenuItem}>
+              Update
+            </button>
+            <button id="btn-delete" onClick={deleteItem}>
+              Delete
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };
