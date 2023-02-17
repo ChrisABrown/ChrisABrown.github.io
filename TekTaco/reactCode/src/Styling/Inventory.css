@@ -12,15 +12,26 @@
   width: auto;
   gap: 10px;
 }
+
+#cards-container2 {
+  font-size: 1em;
+  display: grid;
+  grid-template-columns: auto;
+  align-content: center;
+  justify-content: center;
+  height: auto;
+  width: auto;
+  gap: 50px;
+}
 #cards-container > div {
   background-color: antiquewhite;
 }
 
-#item-card {
+#item-card2 {
   background-color: bisque;
   color: darkslategray;
-  height: auto;
-  width: auto;
+  height: 25em;
+  width: 25em;
   border: solid darkslategray 3px;
   border-radius: 20px;
   padding-bottom: 5px;
@@ -36,7 +47,7 @@
   padding: 5px;
 }
 
-input {
+input > div.form-group {
   font-size: 1em;
   padding: 2%;
   margin: 1%;
