@@ -39,7 +39,7 @@ public class MenuItemController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/menuItems/{id}")
     public MenuItem getMenuItemById(@PathVariable @RequestParam("id") String id) {
         return menuItemService.getMenuItemById(id);
     }

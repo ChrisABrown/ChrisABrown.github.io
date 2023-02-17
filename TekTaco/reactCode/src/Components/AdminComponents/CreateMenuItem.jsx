@@ -5,6 +5,7 @@ import MenuItemService from "./utils.js";
 
 const CreateMenuItem = () => {
   let navigate = useNavigate();
+  let lineBreak = <br></br>;
   const [newMenuItem, setNewMenuItem] = useState({
     id: "",
     name: "",
@@ -14,108 +15,107 @@ const CreateMenuItem = () => {
     inStock: "",
     description: "",
   });
-  function saveNewMenuItem(e) {
+  const saveNewMenuItem = (e) => {
     e.prevent.default();
-    let menuItem = {
-      name: newMenuItem.name,
-      id: newMenuItem.id,
-      image: newMenuItem.image,
-      SKU: newMenuItem.SKU,
-      price: newMenuItem.price,
-      inStock: newMenuItem.inStock,
-      description: newMenuItem.description,
-    };
-    MenuItemService.createNewMenuItem(menuItem).then((response) => {
+    MenuItemService.createNewMenuItem(newMenuItem).then((response) => {
       window.alert(response.data.message);
     });
-  }
+  };
 
-  function changeNameHandler(e) {
-    setNewMenuItem({ name: e.target.value });
-  }
-  function changeIdHandler(e) {
-    setNewMenuItem({ id: e.target.value });
-  }
-  function changeImageURLHandler(e) {
-    setNewMenuItem({ image: e.target.value });
-  }
-  function changeSKUHandler(e) {
-    setNewMenuItem({ SKU: e.target.value });
-  }
-  function changePriceHandler(e) {
-    setNewMenuItem({ price: e.target.value });
-  }
-  function changeInStockHandler(e) {
-    setNewMenuItem({ inStock: e.target.value });
-  }
-  function changeDescriptionHandler(e) {
-    setNewMenuItem({ description: e.target.value });
+  const inputsHandler = (e) => {
+    setNewMenuItem(() => ({
+      ...newMenuItem,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  function handleSubmit(e) {
+    alert("Menu Item was created with id: " + newMenuItem.id);
+    e.prevent.default();
   }
   return (
     <div id="item-card">
-      <form>
+      <form onSubmit={handleSubmit} action="">
         <div className="form-group">
           <input
             placeholder="Name"
             name="Name"
+            type="text"
             className="form-control"
             value={newMenuItem.name}
-            onChange={changeNameHandler}
+            onChange={(e) => {
+              setNewMenuItem(e.target.value);
+              console.log(e.target.value);
+            }}
             required
           ></input>
+          {lineBreak}
           <input
             placeholder="Id"
             name="Id"
+            type="number"
             className="form-control"
             value={newMenuItem.id}
-            onChange={changeIdHandler}
+            onChange={inputsHandler}
             required
           ></input>
+          {lineBreak}
           <input
             placeholder="Image Url"
             name="Image Url"
+            type="url"
             className="form-control"
             value={newMenuItem.image}
-            onChange={changeImageURLHandler}
+            onChange={inputsHandler}
             required
           ></input>
+          {lineBreak}
           <input
             placeholder="SKU"
             name="SKU"
+            type="text"
             className="form-control"
             value={newMenuItem.SKU}
-            onChange={changeSKUHandler}
+            onChange={inputsHandler}
             required
           ></input>
+          {lineBreak}
           <input
             placeholder="Price"
             name="Price"
+            type="number"
             className="form-control"
             value={newMenuItem.price}
-            onChange={changePriceHandler}
+            onChange={inputsHandler}
             required
           ></input>
+          {lineBreak}
           <input
             placeholder="InStock"
             name="InStock"
+            type="number"
             className="form-control"
             value={newMenuItem.inStock}
-            onChange={changeInStockHandler}
+            onChange={inputsHandler}
             required
           ></input>
-
-          <input
+          {lineBreak}
+          <textarea
             placeholder="Description"
             name="Description"
             className="form-control"
             value={newMenuItem.description}
-            onChange={changeDescriptionHandler}
+            onChange={inputsHandler}
             required
-          ></input>
+          ></textarea>
+          {lineBreak}
+
           <div id="btn-console">
             <button
               id="btn-save"
-              onClick={saveNewMenuItem.then(() => navigate("/inventory"))}
+              type="submit"
+              onClick={saveNewMenuItem}
+              onClickCapture={() => navigate("/inventory")}
             >
               Save
             </button>
