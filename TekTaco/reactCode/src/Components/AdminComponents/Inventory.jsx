@@ -1,13 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { getAllMenuItems } from "./utils";
+import MenuItemService from "./utils";
 import InventoryCard from "./InventoryCard";
 import "../../Styling/Inventory.css";
 
 const Inventory = () => {
   const [inventory, setInventory] = useState([]);
+
   useEffect(() => {
-    getAllMenuItems().then((items) => setInventory(items));
+    MenuItemService.getAllMenuItems().then((items) => setInventory(items.data));
   }, []);
 
   const cards = inventory.map((product) => {

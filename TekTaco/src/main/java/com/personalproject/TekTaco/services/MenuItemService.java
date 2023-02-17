@@ -14,23 +14,18 @@ import java.util.Optional;
 
 
 @Service
-public class MenuItemService {
+public class MenuItemService  {
 
     @Autowired
     MenuItemRepository menuItemRepo;
 
 
-    public List<MenuItem> createNewMenuItems(List<MenuItem> newItems) {
-        return menuItemRepo.saveAll(newItems);
+    public MenuItem createNewMenuItem(MenuItem newItem) {
+        return menuItemRepo.save(newItem);
     }
 
     public List<MenuItem> getAllMenuItemsByProductType(String productType) {
-        List<MenuItem> itemsByType = menuItemRepo.findAll(productType);
-        itemsByType.forEach(menuItem -> {
-            String details = getMenuItemDetails(menuItem);
-            System.out.println(details + "\n");
-        });
-        return itemsByType;
+        return menuItemRepo.findAll(productType);
     }
 
     public MenuItem getMenuItemById(String id) {
@@ -80,14 +75,6 @@ public class MenuItemService {
     }
 
     public void deleteMenuItem(String id) {
-        try {
-            menuItemRepo.deleteById(id);
-        } catch (EmptyResultDataAccessException exception) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "No menu item found for the id " + id);
-        }
-
+       menuItemRepo.deleteById(id);
     }
-
-
 }

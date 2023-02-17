@@ -12,11 +12,20 @@ import java.util.List;
 public interface MenuItemRepository extends MongoRepository<MenuItem, String> {
     @Query("{id: '?0'}")
     MenuItem findItemById(String id);
+
     @Query("{name:'?0'}")
     MenuItem findItemByName(String name);
-    @Query(value="{productType:'?0'}", fields = "{'name' :1, 'inStock': 1}")
+
+    @Query(value = "{productType:'?0'}",
+            fields = "{'name' :1," +
+            " 'inStock': 1," +
+            " 'price': 1," +
+            " 'productType': 1," +
+            " 'description': 1," +
+            " 'SKU':  1," +
+            " 'image': 1}")
     List<MenuItem> findAll(String productType);
 
-    public long count();
+    long count();
 
 }

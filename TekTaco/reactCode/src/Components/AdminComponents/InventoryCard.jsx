@@ -22,7 +22,7 @@ const InventoryCard = (data) => {
   return (
     <div id="item-card">
       <h4>{product.data.name}</h4>
-      <p>{product.data.sku}</p>
+      <p>SKU: {product.data.sku}</p>
       <img
         id="menuItem-img"
         alt="menuItem pic"

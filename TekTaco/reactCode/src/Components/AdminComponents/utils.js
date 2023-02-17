@@ -1,46 +1,49 @@
+const URL = "http://localhost:8080/";
 
-export function createMenuItem(newMenuItem){
-    console.log(newMenuItem);
+class MenuItemService {
+  getAllMenuItems() {
+    return fetch(`${URL}menu`)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
+  getAllMenuItemsByProductType(productType) {
+    return fetch(`${URL}menu/menuItems/${productType}`)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
+  createNewMenuItem(newMenuItem) {
+    return fetch(`${URL}add-new-menuItem`, {
+      method: "POST",
+      headers: {},
+    });
+  }
 
-    return fetch("http://localhost:8080/menu", {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json",
-        },
-        body: JSON.stringify(newMenuItem)
+  getMenuItemById(id) {
+    return fetch(`${URL}api-v1/menu${id}`)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
+
+  updateMenuItem(id, updatedMenuItemDetails) {
+    return fetch(`${URL}api-v1/menu/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedMenuItemDetails),
     })
-        .then((response) => response.json())
-        .catch((error) => console.log(error))
-}
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
 
-export function getAllMenuItems(){
-    return fetch("http://localhost:8080/menu")
-        .then((response) => response.json())
-        .catch((error) => console.log(error))
-}
-
-export function getMenuItemById(id){
-    return fetch(`http://localhost:8080/api-v1/menu${id}`)
-        .then((response) => response.json())
-        .catch((error) => console.log(error))
-}
-
-export function updateMenuItem(id, updatedMenuItemDetails) {
-    return fetch(`http://localhost:8080/api-v1/menu/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedMenuItemDetails),
+  deleteMenuItem(id) {
+    return fetch(`${URL}api-v1/menu/${id}`, {
+      method: "DELETE",
     })
-        .then((response) => response.json())
-        .catch((error) => console.log(error))
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
 }
+export default new MenuItemService();
 
-export function deleteMenuItem(id){
-    return fetch(`http://localhost:8080/api-v1/menu/${id}`, {
-        method: "DELETE",
-    })
-        .then((response) => response.json())
-        .catch((error) => console.log(error));
-}
+class EmployeeService {}
