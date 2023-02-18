@@ -161,8 +161,8 @@ import MenuItemService from "./utils.js";
 export default function CreateNewMenuItem() {
   const { register, handleSubmit, errors } = useForm();
 
-  const onSave = (newMenuitem) => {
-    console.log(newMenuitem);
+  const onSave = (data) => {
+    console.log(data);
     // MenuItemService.createNewMenuItem(newMenuitem).then((res) => {
     //   window.alert(res.data.message);
     // });
@@ -175,11 +175,15 @@ export default function CreateNewMenuItem() {
         <form onSubmit={handleSubmit(onSave)}>
           <div className="form-control">
             <label>Name: </label>
-            <input type="text" name="name" ref={register} />
+            <input
+              type="text"
+              name="name"
+              {...register("name", { required: true })}
+            />
           </div>
           {/* <div className="form-control">
             <label>Id: </label>
-            <input type="number" name="id" ref={register} />
+            <input type="number" name="id" {...register} />
           </div>
           <div className="form-control">
             <label>Image URL: </label>
