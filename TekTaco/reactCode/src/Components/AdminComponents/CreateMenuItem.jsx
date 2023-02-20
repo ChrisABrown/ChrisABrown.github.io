@@ -11,18 +11,14 @@ export default function CreateNewMenuItem() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    // defaultValues: {
-    //   name: "",
-    //   id: "",
-    // },
-  });
+  } = useForm();
 
   const onSave = (data) => {
-    console.log(data);
-    // MenuItemService.createNewMenuItem(data).then((res) => {
-    //   window.alert(res.data.message);
-    // });
+    try {
+      MenuItemService.createNewMenuItem(data);
+    } catch (error) {
+      window.alert(console.error(error));
+    }
   };
   return (
     <div id="cards-container2">
@@ -35,70 +31,60 @@ export default function CreateNewMenuItem() {
             <input {...register("name", { required: "Name is required." })} />
             <ErrorMessage errors={errors} name="name" />
           </div>
-          {/* <div className="form-control">
+          <div className="form-control">
             <label>Id: </label>
             <input
+              {...register("id", { required: "Id is required." })}
               type="number"
-              name="id"
-              {...register("id", { required: true })}
             />
-            {errors.id && errors.id.type === "required" && (
-              <p className="errorMsg">Id is required.</p>
-            )}
+            <ErrorMessage errors={errors} name="id" />
           </div>
           <div className="form-control">
             <label>Image URL: </label>
-            <input type="url" name="image" {...register("image")} />
+            <input type="url" {...register("image")} />
           </div>
           <div className="form-control">
             <label>SKU: </label>
             <input
-              type="text"
-              name="SKU"
-              {...register("SKU", { required: true, minLength: 3 })}
+              type="number"
+              {...register("SKU", { required: "SKU is required." })}
             />
-            {errors.SKU && errors.SKU.type === "required" && (
-              <p className="errorMsg">SKU is required.</p>
-            )}
-            {errors.SKU && errors.SKU.type === "minLength" && (
-              <p className="errorMsg">
-                SKU must be at least 3 characters long.{" "}
-              </p>
-            )}
+            <ErrorMessage errors={errors} name="SKU" />
           </div>
           <div className="form-control">
             <label>Price: </label>
             <input
               type="number"
-              name="price"
-              {...register("price", { required: true })}
+              {...register("price", { required: "Price is required." })}
             />
-            {errors.price && errors.price.type === "required" && (
-              <p className="errorMsg">Price is required.</p>
-            )}
+            <ErrorMessage errors={errors} name="price" />
           </div>
           <div className="form-control">
             <label># In Stock: </label>
             <input
               type="number"
-              name="inStock"
-              {...register("inStock", { required: true })}
+              {...register("inStock", { required: "inStock is required." })}
             />
-            {errors.inStock && errors.inStock.type === "required" && (
-              <p className="errorMsg">inStock is required.</p>
-            )}
+            <ErrorMessage errors={errors} name="inStock" />
+          </div>
+          <div className="form-control">
+            <label>Product Type: </label>
+            <input
+              {...register("productType", {
+                required: "Product Type is required.",
+              })}
+            />
+            <ErrorMessage errors={errors} name="productType" />
           </div>
           <div className="form-control">
             <label>Description: </label>
             <input
-              type="text"
-              name="description"
-              {...register("description", { required: true })}
+              {...register("description", {
+                required: "Description is required.",
+              })}
             />
-            {errors.description && errors.description.type === "required" && (
-              <p className="errorMsg">Description is required.</p>
-            )} */}
-          {/* </div> */}
+            <ErrorMessage errors={errors} name="description" />
+          </div>
           <div className="form-control">
             <label></label>
             <input type="submit" />

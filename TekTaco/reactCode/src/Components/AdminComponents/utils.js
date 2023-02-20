@@ -14,15 +14,20 @@ class MenuItemService {
       .catch((error) => console.log(error));
   }
   createNewMenuItem(newMenuItem) {
-    newMenuItem = {};
-    return fetch(`${URL}add-new-menuItem`, {
+    return fetch(`${URL}menu/add-new-menuItem`, {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newMenuItem),
-    });
+    })
+      .then((response) => response.json())
+      .then((newMenuItem) => {
+        console.log("Success:", newMenuItem);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
 
   getMenuItemById(id) {
