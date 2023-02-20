@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "../../Styling/CreateNewMenuItem.css";
 import MenuItemService from "./utils.js";
 
 export default function CreateNewMenuItem() {
+  let navigate = useNavigate();
   const { register, handleSubmit, errors } = useForm();
 
   const onSave = (data) => {
@@ -94,7 +96,9 @@ export default function CreateNewMenuItem() {
           </div>
           <div className="form-control">
             <label></label>
-            <button type="submit">Save</button>
+            <button type="submit" onClickCapture={() => navigate("/inventory")}>
+              Save
+            </button>
           </div>
         </form>
       </div>
