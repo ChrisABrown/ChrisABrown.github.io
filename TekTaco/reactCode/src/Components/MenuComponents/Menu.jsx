@@ -9,26 +9,29 @@ export default function Menu() {
   const [sides, setSides] = useState([]);
   const [drinks, setDrinks] = useState([]);
 
-  const getEntreeData = async () => {
+  const getEntreeData = () => {
     MenuItemService.getAllMenuItemsByProductType("Entree").then((menuItem) =>
       setEntrees(menuItem.data)
     );
   };
-  const getSideData = async () => {
+  const getSideData = () => {
     MenuItemService.getAllMenuItemsByProductType("Side").then((menuItem) =>
       setSides(menuItem.data)
     );
   };
-  const getDrinkData = async () => {
+  const getDrinkData = () => {
     MenuItemService.getAllMenuItemsByProductType("Drink").then((menuItem) =>
       setDrinks(menuItem.data)
     );
   };
 
   useEffect(() => {
-    getEntreeData();
-    getSideData();
-    getDrinkData();
+    const funnelAPIData = () => {
+      getEntreeData();
+      getSideData();
+      getDrinkData();
+    };
+    funnelAPIData();
   }, []);
 
   const entreeList = entrees.map((entree) => {
@@ -46,15 +49,15 @@ export default function Menu() {
       <NavBar />
       <section id="Entrees">
         <h3>Entrees</h3>
-        {entreeList}
+        <div className="menu-box">{entreeList}</div>
       </section>
       <section id="Sides">
         <h3>Sides</h3>
-        {sideList}
+        <div className="menu-box">{sideList}</div>
       </section>
       <section id="Drinks">
         <h3>Drinks</h3>
-        {drinkList}
+        <div className="menu-box">{drinkList}</div>
       </section>
     </div>
   );

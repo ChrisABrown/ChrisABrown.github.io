@@ -1,4 +1,4 @@
-#menu-box {
+.menu-box {
   background-color: bisque;
   display: flex;
   flex-flow: column nowrap;

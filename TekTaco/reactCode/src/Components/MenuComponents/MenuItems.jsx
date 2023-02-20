@@ -11,7 +11,6 @@ const MenuItems = (props) => {
       <h3 id="name">{data.name}</h3>
       <figure id="menu-image">
         <img id="image" alt="" src={data.image} height="300" width="300" />
-
         <figcaption id="description">{data.description}</figcaption>
       </figure>
       <label id="quantity-label">

@@ -2,19 +2,26 @@ const URL = "http://localhost:8080/";
 
 class MenuItemService {
   getAllMenuItems() {
-    return fetch(`${URL}menu`)
+    return fetch(`${URL}menu`, {
+      cache: "default",
+    })
       .then((response) => response.json())
       .catch((error) => console.log(error));
   }
   getAllMenuItemsByProductType(productType) {
-    return fetch(`${URL}menu/menuItems/${productType}`)
+    return fetch(`${URL}menu/get/${productType}`)
       .then((response) => response.json())
       .catch((error) => console.log(error));
   }
   createNewMenuItem(newMenuItem) {
+    newMenuItem = {};
     return fetch(`${URL}add-new-menuItem`, {
       method: "POST",
-      headers: {},
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newMenuItem),
     });
   }
 

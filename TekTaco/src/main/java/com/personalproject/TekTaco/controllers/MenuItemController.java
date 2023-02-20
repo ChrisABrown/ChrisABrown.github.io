@@ -29,7 +29,7 @@ public class MenuItemController {
         }
     }
 
-    @GetMapping("/menuItems/{productType}")
+    @GetMapping("/get/{productType}")
     public ResponseEntity<Object> getAllMenuItemsByProductType(@PathVariable String productType) {
         List<MenuItem> menuItems = menuItemService.getAllMenuItemsByProductType(productType);
         if (!menuItems.isEmpty()) {

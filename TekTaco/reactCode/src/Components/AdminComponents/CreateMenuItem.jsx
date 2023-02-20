@@ -1,17 +1,28 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import "../../Styling/CreateNewMenuItem.css";
 import MenuItemService from "./utils.js";
 
 export default function CreateNewMenuItem() {
   let navigate = useNavigate();
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    // defaultValues: {
+    //   name: "",
+    //   id: "",
+    // },
+  });
 
   const onSave = (data) => {
-    MenuItemService.createNewMenuItem(data).then((res) => {
-      window.alert(res.data.message);
-    });
+    console.log(data);
+    // MenuItemService.createNewMenuItem(data).then((res) => {
+    //   window.alert(res.data.message);
+    // });
   };
   return (
     <div id="cards-container2">
@@ -21,16 +32,10 @@ export default function CreateNewMenuItem() {
         <form onSubmit={handleSubmit(onSave)}>
           <div className="form-control">
             <label>Name: </label>
-            <input
-              type="text"
-              name="name"
-              {...register("name", { required: true })}
-            />
-            {errors.name && errors.name.type === "required" && (
-              <p className="errorMsg">Name is required.</p>
-            )}
+            <input {...register("name", { required: "Name is required." })} />
+            <ErrorMessage errors={errors} name="name" />
           </div>
-          <div className="form-control">
+          {/* <div className="form-control">
             <label>Id: </label>
             <input
               type="number"
@@ -92,13 +97,11 @@ export default function CreateNewMenuItem() {
             />
             {errors.description && errors.description.type === "required" && (
               <p className="errorMsg">Description is required.</p>
-            )}
-          </div>
+            )} */}
+          {/* </div> */}
           <div className="form-control">
             <label></label>
-            <button type="submit" onClickCapture={() => navigate("/inventory")}>
-              Save
-            </button>
+            <input type="submit" />
           </div>
         </form>
       </div>
