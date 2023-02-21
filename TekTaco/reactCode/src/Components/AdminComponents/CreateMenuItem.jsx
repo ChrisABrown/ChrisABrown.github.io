@@ -87,7 +87,10 @@ export default function CreateNewMenuItem() {
           </div>
           <div className="form-control">
             <label></label>
-            <input type="submit" />
+            <input
+              type="submit"
+              onClickCapture={() => navigate("/inventory")}
+            />
           </div>
         </form>
       </div>

@@ -31,7 +31,7 @@ class MenuItemService {
   }
 
   getMenuItemById(id) {
-    return fetch(`${URL}api-v1/menu${id}`)
+    return fetch(`${URL}menuItems/${id}`)
       .then((response) => response.json())
       .catch((error) => console.log(error));
   }
