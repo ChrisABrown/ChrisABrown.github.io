@@ -37,14 +37,14 @@ class MenuItemService {
   }
 
   updateMenuItem(id, updatedMenuItemDetails) {
-    return fetch(`${URL}api-v1/menu/${id}`, {
+    return fetch(`${URL}${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedMenuItemDetails),
     })
-      .then((response) => response.json())
+      .then((response) => response.json(updatedMenuItemDetails))
       .catch((error) => console.log(error));
   }
 
@@ -58,4 +58,22 @@ class MenuItemService {
 }
 export default new MenuItemService();
 
-class EmployeeService {}
+class EmployeeService {
+  getAllEmployees() {
+    return fetch(`${URL}admin`, {
+      cache: "default",
+    })
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
+  getEmployeesByAccessLevel(accessLevel) {
+    return fetch(`${URL}admin/staff-list/${accessLevel}`)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
+  getEmployeeById(id) {
+    return fetch(`${URL}admin/staff-list/${id}`)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
+}
