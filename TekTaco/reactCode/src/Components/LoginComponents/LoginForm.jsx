@@ -9,13 +9,11 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const onLogin = (data) => {
-    
-  }
+  const onLogin = (data) => {};
 
   return (
     <div id="login-form">
-      <form action="" method="post">
+      <form>
         <div class="username">
           <label id="username-label">
             Username

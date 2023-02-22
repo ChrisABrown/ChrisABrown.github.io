@@ -3,14 +3,14 @@
 }
 
 #cards-container {
-  font-size: 1em;
+  font-size: 0.7em;
   display: grid;
   grid-template-columns: auto auto auto;
   align-content: space-around;
   justify-content: center;
   height: auto;
   width: auto;
-  gap: 10px;
+  gap: 20px;
 }
 
 #cards-container2 {
@@ -23,9 +23,6 @@
   width: auto;
   gap: 50px;
 }
-#cards-container > div {
-  background-color: antiquewhite;
-}
 
 #item-card2 {
   background-color: bisque;
@@ -36,19 +33,29 @@
   border-radius: 20px;
   padding-bottom: 5px;
 }
+#item-card {
+  background-color: bisque;
+  color: darkslategray;
+  border: solid darkslategray 3px;
+  border-radius: 20px;
+  padding-bottom: 5px;
+}
+
+label > div.form-group {
+  font-size: small;
+}
 
 #menuItem-img {
   border-radius: 15px;
 }
-#menuitem-price,
-#menuItem-inStock,
+
 #btn-console {
   display: block;
   padding: 5px;
 }
 
 input > div.form-group {
-  font-size: 1em;
+  font-size: 0.7em;
   padding: 2%;
   margin: 1%;
 }

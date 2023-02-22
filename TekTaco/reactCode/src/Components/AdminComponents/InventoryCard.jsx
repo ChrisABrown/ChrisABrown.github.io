@@ -1,29 +1,54 @@
 import React from "react";
-import {
-  updateMenuItemHandler,
-  createMenuItemHandler,
-  deleteMenuItemHandler,
-} from "./CrudMethodHandler";
+import MenuItemService from "./utils.js";
 import "../../Styling/Inventory.css";
-
-function updateMenuItem(e) {
-  updateMenuItemHandler(e.target.value);
-}
-function deleteItem() {
-  deleteMenuItemHandler();
-}
-function createMenuItem(e) {
-  createMenuItemHandler(e.target.value);
-}
+import { useNavigate } from "react-router-dom";
+import { ErrorMessage } from "@hookform/error-message";
+import { useForm } from "react-hook-form";
 
 const InventoryCard = (data) => {
   const product = data;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const navigate = useNavigate;
+
+  const onUpdate = (id, data) => {
+    console.log(id, data);
+    // MenuItemService.updateMenuItem(data.id, data).then(() =>
+    //   navigate(`/${id}`)
+    // );
+  };
+
+  const deleteMenuItem = (id) => {
+    window.alert("Are you sure you want to delete this Item?");
+    MenuItemService.deleteMenuItem(id).then(() =>
+      window.alert("MenuItem with id: " + id + " successfully deleted")
+    );
+  };
 
   return (
     <div id="item-card">
-      <form>
+      <form onSubmit={handleSubmit(onUpdate)}>
         <div className="form-group">
-          <input placeholder={product.data.name}></input>
+          <label>
+            <strong>ID: </strong>
+            {product.data.id}
+          </label>
+          <div className="form-control">
+            <input {...register("id", { required: true })}></input>
+            <ErrorMessage errors={errors} name="id" />
+          </div>
+          <label>
+            <strong>Name: </strong>
+            {product.data.name}
+          </label>
+          <div className="form-control">
+            <input {...register("name", { required: true })}></input>
+            <ErrorMessage errors={errors} name="name" />
+          </div>
           <figure>
             <img
               id="menuItem-img"
@@ -33,24 +58,48 @@ const InventoryCard = (data) => {
               width={150}
             />
             <figcaption>
-              <input placeholder={product.data.image}></input>
+              <input
+                {...register("image", { required: true })}
+                type="url"
+                placeholder="image url"
+              ></input>
+              <ErrorMessage errors={errors} name="image" />
             </figcaption>
           </figure>
-          <p>SKU: {product.data.sku}</p>
-          <input placeholder="edit SKU"></input>
-          <p id="menuItem-price">Current Price: {product.data.price}</p>
-          <input placeholder="edit price"></input>
-          <p id="menuItem-inStock">Current InStock: {product.data.inStock}</p>
-          <input placeholder="edit inStock"></input>
-          <p id="menuItem-description">
-            Current Description: {product.data.description}
-          </p>
-          <input placeholder="edit description"></input>
+          <label>
+            <strong>SKU: </strong>
+            {product.data.sku}
+          </label>
+          <div className="form-control">
+            <input {...register("SKU", { required: true })}></input>
+            <ErrorMessage errors={errors} name="SKU" />
+          </div>
+          <label>
+            <strong>Price: </strong>${product.data.price.toFixed(2)}
+          </label>
+          <div className="form-control">
+            <input {...register("price", { required: true })}></input>
+            <ErrorMessage errors={errors} name="price" />
+          </div>
+          <label>
+            <strong>InStock: </strong>
+            {product.data.inStock}
+          </label>
+          <div className="form-control">
+            <input {...register("inStock", { required: true })}></input>
+            <ErrorMessage errors={errors} name="inStock" />
+          </div>
+          <label>
+            <strong>Description: </strong>
+            {product.data.description}
+          </label>
+          <div className="form-control">
+            <input {...register("description", { required: true })}></input>
+            <ErrorMessage errors={errors} name="description" />
+          </div>
           <div id="btn-console">
-            <button id="btn-update" onClick={updateMenuItem}>
-              Update
-            </button>
-            <button id="btn-delete" onClick={deleteItem}>
+            <button id="btn-update">Update</button>
+            <button id="btn-delete" onClick={deleteMenuItem}>
               Delete
             </button>
           </div>
