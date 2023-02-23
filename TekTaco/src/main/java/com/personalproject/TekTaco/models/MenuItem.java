@@ -24,7 +24,7 @@ public class MenuItem {
     @Field
     private int SKU;
     @Field
-    private String productType ;
+    private String productType;
 
     public MenuItem() {
     }

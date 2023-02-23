@@ -38,7 +38,7 @@
   color: darkslategray;
   border: solid darkslategray 3px;
   border-radius: 20px;
-  padding-bottom: 5px;
+  padding: 3%;
 }
 
 label > div.form-group {

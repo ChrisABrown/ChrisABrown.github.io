@@ -20,11 +20,11 @@ public class MenuItemController {
     MenuItemService menuItemService;
 
     @GetMapping
-    public ResponseEntity<Object>getAllMenuItems(){
+    public ResponseEntity<Object> getAllMenuItems() {
         List<MenuItem> menuItems = menuItemService.getAllMenuItems();
-        if(!menuItems.isEmpty()){
+        if (!menuItems.isEmpty()) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "All available Menu Items", true, menuItems), HttpStatus.OK);
-        }else {
+        } else {
             return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No Data found", false, null), HttpStatus.NOT_FOUND);
         }
     }
@@ -35,18 +35,26 @@ public class MenuItemController {
         if (!menuItems.isEmpty()) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "List of " + productType + " Menu Items", true, menuItems), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No Data found", false, null), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping("/menuItems/{id}")
-    public MenuItem getMenuItemById(@PathVariable @RequestParam("id") String id) {
-        return menuItemService.getMenuItemById(id);
+    @GetMapping("/getOne/{id}")
+    public ResponseEntity<Object> getMenuItemById(@PathVariable("id") String id) {
+        List<MenuItem> menuItemList = menuItemService.getAllMenuItems();
+
+        Optional<MenuItem> foundMenuItem = menuItemService.getMenuItemById(id);
+
+        if (!menuItemList.isEmpty()) {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "MenuItem with id: " + id + " found", true, foundMenuItem), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/add-new-menuItem")
     public ResponseEntity<Object> createNewMenuItem(@RequestBody MenuItem menuItem) {
-        MenuItem menuItem1 = menuItemService.getMenuItemById(menuItem.getId());
+        Optional<MenuItem> menuItem1 = menuItemService.getMenuItemById(menuItem.getId());
         if (menuItem1 != null) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "MenuItem already exists, id" + menuItem.getId(), false, null), HttpStatus.OK);
         }
@@ -66,7 +74,7 @@ public class MenuItemController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") String id) {
-        MenuItem isDeleted = menuItemService.getMenuItemById(id);
+        Optional<MenuItem> isDeleted = menuItemService.getMenuItemById(id);
         if (isDeleted != null) {
             menuItemService.deleteMenuItem(id);
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "MenuItem, id: " + id + " has been deleted", true, null), HttpStatus.OK);

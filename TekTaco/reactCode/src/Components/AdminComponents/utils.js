@@ -31,21 +31,34 @@ class MenuItemService {
   }
 
   getMenuItemById(id) {
-    return fetch(`${URL}menuItems/${id}`)
+    return fetch(`${URL}menu/getOne/${id}`, {
+      cache: "default",
+    })
       .then((response) => response.json())
       .catch((error) => console.log(error));
   }
 
   updateMenuItem(id, updatedMenuItemDetails) {
-    return fetch(`${URL}${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedMenuItemDetails),
-    })
-      .then((response) => response.json(updatedMenuItemDetails))
-      .catch((error) => console.log(error));
+    this.getMenuItemById(id).then(() => {
+      if (id !== updatedMenuItemDetails.id) {
+        try {
+          return fetch(`${URL}menu/getOne/${id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin"
+            },
+            body: JSON.stringify(updatedMenuItemDetails),
+          })
+            .then((response) => response.json())
+            .then((updatedMenuItemDetails) => {
+              console.log("Success: ", updatedMenuItemDetails);
+            });
+        } catch (error) {
+          console.log("Error", error);
+        }
+      }
+    });
   }
 
   deleteMenuItem(id) {
@@ -57,7 +70,6 @@ class MenuItemService {
   }
 }
 export default new MenuItemService();
-
 class EmployeeService {
   getAllEmployees() {
     return fetch(`${URL}admin`, {

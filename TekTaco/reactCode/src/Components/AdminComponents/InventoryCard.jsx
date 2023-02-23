@@ -15,11 +15,14 @@ const InventoryCard = (data) => {
 
   const navigate = useNavigate;
 
-  const onUpdate = (id, data) => {
-    console.log(id, data);
-    // MenuItemService.updateMenuItem(data.id, data).then(() =>
-    //   navigate(`/${id}`)
-    // );
+  const onUpdate = (data) => {
+    const productId = product.data.id;
+    MenuItemService.updateMenuItem(productId, data).then(() =>
+      navigate(`/${productId}`)
+    );
+    // isSuccessfullyUpdated
+    //   ? window.alert("MenuItem: " + data.name + " has been updated")
+    //   : console.error();
   };
 
   const deleteMenuItem = (id) => {

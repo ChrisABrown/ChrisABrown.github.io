@@ -4,7 +4,6 @@ package com.personalproject.TekTaco.services;
 import com.personalproject.TekTaco.models.MenuItem;
 import com.personalproject.TekTaco.repositories.MenuItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -28,19 +27,15 @@ public class MenuItemService  {
         return menuItemRepo.findAll(productType);
     }
 
-    public MenuItem getMenuItemById(String id) {
-        return menuItemRepo.findItemById(id);
+    public Optional<MenuItem> getMenuItemById(String id) {
+        return menuItemRepo.findById(id);
     }
 
     public List<MenuItem> getAllMenuItems() {
         return menuItemRepo.findAll();
     }
 
-    private String getMenuItemDetails(MenuItem menuItem) {
-        System.out.println("Menu Item: " + menuItem.getName() + ", \nInStock: " + menuItem.getInStock() + ", \nProduct Type: " + menuItem.getProductType());
 
-        return "";
-    }
 
     public Optional<MenuItem> updateMenuItem(String id, MenuItem itemDetails) {
 
@@ -60,7 +55,7 @@ public class MenuItemService  {
     }
 
     public Optional<MenuItem> getMenuItemByName(String name) {
-        Optional<MenuItem> menuItem = Optional.ofNullable(menuItemRepo.findItemByName(name));
+        Optional<MenuItem> menuItem = Optional.ofNullable(menuItemRepo.findMenuItemByName(name));
         if (menuItem.isPresent()) {
             return menuItem;
         } else {
