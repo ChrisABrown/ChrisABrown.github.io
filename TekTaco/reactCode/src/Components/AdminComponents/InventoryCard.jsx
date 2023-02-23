@@ -17,13 +17,12 @@ const InventoryCard = (data) => {
 
   const onUpdate = (data) => {
     const productId = product.data.id;
-    MenuItemService.updateMenuItem(productId, data).then(() =>
-      navigate(`/${productId}`)
-    );
-    // isSuccessfullyUpdated
-    //   ? window.alert("MenuItem: " + data.name + " has been updated")
-    //   : console.error();
+    MenuItemService.updateMenuItem(productId, data);
   };
+  // isSuccessfullyUpdated
+  //   ? window.alert("MenuItem: " + data.name + " has been updated")
+  //   : console.error();
+  // };
 
   const deleteMenuItem = (id) => {
     window.alert("Are you sure you want to delete this Item?");

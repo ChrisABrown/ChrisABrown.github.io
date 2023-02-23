@@ -42,11 +42,12 @@ class MenuItemService {
     this.getMenuItemById(id).then(() => {
       if (id !== updatedMenuItemDetails.id) {
         try {
-          return fetch(`${URL}menu/getOne/${id}`, {
+          return fetch(`${URL}menu/${id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              "Access-Control-Allow-Origin"
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "PUT, POST, GET, DELETE, OPTIONS",
             },
             body: JSON.stringify(updatedMenuItemDetails),
           })

@@ -55,12 +55,12 @@ public class MenuItemController {
     @PostMapping("/add-new-menuItem")
     public ResponseEntity<Object> createNewMenuItem(@RequestBody MenuItem menuItem) {
         Optional<MenuItem> menuItem1 = menuItemService.getMenuItemById(menuItem.getId());
-        if (menuItem1 != null) {
+        if (menuItem1.isPresent()) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "MenuItem already exists, id" + menuItem.getId(), false, null), HttpStatus.OK);
         }
         MenuItem isCreated = menuItemService.createNewMenuItem(menuItem);
         if (isCreated != null) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), isCreated + ", id = " + menuItem.getId(), true, null), HttpStatus.OK);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), isCreated + ", id = " + menuItem.getId(), true, menuItem1), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Not Created", false, null), HttpStatus.OK);
         }
@@ -68,8 +68,14 @@ public class MenuItemController {
 
 
     @PutMapping("/{id}")
-    public Optional<MenuItem> updateMenuItem(@PathVariable String id, @RequestBody MenuItem itemDetails) {
-        return menuItemService.updateMenuItem(id, itemDetails);
+    public ResponseEntity<Object> updateMenuItem(@PathVariable String id, @RequestBody MenuItem updatedMenuItem) {
+        Optional<MenuItem> existingMenuItem = menuItemService.getMenuItemById(id);
+        if (existingMenuItem.isPresent()) {
+            menuItemService.updateMenuItem(existingMenuItem.get().getId(), existingMenuItem.get());
+            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Updated menuItem with id: " + id, true, updatedMenuItem), HttpStatus.FOUND);
+        } else {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found for id: " + id, false, null), HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/delete/{id}")
