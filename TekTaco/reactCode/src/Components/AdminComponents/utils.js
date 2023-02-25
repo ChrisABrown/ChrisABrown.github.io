@@ -1,92 +1,108 @@
 const URL = "http://localhost:8080/";
 
 class MenuItemService {
-  getAllMenuItems() {
-    return fetch(`${URL}menu`, {
-      cache: "default",
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
-  }
-  getAllMenuItemsByProductType(productType) {
-    return fetch(`${URL}menu/get/${productType}`)
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
-  }
-  createNewMenuItem(newMenuItem) {
-    return fetch(`${URL}menu/add-new-menuItem`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newMenuItem),
-    })
-      .then((response) => response.json())
-      .then((newMenuItem) => {
-        console.log("Success:", newMenuItem);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+  async getAllMenuItems() {
+    try {
+      const response = await fetch(`${URL}menu`, {
+        cache: "default",
       });
+      return await response.json();
+    } catch (error) {
+      return console.log(error);
+    }
+  }
+  async getAllMenuItemsByProductType(productType) {
+    try {
+      const response = await fetch(`${URL}menu/get/${productType}`);
+      return await response.json();
+    } catch (error) {
+      return console.log(error);
+    }
+  }
+  async createNewMenuItem(newMenuItem) {
+    try {
+      const response = await fetch(`${URL}menu/add-new-menuItem`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMenuItem),
+      });
+      const newMenuItem_1 = await response.json();
+      console.log("Success:", newMenuItem_1);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
-  getMenuItemById(id) {
-    return fetch(`${URL}menu/getOne/${id}`, {
-      cache: "default",
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+  async getMenuItemById(id) {
+    try {
+      const response = await fetch(`${URL}menu/getOne/${id}`, {
+        cache: "force-cache",
+      });
+      return await response.json();
+    } catch (error) {
+      return console.log(error);
+    }
   }
 
-  updateMenuItem(id, updatedMenuItemDetails) {
-    this.getMenuItemById(id).then(() => {
-      if (id !== updatedMenuItemDetails.id) {
-        try {
-          return fetch(`${URL}menu/${id}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "PUT, POST, GET, DELETE, OPTIONS",
-            },
-            body: JSON.stringify(updatedMenuItemDetails),
-          })
-            .then((response) => response.json())
-            .then((updatedMenuItemDetails) => {
-              console.log("Success: ", updatedMenuItemDetails);
-            });
-        } catch (error) {
-          console.log("Error", error);
-        }
-      }
-    });
+  async updateMenuItem(id, data = {}) {
+    try {
+      const response = await fetch(`${URL}menu/${id}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const updatedMenuItemDetails = await response.json();
+
+      console.log(updatedMenuItemDetails);
+    } catch (error) {
+      return console.log(error);
+    }
   }
 
-  deleteMenuItem(id) {
-    return fetch(`${URL}api-v1/menu/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+  async deleteMenuItem(id) {
+    try {
+      const response = await fetch(`${URL}menu/delete/${id}`, {
+        method: "DELETE",
+        cache: "force-cache",
+      });
+      return await response.json();
+    } catch (error) {
+      return console.log(error);
+    }
   }
 }
+
 export default new MenuItemService();
 class EmployeeService {
-  getAllEmployees() {
-    return fetch(`${URL}admin`, {
-      cache: "default",
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+  async getAllEmployees() {
+    try {
+      const response = await fetch(`${URL}admin`, {
+        cache: "default",
+      });
+      return await response.json();
+    } catch (error) {
+      return console.log(error);
+    }
   }
-  getEmployeesByAccessLevel(accessLevel) {
-    return fetch(`${URL}admin/staff-list/${accessLevel}`)
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+  async getEmployeesByAccessLevel(accessLevel) {
+    try {
+      const response = await fetch(`${URL}admin/staff-list/${accessLevel}`);
+      return await response.json();
+    } catch (error) {
+      return console.log(error);
+    }
   }
-  getEmployeeById(id) {
-    return fetch(`${URL}admin/staff-list/${id}`)
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+  async getEmployeeById(id) {
+    try {
+      const response = await fetch(`${URL}admin/staff-list/${id}`);
+      return await response.json();
+    } catch (error) {
+      return console.log(error);
+    }
   }
 }

@@ -12,14 +12,17 @@ import java.util.Optional;
 @Repository
 public interface MenuItemRepository extends MongoRepository<MenuItem, String> {
 
-    @Query(value = "{id: '?0'}", fields = "{'name' :1," + " 'inStock': 1," + " 'price': 1," + " 'productType': 1," + " 'description': 1," + " 'SKU':  1," + " 'image': 1}")
+    @Query("{'_id':?0}")
     Optional<MenuItem> findById(String id);
 
-    @Query(value = "{name:'?0'}", fields = "{'name' :1," + " 'inStock': 1," + " 'price': 1," + " 'productType': 1," + " 'description': 1," + " 'SKU':  1," + " 'image': 1}")
+    @Query("{'name':?0}")
     MenuItem findMenuItemByName(String name);
 
-    @Query(value = "{productType:'?0'}", fields = "{'name' :1," + " 'inStock': 1," + " 'price': 1," + " 'productType': 1," + " 'description': 1," + " 'SKU':  1," + " 'image': 1}")
+    @Query(value = "{'productType':?0}", sort = "{'productType':  1}", fields = "{'name' :1," + " 'inStock': 1," + " 'price': 1," + " 'productType': 1," + " 'description': 1," + " 'SKU':  1," + " 'image': 1}")
     List<MenuItem> findAll(String productType);
+
+    @Query(value = "{'_id': ?0}", delete = true)
+    Optional<MenuItem> deleteMenuItemBy_id(String id);
 
     long count();
 

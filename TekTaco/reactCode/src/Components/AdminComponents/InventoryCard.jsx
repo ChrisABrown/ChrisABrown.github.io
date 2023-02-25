@@ -16,32 +16,29 @@ const InventoryCard = (data) => {
   const navigate = useNavigate;
 
   const onUpdate = (data) => {
-    const productId = product.data.id;
+    const productId = product.data._id;
     MenuItemService.updateMenuItem(productId, data);
   };
-  // isSuccessfullyUpdated
-  //   ? window.alert("MenuItem: " + data.name + " has been updated")
-  //   : console.error();
-  // };
 
   const deleteMenuItem = (id) => {
+    id = product.data._id;
     window.alert("Are you sure you want to delete this Item?");
-    MenuItemService.deleteMenuItem(id).then(() =>
-      window.alert("MenuItem with id: " + id + " successfully deleted")
-    );
+    MenuItemService.deleteMenuItem(id);
   };
 
   return (
     <div id="item-card">
       <form onSubmit={handleSubmit(onUpdate)}>
-        <div className="form-group">
+        <div className="form-group-inventory-form">
           <label>
             <strong>ID: </strong>
-            {product.data.id}
+            {product.data._id}
           </label>
           <div className="form-control">
-            <input {...register("id", { required: true })}></input>
-            <ErrorMessage errors={errors} name="id" />
+            <input
+              {...register("_id", { required: true, disabled: true })}
+            ></input>
+            <ErrorMessage errors={errors} name="_id" />
           </div>
           <label>
             <strong>Name: </strong>
@@ -73,8 +70,16 @@ const InventoryCard = (data) => {
             {product.data.sku}
           </label>
           <div className="form-control">
-            <input {...register("SKU", { required: true })}></input>
-            <ErrorMessage errors={errors} name="SKU" />
+            <input {...register("sku", { required: true })}></input>
+            <ErrorMessage errors={errors} name="sku" />
+          </div>
+          <label>
+            <strong>Product Type: </strong>
+            {product.data.productType}
+          </label>
+          <div className="form-control">
+            <input {...register("productType", { required: true })}></input>
+            <ErrorMessage errors={errors} name="productType" />
           </div>
           <label>
             <strong>Price: </strong>${product.data.price.toFixed(2)}
@@ -100,7 +105,10 @@ const InventoryCard = (data) => {
             <ErrorMessage errors={errors} name="description" />
           </div>
           <div id="btn-console">
-            <button id="btn-update">Update</button>
+            <button id="btn-update" onClick={onUpdate}>
+              Update
+            </button>
+
             <button id="btn-delete" onClick={deleteMenuItem}>
               Delete
             </button>

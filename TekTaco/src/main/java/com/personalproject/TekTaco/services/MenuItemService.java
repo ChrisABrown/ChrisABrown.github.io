@@ -42,7 +42,7 @@ public class MenuItemService  {
         Optional<MenuItem> menuItem = menuItemRepo.findById(id);
         if (menuItem.isPresent()) {
             MenuItem newMenuItem = menuItem.get();
-            newMenuItem.setId(itemDetails.getId());
+            newMenuItem.set_id(itemDetails.get_id());
             newMenuItem.setName(itemDetails.getName());
             newMenuItem.setPrice(itemDetails.getPrice());
             newMenuItem.setInStock(itemDetails.getInStock());
@@ -70,6 +70,6 @@ public class MenuItemService  {
     }
 
     public void deleteMenuItem(String id) {
-       menuItemRepo.deleteById(id);
+       menuItemRepo.deleteMenuItemBy_id(id);
     }
 }

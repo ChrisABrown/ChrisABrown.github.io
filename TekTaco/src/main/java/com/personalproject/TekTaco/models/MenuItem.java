@@ -1,37 +1,29 @@
 package com.personalproject.TekTaco.models;
 
+import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.Id;
-
+@Data
 @Document(collection = "Inventory")
 public class MenuItem {
     @Id
-    private String id;
-    @Field
+    private String _id;
+
     private String name;
-    @Field
     private int price;
-    @Field
     private int inStock;
-    @Field
     private String description;
-
-    @Field
     private String image;
-
-    @Field
     private int SKU;
-    @Field
     private String productType;
 
     public MenuItem() {
     }
 
-    public MenuItem(String id, String name, int price, int inStock, String description, String image, int SKU, String productType) {
+    public MenuItem(String _id, String name, int price, int inStock, String description, String image, int SKU, String productType) {
         super();
-        this.id = id;
+        this._id = _id;
         this.name = name;
         this.price = price;
         this.inStock = inStock;
@@ -50,12 +42,12 @@ public class MenuItem {
     }
 
 
-    public String getId() {
-        return id;
+    public String get_id() {
+        return _id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getName() {
