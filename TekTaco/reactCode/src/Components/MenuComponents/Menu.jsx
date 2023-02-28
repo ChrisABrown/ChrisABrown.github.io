@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MenuItems from "./MenuItems";
 import "../../Styling/Menu.css";
 import NavBar from "../NavBar";
-import MenuItemService from "../AdminComponents/utils.js";
+import MenuItemService from "../AdminComponents/apiFunctions.js";
 
 export default function Menu() {
   const [entrees, setEntrees] = useState([]);

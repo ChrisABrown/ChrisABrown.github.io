@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import "../../Styling/CreateNewMenuItem.css";
-import MenuItemService from "./utils.js";
+import MenuItemService from "../apiFunctions.js";
 
 export default function CreateNewMenuItem() {
   let navigate = useNavigate();

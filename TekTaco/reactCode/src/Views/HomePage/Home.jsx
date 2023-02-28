@@ -13,16 +13,7 @@ export const Home = () => {
   return (
     <div id="home-page">
       <h1>TekTacos</h1>
-
       <NavBar />
-      {/* 
-      <button id="home-page-enter" onClick={add}>
-        Add
-      </button>
-      <p>Hits:{count}</p>
-      <button id="home-page-remove" onClick={remove}>
-        Remove
-      </button> */}
       <figure id="splash-image">
         <img
           className="taco"

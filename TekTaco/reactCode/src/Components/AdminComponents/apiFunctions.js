@@ -78,6 +78,7 @@ class MenuItemService {
 }
 
 export default new MenuItemService();
+
 class EmployeeService {
   async getAllEmployees() {
     try {

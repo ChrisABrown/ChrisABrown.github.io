@@ -1,5 +1,5 @@
 import React from "react";
-import MenuItemService from "./utils.js";
+import { MenuItemService, EmployeeService } from "../apiFunctions.js";
 import "../../Styling/Inventory.css";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";

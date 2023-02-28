@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import MenuItemService from "./utils";
+import MenuItemService from "../apiFunctions";
 import InventoryCard from "./InventoryCard";
 import "../../Styling/Inventory.css";
 import { Link } from "react-router-dom";
