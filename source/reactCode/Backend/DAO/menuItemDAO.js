@@ -9,7 +9,7 @@ export default class MenuItemDAO {
       return;
     }
     try {
-      menuItems = await conn.db(process.env);
+      menuItems = await conn.db(process.env.T);
     } catch (error) {}
   }
 }
