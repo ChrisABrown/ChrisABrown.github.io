@@ -7,6 +7,7 @@ import Login from "./Components/AdminComponents/Login/Login";
 import Cart from "./Components/CartComponents/Cart";
 import Menu from "./Components/MenuComponents/Menu";
 import Home from "./Views/HomePage/Home";
+import AuthContextProvider from "./store/auth-context";
 
 export default function App() {
   return (
@@ -14,7 +15,15 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
-        <Route path="/login" element={<Login />} />
+
+        <Route
+          path="/login"
+          element={
+            <AuthContextProvider>
+              <Login />
+            </AuthContextProvider>
+          }
+        />
         <Route path="/cart" element={<Cart />} />
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/add-new-menuItem" element={<CreateNewMenuItem />} />
