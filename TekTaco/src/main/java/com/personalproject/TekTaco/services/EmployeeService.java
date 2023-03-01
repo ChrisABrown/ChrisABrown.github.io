@@ -36,7 +36,6 @@ public class EmployeeService {
         List<Employee> adminEmployees = employeeRepo.findAll(accessLevel);
         for (Employee admin : adminEmployees) {
             var levelOfAccess = admin.getAccessLevel();
-//            List<String> employeeAccessLevels = new ArrayList<>(Collections.singleton(levelOfAccess));
             if (Objects.equals(levelOfAccess, accessLevel))
                 System.out.println(admin.getName() + " has " + levelOfAccess + " level access. ");
         }

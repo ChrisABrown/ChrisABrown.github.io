@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../../Styling/Inventory.css";
 import * as API from "../apiFunctions.js";
+import CreateNewMenuItem from "./CreateMenuItem";
 import InventoryCard from "./InventoryCard";
 
 export default function Inventory() {

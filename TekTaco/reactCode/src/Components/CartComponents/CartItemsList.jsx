@@ -3,8 +3,7 @@ import { useState } from "react";
 import "../../Styling/Cart.css";
 
 const CartItemsList = (items) => {
-  items = items.items;
-
+  console.log(items);
   const [item, setItem] = useState([]);
   console.log();
 
@@ -13,22 +12,28 @@ const CartItemsList = (items) => {
   }
 
   function removeFromCart() {}
-  const itemsList = items.map((item) => {
-    return (
-      <li key={item.SKU}>
-        {item.name}
-
-        <button class="btn-remove-from-cart" onClick={removeFromCart}>
-          -
-        </button>
-        <button class="btn-add-to-cart" onClick={addToCart}>
-          +
-        </button>
-      </li>
-    );
+  const { itemsList } = items.then((item) => {
+    item.data;
   });
+  // return (
+  //   <li key={item.SKU}>
+  //     {item.name}
 
-  return <ul>{itemsList}</ul>;
+  //     <button class="btn-remove-from-cart" onClick={removeFromCart}>
+  //       -
+  //     </button>
+  //     <button class="btn-add-to-cart" onClick={addToCart}>
+  //       +
+  //     </button>
+  //   </li>
+  // );
+
+  return (
+    <div>
+      <h1>Cart</h1>
+      {/* <ul>{itemsList}</ul> */}
+    </div>
+  );
 };
 
 export default CartItemsList;

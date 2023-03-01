@@ -19,7 +19,6 @@ export default function App() {
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/add-new-menuItem" element={<CreateNewMenuItem />} />
       </Routes>
-      ;
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import React from "react";
 import "../../Styling/Cart.css";
 import CartItemsList from "./CartItemsList";
-import products from "../../Assets/Inventory.json";
+import * as API from "../AdminComponents/apiFunctions";
 
 export default function Cart(props) {
-  props = products.inventory;
+  props = API.getAllMenuItems();
 
   return (
     <div id="cart-page">

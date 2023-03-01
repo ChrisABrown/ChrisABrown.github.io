@@ -9,16 +9,9 @@ import javax.persistence.Id;
 public class Employee {
     @Id
     private Integer employeeId;
-    @Field
     private String name;
-    @Field
-
     private String password;
-    @Field
-
     private String accessLevel;
-    @Field
-
     private String email;
 
     public Employee() {

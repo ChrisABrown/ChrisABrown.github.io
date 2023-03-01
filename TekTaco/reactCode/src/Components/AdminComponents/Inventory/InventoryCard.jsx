@@ -18,6 +18,7 @@ const InventoryCard = (data) => {
   const onUpdate = (data) => {
     const productId = product.data._id;
     API.updateMenuItem(productId, data);
+    alert(data.message);
   };
 
   const deleteMenuItem = (id) => {
@@ -36,7 +37,8 @@ const InventoryCard = (data) => {
           </label>
           <div className="form-control">
             <input
-              {...register("_id", { required: true, disabled: true })}
+              {...register("_id", { required: true })}
+              placeholder="Enter current ID to update"
             ></input>
             <ErrorMessage errors={errors} name="_id" />
           </div>
@@ -105,11 +107,19 @@ const InventoryCard = (data) => {
             <ErrorMessage errors={errors} name="description" />
           </div>
           <div id="btn-console">
-            <button id="btn-update" onClick={onUpdate}>
+            <button
+              id="btn-update"
+              onClick={onUpdate}
+              onClickCapture={() => navigate("/inventory")}
+            >
               Update
             </button>
 
-            <button id="btn-delete" onClick={deleteMenuItem}>
+            <button
+              id="btn-delete"
+              onClick={deleteMenuItem}
+              onClickCapture={() => navigate("/inventory")}
+            >
               Delete
             </button>
           </div>

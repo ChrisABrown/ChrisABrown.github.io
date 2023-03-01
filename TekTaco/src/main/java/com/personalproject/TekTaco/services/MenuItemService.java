@@ -17,6 +17,8 @@ public class MenuItemService  {
 
     @Autowired
     MenuItemRepository menuItemRepo;
+    private String id;
+    private MenuItem itemDetails;
 
 
     public MenuItem createNewMenuItem(MenuItem newItem) {
@@ -38,6 +40,9 @@ public class MenuItemService  {
 
 
     public Optional<MenuItem> updateMenuItem(String id, MenuItem itemDetails) {
+        Optional<MenuItem> result;
+        this.id = id;
+        this.itemDetails = itemDetails;
 
         Optional<MenuItem> menuItem = menuItemRepo.findById(id);
         if (menuItem.isPresent()) {
@@ -49,9 +54,12 @@ public class MenuItemService  {
             newMenuItem.setDescription(itemDetails.getDescription());
             newMenuItem.setSKU(itemDetails.getSKU());
             newMenuItem.setProductType(itemDetails.getProductType());
-            return Optional.of(menuItemRepo.save(newMenuItem));
+
+            result = Optional.of(menuItemRepo.save(newMenuItem));
+        } else {
+            result = menuItem;
         }
-        return menuItem;
+        return result;
     }
 
     public Optional<MenuItem> getMenuItemByName(String name) {

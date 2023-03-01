@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
@@ -9,33 +9,57 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const onLogin = (data) => {};
+  const onLogin = (data) => {
+    console.log(data);
+  };
+  const validatePassword = (value) => {
+    if (value.length < 6) {
+      return "Password should be at-least 6 characters.";
+    } else if (
+      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/.test(value)
+    ) {
+      return "Password should contain at least one uppercase letter, lowercase letter, digit, and special symbol.";
+    }
+    return true;
+  };
 
   return (
     <div id="login-form">
-      <form>
-        <div class="username">
-          <label id="username-label">
-            Username
-            <input id="username" type="textarea" required placeholder="admin" />
-          </label>
+      <form onSubmit={handleSubmit(onLogin)}>
+        <div className="username">
+          <label id="username-label">Username</label>
+          <input
+            {...register("email", {
+              required: "Username is required.",
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message: "Username not valid",
+              },
+            })}
+            placeholder="admin"
+          />
         </div>
-        <div class="password">
-          <label id="password-label">
-            Password
-            <input
-              id="password"
-              type="password"
-              required
-              placeholder="password"
-            />
-          </label>
+        <ErrorMessage
+          errors={errors}
+          name="email"
+          render={({ message }) => <p style={{ color: "red" }}>{message}</p>}
+        />
+        <div className="password">
+          <label id="password-label">Password</label>
+          <input
+            {...register("password", {
+              required: "Password is required.",
+            })}
+            placeholder="password"
+          />
         </div>
-        <button id="submit" type="submit">
-          Login
-        </button>
+        <ErrorMessage
+          errors={errors}
+          name="password"
+          render={({ message }) => <p style={{ color: "red" }}>{message}</p>}
+        />
+        <input type="submit" />
       </form>
-      <a href="/home">back to home page</a>
     </div>
   );
 }

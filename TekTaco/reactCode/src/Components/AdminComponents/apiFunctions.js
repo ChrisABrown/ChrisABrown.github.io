@@ -45,7 +45,7 @@ export async function getMenuItemById(id) {
   }
 }
 
-export async function updateMenuItem(id, data = {}) {
+export async function updateMenuItem(id, data) {
   try {
     const response = await fetch(`${URL}menu/${id}`, {
       method: "PUT",
@@ -55,9 +55,9 @@ export async function updateMenuItem(id, data = {}) {
       },
       body: JSON.stringify(data),
     });
-    const updatedMenuItemDetails = await response.json();
+    const menuItem = await response.json();
 
-    console.log(updatedMenuItemDetails);
+    console.log(menuItem);
   } catch (error) {
     return console.log(error);
   }
