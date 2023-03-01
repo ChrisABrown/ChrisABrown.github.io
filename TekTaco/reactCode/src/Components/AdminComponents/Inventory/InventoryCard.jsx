@@ -1,9 +1,9 @@
-import React from "react";
-import { MenuItemService, EmployeeService } from "../apiFunctions.js";
-import "../../Styling/Inventory.css";
-import { useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
+import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import "../../../Styling/Inventory.css";
+import * as API from "../apiFunctions.js";
 
 const InventoryCard = (data) => {
   const product = data;
@@ -17,13 +17,13 @@ const InventoryCard = (data) => {
 
   const onUpdate = (data) => {
     const productId = product.data._id;
-    MenuItemService.updateMenuItem(productId, data);
+    API.updateMenuItem(productId, data);
   };
 
   const deleteMenuItem = (id) => {
     id = product.data._id;
     window.alert("Are you sure you want to delete this Item?");
-    MenuItemService.deleteMenuItem(id);
+    API.deleteMenuItem(id);
   };
 
   return (

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MenuItems from "./MenuItems";
 import "../../Styling/Menu.css";
-import NavBar from "../NavBar";
-import MenuItemService from "../AdminComponents/apiFunctions.js";
+import * as API from "../AdminComponents/apiFunctions.js";
 
 export default function Menu() {
   const [entrees, setEntrees] = useState([]);
@@ -10,17 +9,17 @@ export default function Menu() {
   const [drinks, setDrinks] = useState([]);
 
   const getEntreeData = () => {
-    MenuItemService.getAllMenuItemsByProductType("Entree").then((menuItem) =>
+    API.getAllMenuItemsByProductType("Entree").then((menuItem) =>
       setEntrees(menuItem.data)
     );
   };
   const getSideData = () => {
-    MenuItemService.getAllMenuItemsByProductType("Side").then((menuItem) =>
+    API.getAllMenuItemsByProductType("Side").then((menuItem) =>
       setSides(menuItem.data)
     );
   };
   const getDrinkData = () => {
-    MenuItemService.getAllMenuItemsByProductType("Drink").then((menuItem) =>
+    API.getAllMenuItemsByProductType("Drink").then((menuItem) =>
       setDrinks(menuItem.data)
     );
   };
@@ -46,7 +45,6 @@ export default function Menu() {
 
   return (
     <div id="menu-page">
-      <NavBar />
       <section id="Entrees">
         <h3>Entrees</h3>
         <div className="menu-box">{entreeList}</div>

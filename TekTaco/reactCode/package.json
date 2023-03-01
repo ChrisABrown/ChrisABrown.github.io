@@ -1,33 +1,21 @@
 {
-  "name": "my-project",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@hookform/error-message": "^2.0.1",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.3.2",
-    "cors": "^2.8.5",
-    "loadable": "^1.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.43.1",
-    "react-router-dom": "^6.6.1",
-    "react-scripts": "^2.1.3",
-    "web-vitals": "^2.1.4"
-  },
+  "name": "reactcode",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf ../src/main/resources/static && mv build ../src/main/resources/static",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hookform/error-message": "^2.0.1",
+    "axios": "^1.3.4",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.2",
+    "react-router-dom": "^6.8.2",
+    "react-scripts-dependencies-upgraded": "^1.2.6"
   },
   "browserslist": {
     "production": [

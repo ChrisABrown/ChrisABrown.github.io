@@ -1,6 +1,5 @@
 import React from "react";
 import "../../Styling/Cart.css";
-import NavBar from "../NavBar";
 import CartItemsList from "./CartItemsList";
 import products from "../../Assets/Inventory.json";
 
@@ -9,7 +8,6 @@ export default function Cart(props) {
 
   return (
     <div id="cart-page">
-      <NavBar />
       <div id="cart">
         <h2>Cart</h2>
         <div id="cart-box">

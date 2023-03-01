@@ -1,19 +1,11 @@
-import React, { useState } from "react";
-import NavBar from "../../Components/NavBar";
+import React, { useState, Outlet, Link } from "react";
 import "../../Styling/HomePage.css";
 
-export const Home = () => {
-  const [count, setCount] = useState(0);
-  function add() {
-    setCount(count + 1);
-  }
-  function remove() {
-    setCount(count - 1);
-  }
+export default function Home() {
   return (
     <div id="home-page">
+      <div id="navbar-container">{/* <NavBar /> */}</div>
       <h1>TekTacos</h1>
-      <NavBar />
       <figure id="splash-image">
         <img
           className="taco"
@@ -25,4 +17,4 @@ export const Home = () => {
       <button id="btn-cart">click to go to cart</button>
     </div>
   );
-};
+}

@@ -1,9 +1,9 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import "../../Styling/CreateNewMenuItem.css";
-import MenuItemService from "../apiFunctions.js";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import "../../../Styling/CreateNewMenuItem.css";
+import * as API from "../apiFunctions.js";
 
 export default function CreateNewMenuItem() {
   let navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function CreateNewMenuItem() {
 
   const onSave = (data) => {
     try {
-      MenuItemService.createNewMenuItem(data);
+      API.createNewMenuItem(data);
     } catch (error) {
       window.alert(console.error(error));
     }

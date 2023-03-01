@@ -1,59 +1,25 @@
-import React from "react";
-import { Link, Outlet, Route, Routes } from "react-router-dom";
-import { Home } from "../Views/HomePage/Home";
-import CreateNewMenuItem from "./AdminComponents/Inventory/CreateMenuItem";
-import Inventory from "./AdminComponents/Inventory/Inventory";
-import Login from "./AdminComponents/Login/Login";
+import { Link, Route, Routes } from "react-router-dom";
+import ReactDOM from "react-dom/client";
 import "./App.css";
-import Cart from "./CartComponents/Cart";
-import Menu from "./MenuComponents/Menu";
-import "../Styling/NavBar.css";
-import loadable from "@loadable/component"
+import CreateNewMenuItem from "./Components/AdminComponents/Inventory/CreateMenuItem";
+import Inventory from "./Components/AdminComponents/Inventory/Inventory";
+import Login from "./Components/AdminComponents/Login/Login";
+import Cart from "./Components/CartComponents/Cart";
+import Menu from "./Components/MenuComponents/Menu";
+import Home from "./Views/HomePage/Home";
 
-
-const NavBar = () => {
+export default function App() {
   return (
-    <div id="navBar-container">
-    <nav id="Navbar">
-      <ul name="navbar" id="navbar">
-        <li>
-          <Link to='/'>Home</Link>
-        </li>
-        <li>
-          <Link to='/menu'>Menu</Link>
-        </li>
-        <li>
-          <Link to='/login'>Login</Link>
-        </li>
-        <li>
-          <Link to='/cart'>Cart</Link>
-        </li>
-      </ul>
-    </nav>
-    <hr/>
-      <Outlet />
-      </div>
-  );
-};
-
-const LoadablePage = loadable((menuItems) => import(`./menu`), {
-  fallback: <div> Page is Loading...</div>,
-  cacheKey: (menuItems) =>
-})
-
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<NavBar />}>
-        <Route index element={<Home />} />
-        <Route path="menu" element={<Menu />} />
-        <Route path="login" element={<Login />}/>
-        <Route path="cart" element={<Cart />} />
-        <Route path="inventory" element={<Inventory />} />
-        <Route path="add-new-menuItem" element={<CreateNewMenuItem />} />
-      </Route>
-    </Routes>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/add-new-menuItem" element={<CreateNewMenuItem />} />
+      </Routes>
+      ;
+    </div>
   );
 }
-
-export default App;

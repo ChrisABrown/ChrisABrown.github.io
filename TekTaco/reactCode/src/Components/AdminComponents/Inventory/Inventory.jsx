@@ -1,15 +1,14 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import MenuItemService from "../apiFunctions";
-import InventoryCard from "./InventoryCard";
-import "../../Styling/Inventory.css";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "../../../Styling/Inventory.css";
+import * as API from "../apiFunctions.js";
+import InventoryCard from "./InventoryCard";
 
-const Inventory = () => {
+export default function Inventory() {
   const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
-    MenuItemService.getAllMenuItems().then((items) => setInventory(items.data));
+    API.getAllMenuItems().then((items) => setInventory(items.data));
   }, []);
 
   const cards = inventory.map((product) => {
@@ -26,6 +25,4 @@ const Inventory = () => {
       <div id="cards-container">{cards}</div>
     </div>
   );
-};
-
-export default Inventory;
+}
