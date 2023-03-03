@@ -6,7 +6,6 @@ import "../../../Styling/CreateNewMenuItem.css";
 import * as API from "../apiFunctions.js";
 
 export default function CreateNewMenuItem() {
-  console.log();
   let navigate = useNavigate();
   const {
     register,
