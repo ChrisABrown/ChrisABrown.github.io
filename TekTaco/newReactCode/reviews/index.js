@@ -4,21 +4,21 @@ const { randomBytes } = require("crypto");
 const app = express();
 app.use(express.json());
 
-const reviewsByMenuItemId = {};
+const reviewsByMenuItemSku = {};
 
-app.get("/menuItems/:id/reviews", (req, res) => {
-  res.send(reviewsByMenuItemId[req.params.id] || []);
+app.get("/menuItems/:sku/reviews", (req, res) => {
+  res.send(reviewsByMenuItemSku[req.params.sku] || []);
 });
 
-app.post("/menuItems/:id/reviews", (req, res) => {
+app.post("/menuItems/:sku/reviews", (req, res) => {
   const reviewId = randomBytes(4).toString("hex");
   const { content } = req.body;
 
-  const reviews = reviewsByMenuItemId[req.params.id] || [];
+  const reviews = reviewsByMenuItemSku[req.params.id] || [];
 
   reviews.push({ id: reviewId, content });
 
-  reviewsByMenuItemId[req.params.id] = reviews;
+  reviewsByMenuItemSku[req.params.id] = reviews;
 
   res.status(201).send(reviews);
 });

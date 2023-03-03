@@ -1,10 +1,10 @@
-import ReviewCreate from "./ReviewCreate";
+import MenuItemCreate from "./MenuItemCreate";
 
 function App() {
   return (
     <div className="container">
       <h1>Create Review</h1>
-      <ReviewCreate />
+      <MenuItemCreate />
     </div>
   );
 }
