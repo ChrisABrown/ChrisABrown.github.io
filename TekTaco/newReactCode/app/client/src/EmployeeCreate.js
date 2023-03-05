@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const MenuItemCreate = () => {
-  const [menuItem, setMenuItem] = useState("");
+const EmployeeCreate = () => {
+  const [firstName, setFirstName] = useState("");
 
   const onSubmit = async (e) => {
-    e.prevent.default();
-    await axios.post("http://localhost:4004", {
-      menuItem,
+    // e.prevent.default();
+    await axios.post("http://localhost:4000/employees", {
+      firstName,
     });
-    setMenuItem("");
+    setFirstName("");
   };
 
   return (
     <div>
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label>MenuItem</label>
+          <label>Create Employee</label>
           <input
-            value={menuItem}
-            onChange={(e) => setMenuItem(e.target.value)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             className="form-control"
           />
         </div>
@@ -29,4 +29,4 @@ const MenuItemCreate = () => {
   );
 };
 
-export default MenuItemCreate;
+export default EmployeeCreate;

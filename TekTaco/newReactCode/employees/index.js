@@ -1,8 +1,10 @@
 const express = require("express");
+const cors = require("cors");
 const { randomBytes } = require("crypto");
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const employees = {};
 
@@ -12,15 +14,13 @@ app.get("/employees", (req, res) => {
 
 app.post("/employees", (req, res) => {
   const id = randomBytes(5).toString("hex");
-  const { firstName, lastName, accessLevel, email } = req.body;
+  const { firstName } = req.body;
 
   employees[id] = {
     id,
     firstName,
-    lastName,
-    accessLevel,
-    email,
   };
+
   res.status(201).send(employees[id]);
 });
 
