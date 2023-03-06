@@ -2,24 +2,29 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const EmployeeCreate = () => {
-  const [firstName, setFirstName] = useState("");
+  const [name, setName] = useState("");
+  const [adminAccess, setAdminAccess] = useState(false);
 
-  const onSubmit = async (e) => {
-    // e.prevent.default();
-    await axios.post("http://localhost:4000/employees", {
-      firstName,
-    });
-    setFirstName("");
+  const onSubmit = async () => {
+    await axios.post("http://localhost:8080/admin");
   };
 
   return (
     <div>
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label>Create Employee</label>
+          <h3>Add New Employee</h3>
+          <label>Name</label>
           <input
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="form-control"
+          />
+          <label>Give Admin Access?</label>
+          <input
+            value={adminAccess}
+            type="checkbox"
+            onChange={() => setAdminAccess(true)}
             className="form-control"
           />
         </div>
