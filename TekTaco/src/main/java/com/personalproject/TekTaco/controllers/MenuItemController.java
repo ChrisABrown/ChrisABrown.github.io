@@ -2,26 +2,27 @@ package com.personalproject.TekTaco.controllers;
 
 import com.personalproject.TekTaco.models.AppResponse;
 import com.personalproject.TekTaco.models.MenuItem;
-import com.personalproject.TekTaco.services.MenuItemService;
+import com.personalproject.TekTaco.services.MenuItemAndReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
 @RequestMapping("/menuItems")
-public class MenuItemController {
+public class MenuItemAndReviewController {
 
     @Autowired
-    MenuItemService menuItemService;
+    MenuItemAndReviewService menuItemAndReviewService;
 
     @GetMapping
     public ResponseEntity<Object> getAllMenuItems() {
-        List<MenuItem> menuItems = menuItemService.getAllMenuItems();
+        List<MenuItem> menuItems = menuItemAndReviewService.getAllMenuItems();
         if (!menuItems.isEmpty()) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "All available Menu Items", true, menuItems), HttpStatus.OK);
         } else {
@@ -31,7 +32,7 @@ public class MenuItemController {
 
     @GetMapping("/get/{productType}")
     public ResponseEntity<Object> getAllMenuItemsByProductType(@PathVariable String productType) {
-        List<MenuItem> menuItems = menuItemService.getAllMenuItemsByProductType(productType);
+        List<MenuItem> menuItems = menuItemAndReviewService.getAllMenuItemsByProductType(productType);
         if (!menuItems.isEmpty()) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "List of " + productType + " Menu Items", true, menuItems), HttpStatus.OK);
         } else {
@@ -41,9 +42,9 @@ public class MenuItemController {
 
     @GetMapping("/getOne/{id}")
     public ResponseEntity<Object> getMenuItemById(@PathVariable("id") String id) {
-        List<MenuItem> menuItemList = menuItemService.getAllMenuItems();
+        List<MenuItem> menuItemList = menuItemAndReviewService.getAllMenuItems();
 
-        Optional<MenuItem> foundMenuItem = menuItemService.getMenuItemById(id);
+        Optional<MenuItem> foundMenuItem = menuItemAndReviewService.getMenuItemById(id);
 
         if (!menuItemList.isEmpty()) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "MenuItem with id: " + id + " found", true, foundMenuItem), HttpStatus.OK);
@@ -54,11 +55,11 @@ public class MenuItemController {
 
     @PostMapping("/add-new-menuItem")
     public ResponseEntity<Object> createNewMenuItem(@RequestBody MenuItem menuItem) {
-        Optional<MenuItem> menuItem1 = menuItemService.getMenuItemById(menuItem.get_id());
+        Optional<MenuItem> menuItem1 = menuItemAndReviewService.getMenuItemById(menuItem.get_id());
         if (menuItem1.isPresent()) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "MenuItem already exists, id: " + menuItem.get_id(), false, null), HttpStatus.OK);
         }
-        MenuItem isCreated = menuItemService.createNewMenuItem(menuItem);
+        MenuItem isCreated = menuItemAndReviewService.createNewMenuItem(menuItem);
         if (isCreated != null) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), isCreated + ", id: " + menuItem.get_id(), true, menuItem1), HttpStatus.OK);
         } else {
@@ -69,11 +70,11 @@ public class MenuItemController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateMenuItem(@PathVariable String id, @RequestBody MenuItem updatedMenuItem) {
-        Optional<MenuItem> existingMenuItem = menuItemService.getMenuItemById(id);
+        Optional<MenuItem> existingMenuItem = menuItemAndReviewService.getMenuItemById(id);
 
-        if (existingMenuItem.isPresent()  && updatedMenuItem.get_id().equals(existingMenuItem.get().get_id())) {
+        if (existingMenuItem.isPresent() && updatedMenuItem.get_id().equals(existingMenuItem.get().get_id())) {
             String existingItemId = existingMenuItem.get().get_id();
-            menuItemService.updateMenuItem(existingItemId, updatedMenuItem);
+            menuItemAndReviewService.updateMenuItem(existingItemId, updatedMenuItem);
             return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Updated menuItem with id: " + existingItemId, true, updatedMenuItem), HttpStatus.FOUND);
         } else {
             return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found for id: " + existingMenuItem, false, null), HttpStatus.NOT_FOUND);
@@ -82,14 +83,33 @@ public class MenuItemController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") String id) {
-        Optional<MenuItem> isDeleted = menuItemService.getMenuItemById(id);
+        Optional<MenuItem> isDeleted = menuItemAndReviewService.getMenuItemById(id);
         if (isDeleted.isPresent()) {
-            menuItemService.deleteMenuItem(id);
+            menuItemAndReviewService.deleteMenuItem(id);
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "MenuItem, id: " + id + " has been deleted", true, null), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "MenuItem, id: " + id + " not found", false, null), HttpStatus.OK);
         }
 
+    }
+
+    @GetMapping("/{sku}/reviews")
+    public ResponseEntity<Object> getAllReviewsForMenuItemWithSku(@PathVariable("sku") @RequestParam String sku) {
+        Optional<MenuItem> reviewedMenuItem = menuItemAndReviewService.getMenuItemBySku(sku);
+        List<MenuItem.Review> reviewsList = menuItemAndReviewService.getAllReviewsForMenuItemWithSku(sku);
+
+        if (reviewsList.isEmpty()) {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Could not find reviews for menuItem with sku: " + sku, false, null), HttpStatus.NOT_FOUND);
+        } else if (Objects.equals(reviewedMenuItem.get().getSku(), sku)) {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "All reviews for menuItem with sku: " + sku, true, reviewsList), HttpStatus.FOUND);
+        }
+        return null;
+    }
+
+    @PostMapping()
+    public ResponseEntity<Object> createReviewForMenuItemWithSku(@PathVariable("sku") @RequestParam String sku, @RequestBody String content) {
+        Optional<MenuItem> menuItemOptional = menuItemAndReviewService.getMenuItemBySku(sku);
+        menuItemOptional.get().setReviewList(menuItemAndReviewService.);
     }
 
 

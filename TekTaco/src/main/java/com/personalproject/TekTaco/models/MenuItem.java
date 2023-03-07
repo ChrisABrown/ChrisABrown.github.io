@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -19,14 +20,25 @@ public class MenuItem {
     private String description;
     private String image;
     private String sku;
-    private List<Review> reviewList = new ArrayList<>();
     private String productType;
+    private List<Review> reviewList = new ArrayList<>();
 
     private MenuItem() {
     }
 
-    public MenuItem getInstance(MenuItemDefinition menuItem){
-       return new MenuItem();
+    public MenuItem(String name, int price, int inStock, String description, String image, String sku, List<Review> reviewList, String productType) {
+        this.name = name;
+        this.price = price;
+        this.inStock = inStock;
+        this.description = description;
+        this.image = image;
+        this.sku = sku;
+        this.reviewList = reviewList;
+        this.productType = productType;
+    }
+
+    public MenuItem getInstance(MenuItemDefinition menuItem) {
+        return new MenuItem();
     }
 
     public String getImage() {
@@ -36,7 +48,6 @@ public class MenuItem {
     public void setImage(String image) {
         this.image = image;
     }
-
 
     public String get_id() {
         return _id;
@@ -92,5 +103,27 @@ public class MenuItem {
 
     public void setProductType(String productType) {
         this.productType = productType;
+    }
+
+    @Data
+    @Document(collection = "Reviews")
+    public static class Review {
+        @Id
+        private String _id;
+        private String content;
+        private String menuItemSku;
+        private Date dateOf;
+        private User reviewOwner;
+
+        public Review() {
+        }
+
+        public Review(String content, String menuItemSku, Date dateOf, User reviewOwner) {
+            this.content = content;
+            this.menuItemSku = menuItemSku;
+            this.dateOf = dateOf;
+            this.reviewOwner = reviewOwner;
+        }
+
     }
 }

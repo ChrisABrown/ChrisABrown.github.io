@@ -2,21 +2,24 @@ package com.personalproject.TekTaco.services;
 
 
 import com.personalproject.TekTaco.models.MenuItem;
+import com.personalproject.TekTaco.models.User;
 import com.personalproject.TekTaco.repositories.MenuItemRepository;
+import com.personalproject.TekTaco.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Service
-public class MenuItemService {
+public class MenuItemAndReviewService {
 
     @Autowired
     MenuItemRepository menuItemRepo;
+    ReviewRepository reviewRepo;
     private String id;
     private MenuItem itemDetails;
 
@@ -24,6 +27,8 @@ public class MenuItemService {
     public MenuItem createNewMenuItem(MenuItem newItem) {
         return menuItemRepo.save(newItem);
     }
+
+    public MenuItem.Review createNewReview()
 
     public List<MenuItem> getAllMenuItemsByProductType(String productType) {
         return menuItemRepo.findAll(productType);
@@ -74,12 +79,43 @@ public class MenuItemService {
         }
     }
 
-    public void findTheAmountOfMenuItems() {
-        long count = menuItemRepo.count();
-        System.out.println("Number of items on the Menu:  " + count);
+    public long findTheAmountOfMenuItems() {
+        long count;
+        return count = menuItemRepo.count();
     }
 
     public void deleteMenuItem(String id) {
         menuItemRepo.deleteMenuItemBy_id(id);
+    }
+
+    public List<MenuItem.Review> getAllReviewsForMenuItemWithSku(String sku) {
+        return reviewRepo.findAll(sku);
+    }
+
+    public List<MenuItem.Review> getAllReviewsByReviewOwnerOrderedByDateJoined(Date dateJoined, User reviewOwner) {
+        return reviewRepo.findByDateOfAndReviewOwner(dateJoined, reviewOwner);
+    }
+
+    public List<MenuItem.Review> getAllGoodReviews() {
+        String content = "good";
+        return reviewRepo.findByContent(content);
+    }
+
+    public List<MenuItem.Review> getAllBadReviews() {
+        String content = "bad";
+        return reviewRepo.findByContent(content);
+    }
+
+    public void deleteReview(String id) {
+        reviewRepo.deleteReviewById(id);
+    }
+
+    public int findTotalReviewsForEachMenuItem(){
+        AtomicInteger reviewCount = new AtomicInteger();
+        List<MenuItem> menuItemList = menuItemRepo.findAll();
+        menuItemList.forEach(menuItem -> {
+            reviewCount.set(menuItem.getReviewList().size());
+        });
+        return reviewCount.get();
     }
 }
