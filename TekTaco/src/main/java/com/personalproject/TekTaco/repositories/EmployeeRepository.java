@@ -9,14 +9,16 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends MongoRepository<Employee, String> {
-    @Query("{employeeId :'?0'}")
-    Employee findEmployeeById(Integer id);
-    @Query("{accessLevel :'?0'}")
+    @Query("{'employeeId' :'?0'}")
+    Employee findEmployeeByEmployeeId(Integer employeeId);
+    @Query("{'accessLevel' :'?0'}")
     Employee findEmployeeByAccessLevel(String accessLevel);
 
-    @Query(value = "{'accessLevel': '?0'}", fields = "{'name': '?0', email: '?@gmail.com'}")
+    @Query(value = "{'accessLevel': '?0'}", fields = "{'name': '?0', 'email': '?@gmail.com'}")
     List<Employee> findAll(String accessLevel);
 
+    @Query(value="{'employeeId': ?0}", delete = true)
+    void deleteEmployeeByEmployeeId(Integer employeeId);
     public long count();
 
 

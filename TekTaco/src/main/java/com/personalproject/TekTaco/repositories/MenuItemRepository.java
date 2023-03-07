@@ -22,7 +22,7 @@ public interface MenuItemRepository extends MongoRepository<MenuItem, String> {
     List<MenuItem> findAll(String productType);
 
     @Query(value = "{'_id': ?0}", delete = true)
-    Optional<MenuItem> deleteMenuItemBy_id(String id);
+    void deleteMenuItemBy_id(String id);
 
     long count();
 

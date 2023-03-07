@@ -12,18 +12,20 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     @Query("{'_id': ?0}")
     Optional<User> findById(String id);
+    @Query(value ="{'_id': ?0, 'username': ?0, 'dateJoined': ?0, 'email': ?0}", sort ="{'username': 1}")
+    List<User> findAll();
 
     @Query("{'username':  ?0}")
     User findUserByUsername(String username);
 
-    @Query(value ="{'username': ?0}", sort = "{'dateJoined': 1}")
+    @Query(value ="{'username': ?0, 'dateJoined': ?0}", sort = "{'dateJoined': 1}")
     List<User> findUsersByDateJoinedAfter(Date dateAfter);
 
     @Query(value ="{'username': ?0}", sort = "{'dateJoined': 1}")
     List<User> findUsersByDateJoinedBefore(Date dateBefore);
 
     @Query(value = "{'_id': ?0}", delete = true)
-    User deleteUserById(String id);
+    void deleteUserById(String id);
 
     long count();
 };

@@ -27,7 +27,7 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
     Optional<Review> findByDateOfAndReviewOwner(Date dateOf, User reviewOwner);
 
     @Query(value = "{'_id': ?0}", delete = true)
-    Optional<Review> deleteReviewById(String id);
+    void deleteReviewById(String id);
 
     long count();
 }
