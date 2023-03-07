@@ -1,0 +1,4 @@
+package com.personalproject.TekTaco.models;
+
+public class ReviewDefinition {
+}

@@ -52,7 +52,7 @@ public class MenuItemService  {
             newMenuItem.setPrice(itemDetails.getPrice());
             newMenuItem.setInStock(itemDetails.getInStock());
             newMenuItem.setDescription(itemDetails.getDescription());
-            newMenuItem.setSKU(itemDetails.getSKU());
+            newMenuItem.setSKU(itemDetails.getSku());
             newMenuItem.setProductType(itemDetails.getProductType());
 
             result = Optional.of(menuItemRepo.save(newMenuItem));

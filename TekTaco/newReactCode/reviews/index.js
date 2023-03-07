@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 const cors = require("cors");
 const { randomBytes } = require("crypto");
 
@@ -12,7 +13,7 @@ app.get("/menuItems/:sku/reviews", (req, res) => {
   res.send(reviewsByMenuItemSku[req.params.sku] || []);
 });
 
-app.post("/menuItems/:sku/reviews", (req, res) => {
+app.post("/menuItems/:sku/reviews", async (req, res) => {
   const reviewId = randomBytes(4).toString("hex");
   const { content } = req.body;
 
@@ -21,6 +22,16 @@ app.post("/menuItems/:sku/reviews", (req, res) => {
   reviews.push({ id: reviewId, content });
 
   reviewsByMenuItemSku[req.params.sku] = reviews;
+
+  await axios
+    .post("http://localhost:4008/events", {
+      type: "ReviewCreated",
+      data: {
+        sku,
+        menuItem,
+      },
+    })
+    .catch((err) => console.error(err));
 
   res.status(201).send(reviews);
 });

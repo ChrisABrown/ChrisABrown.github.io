@@ -13,10 +13,10 @@ export default function ReviewList({ sku }) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   const renderedReviews = reviews.map((review) => {
-    return <li key={review._id}>{review.content}</li>;
+    return <li key={review.id}>{review.content}</li>;
   });
 
   return <ul>{renderedReviews}</ul>;

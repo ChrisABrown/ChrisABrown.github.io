@@ -4,6 +4,9 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Document(collection = "Inventory")
 public class MenuItem {
@@ -15,22 +18,15 @@ public class MenuItem {
     private int inStock;
     private String description;
     private String image;
-    private int SKU;
+    private int sku;
+    private List<Review> reviewList = new ArrayList<>();
     private String productType;
 
-    public MenuItem() {
+    private MenuItem() {
     }
 
-    public MenuItem(String _id, String name, int price, int inStock, String description, String image, int SKU, String productType) {
-        super();
-        this._id = _id;
-        this.name = name;
-        this.price = price;
-        this.inStock = inStock;
-        this.description = description;
-        this.image = image;
-        this.SKU = SKU;
-        this.productType = productType;
+    public MenuItem getInstance(MenuItemDefinition menuItem){
+       return new MenuItem();
     }
 
     public String getImage() {
@@ -82,12 +78,12 @@ public class MenuItem {
         this.description = description;
     }
 
-    public int getSKU() {
-        return SKU;
+    public int getSku() {
+        return sku;
     }
 
-    public void setSKU(int SKU) {
-        this.SKU = SKU;
+    public void setSku(int sku) {
+        this.sku = sku;
     }
 
     public String getProductType() {
