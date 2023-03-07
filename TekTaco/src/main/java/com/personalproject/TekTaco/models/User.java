@@ -10,7 +10,7 @@ import java.util.Date;
 public class User {
     @Id
     private String _id;
-    private String name;
+    private String username;
     private Date dateJoined;
     private String email;
     private String password;
@@ -18,20 +18,20 @@ public class User {
     public User() {
     }
 
-    public User(String _id, String name, Date dateJoined, String email, String password) {
+    public User(String _id, String username, Date dateJoined, String email, String password) {
         this._id = _id;
-        this.name = name;
+        this.username = username;
         this.dateJoined = dateJoined;
         this.email = email;
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Date getDateJoined() {

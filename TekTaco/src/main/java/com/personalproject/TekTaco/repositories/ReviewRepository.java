@@ -28,4 +28,6 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
 
     @Query(value = "{'_id': ?0}", delete = true)
     Optional<Review> deleteReviewById(String id);
+
+    long count();
 }
