@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NavBar from "./NavBar";
 import ReviewCreate from "./ReviewCreate";
+import ReviewList from "./ReviewList";
 
 const MenuItemList = () => {
   const [menuItems, setMenuItems] = useState({});
@@ -32,7 +33,12 @@ const MenuItemList = () => {
       >
         <div className="card-body">
           <h3>{item.name}</h3>
-          <ReviewCreate key={item._id} menuItemSku={item.sku} />
+          <h6>{item.sku}</h6>
+          <h6>${item.price.toFixed(2)}</h6>
+          <p>{item.description}</p>
+          <img src={item.image} height={200} width={200} alt="food images" />
+          <ReviewList key={item._id} sku={item.sku} />
+          <ReviewCreate key={item._id} sku={item.sku} />
         </div>
       </div>
     );

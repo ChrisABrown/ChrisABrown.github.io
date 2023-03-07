@@ -5,7 +5,6 @@ const ReviewCreate = ({ sku }) => {
   const [content, setContent] = useState("");
 
   const onSubmit = async (e) => {
-    e.prevent.default();
     await axios.post(`http://localhost:4002/menuItems/${sku}/reviews`, {
       content,
     });
@@ -17,14 +16,14 @@ const ReviewCreate = ({ sku }) => {
     <div>
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label htmlFor="">New Review</label>
+          <label>Comment here</label>
           <input
             value={content}
-            onChange={(e) => e.target.value}
+            onChange={(e) => setContent(e.target.value)}
             className="form-control"
           />
         </div>
-        <button className="btn btn-primary"></button>
+        <button className="btn btn-primary">Submit</button>
       </form>
     </div>
   );

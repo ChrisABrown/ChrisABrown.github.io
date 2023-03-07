@@ -5,7 +5,7 @@ const EmployeeList = () => {
   const [employees, setEmployees] = useState({});
 
   const fetchEmployees = async () => {
-    const res = await axios.get("http://localhost:4000/employees");
+    const res = await axios.get("http://localhost:8080/admin");
     setEmployees(res.data);
   };
 
@@ -18,10 +18,13 @@ const EmployeeList = () => {
       <div
         className="card"
         style={{ width: "30%", marginBottom: "20px" }}
-        key={employee.id}
+        key={employee.employeeId}
       >
         <div className="card-body">
-          <h3>{employee.firstName}</h3>
+          <h5>{employee.name}</h5>
+          <h6>{employee.accessLevel}</h6>
+          <h6>{employee.email}</h6>
+          <h6>{employee.employeeId}</h6>
         </div>
       </div>
     );
