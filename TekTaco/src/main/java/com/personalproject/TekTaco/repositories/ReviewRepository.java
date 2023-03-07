@@ -18,13 +18,13 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
     Optional<Review> findById(String id);
 
     @Query(value = "{'menuItemSku':?0}", sort = "{'dateOf': 1}")
-    List<Review> findAll(Date dateOf);
+    List<Review> findAll(String sku);
 
     @Query(value = "{'content': ?0}")
     List<Review> findByContent(String content);
 
-    @Query("{'dateOf':  ?0, 'reviewOwner': ?0}")
-    Optional<Review> findByDateOfAndReviewOwner(Date dateOf, User reviewOwner);
+    @Query(value ="{'dateOf':  ?0, 'reviewOwner': ?0}", sort="{'dateJoined': 1}")
+    List<Review> findByDateOfAndReviewOwner(Date dateOf, User reviewOwner);
 
     @Query(value = "{'_id': ?0}", delete = true)
     void deleteReviewById(String id);

@@ -13,7 +13,7 @@ import java.util.Optional;
 
 
 @Service
-public class MenuItemService  {
+public class MenuItemService {
 
     @Autowired
     MenuItemRepository menuItemRepo;
@@ -33,10 +33,13 @@ public class MenuItemService  {
         return menuItemRepo.findById(id);
     }
 
+    public Optional<MenuItem> getMenuItemBySku(String sku) {
+        return menuItemRepo.findMenuItemBySku(sku);
+    }
+
     public List<MenuItem> getAllMenuItems() {
         return menuItemRepo.findAll();
     }
-
 
 
     public Optional<MenuItem> updateMenuItem(String id, MenuItem itemDetails) {
@@ -67,8 +70,7 @@ public class MenuItemService  {
         if (menuItem.isPresent()) {
             return menuItem;
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "No menu item found for the name " + name);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No menu item found for the name " + name);
         }
     }
 
@@ -78,6 +80,6 @@ public class MenuItemService  {
     }
 
     public void deleteMenuItem(String id) {
-       menuItemRepo.deleteMenuItemBy_id(id);
+        menuItemRepo.deleteMenuItemBy_id(id);
     }
 }

@@ -18,7 +18,7 @@ public class MenuItem {
     private int inStock;
     private String description;
     private String image;
-    private int sku;
+    private String sku;
     private List<Review> reviewList = new ArrayList<>();
     private String productType;
 
@@ -78,11 +78,11 @@ public class MenuItem {
         this.description = description;
     }
 
-    public int getSku() {
+    public String getSku() {
         return sku;
     }
 
-    public void setSku(int sku) {
+    public void setSku(String sku) {
         this.sku = sku;
     }
 

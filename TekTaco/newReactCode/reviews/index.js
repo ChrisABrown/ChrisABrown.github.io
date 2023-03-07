@@ -24,7 +24,7 @@ app.post("/menuItems/:sku/reviews", async (req, res) => {
   reviewsByMenuItemSku[req.params.sku] = reviews;
 
   await axios
-    .post("http://localhost:4008/events", {
+    .post("http://localhost:8080/events", {
       type: "ReviewCreated",
       data: {
         sku,

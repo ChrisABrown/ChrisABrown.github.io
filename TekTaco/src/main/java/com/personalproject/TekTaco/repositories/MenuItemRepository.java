@@ -17,6 +17,8 @@ public interface MenuItemRepository extends MongoRepository<MenuItem, String> {
 
     @Query("{'name':?0}")
     MenuItem findMenuItemByName(String name);
+    @Query("{'sku': ?0}")
+    Optional<MenuItem> findMenuItemBySku(String sku);
 
     @Query(value = "{'productType':?0}", sort = "{'productType':  1}", fields = "{'name' :1," + " 'inStock': 1," + " 'price': 1," + " 'productType': 1," + " 'description': 1," + " 'SKU':  1," + " 'image': 1}")
     List<MenuItem> findAll(String productType);

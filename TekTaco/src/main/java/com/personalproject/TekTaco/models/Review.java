@@ -12,13 +12,13 @@ public class Review {
     @Id
     private String _id;
     private String content;
-    private MenuItem menuItemSku;
+    private String menuItemSku;
     private Date dateOf;
     private User reviewOwner;
 
     public Review() {
     }
-    public Review(String content, MenuItem menuItemSku, Date dateOf, User reviewOwner) {
+    public Review(String content, String menuItemSku, Date dateOf, User reviewOwner) {
         this.content = content;
         this.menuItemSku = menuItemSku;
         this.dateOf = dateOf;
