@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -14,23 +16,25 @@ public class UserService {
     @Autowired
     UserRepository userRepo;
 
-    public List<User> getAllUsers() {
-        return userRepo.findAll();
+    public Set<User> getAllUsers() {
+        return userRepo.find();
+    }
+    public Optional<User> getUserById(String id){
+        return userRepo.findById(id);
     }
 
     public User createNewUser(User newUser) {
         return userRepo.save(newUser);
     }
 
-    public List<User> getUsersByDateJoinedBefore(Date dateBefore) {
+    public Set<User> getUsersByDateJoinedBefore(Date dateBefore) {
         //TODO
         //implement date creation and validation
         Date currentDate = new Date();
         if (currentDate.before(dateBefore)) {
-            List<User> users = userRepo.findAll();
-            return users;
+            return userRepo.find();
         }
-        return userRepo.findUsersByDateJoinedBefore(dateBefore);
+        return null;
     }
 
     public List<User> getUsersByDateJoinedAfter(Date dateAfter) {
@@ -38,8 +42,7 @@ public class UserService {
         //implement date creation and validation
         Date currentDate = new Date();
         if (currentDate.after(dateAfter)) {
-            List<User> users = userRepo.findAll();
-            return users;
+            return userRepo.findAll();
         }
         return userRepo.findUsersByDateJoinedAfter(dateAfter);
     }
