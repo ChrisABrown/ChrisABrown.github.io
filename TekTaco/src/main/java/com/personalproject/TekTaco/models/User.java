@@ -3,7 +3,10 @@ package com.personalproject.TekTaco.models;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Document(collection = "Users")
@@ -14,16 +17,17 @@ public class User {
     private Date dateJoined;
     private String email;
     private String password;
+    private List<MenuItem.Review> reviewsMade = new ArrayList<>();
 
     public User() {
     }
 
-    public User(String _id, String username, Date dateJoined, String email, String password) {
-        this._id = _id;
+    public User(String username, Date dateJoined, String email, String password, List<MenuItem.Review> reviewsMade) {
         this.username = username;
         this.dateJoined = dateJoined;
         this.email = email;
         this.password = password;
+        this.reviewsMade = reviewsMade;
     }
 
     public String getUsername() {
@@ -56,5 +60,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<MenuItem.Review> getReviewsMade() {
+        return reviewsMade;
+    }
+
+    public void setReviewsMade(List<MenuItem.Review> reviewsMade) {
+        this.reviewsMade = reviewsMade;
     }
 }

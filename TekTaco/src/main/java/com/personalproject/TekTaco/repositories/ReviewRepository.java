@@ -2,7 +2,6 @@ package com.personalproject.TekTaco.repositories;
 
 
 import com.personalproject.TekTaco.models.MenuItem;
-import com.personalproject.TekTaco.models.Review;
 import com.personalproject.TekTaco.models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;

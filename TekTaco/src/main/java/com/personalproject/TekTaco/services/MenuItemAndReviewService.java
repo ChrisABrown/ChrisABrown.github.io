@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -28,7 +30,7 @@ public class MenuItemAndReviewService {
         return menuItemRepo.save(newItem);
     }
 
-    public MenuItem.Review createNewReview()
+    public MenuItem.Review createNewReview(MenuItem.Review newReview){return reviewRepo.save(newReview);}
 
     public List<MenuItem> getAllMenuItemsByProductType(String productType) {
         return menuItemRepo.findAll(productType);
@@ -110,7 +112,7 @@ public class MenuItemAndReviewService {
         reviewRepo.deleteReviewById(id);
     }
 
-    public int findTotalReviewsForEachMenuItem(){
+    public int findTotalReviewsForEachMenuItem() {
         AtomicInteger reviewCount = new AtomicInteger();
         List<MenuItem> menuItemList = menuItemRepo.findAll();
         menuItemList.forEach(menuItem -> {

@@ -57,13 +57,13 @@ public class MenuItemAndReviewController {
     public ResponseEntity<Object> createNewMenuItem(@RequestBody MenuItem menuItem) {
         Optional<MenuItem> menuItem1 = menuItemAndReviewService.getMenuItemById(menuItem.get_id());
         if (menuItem1.isPresent()) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "MenuItem already exists, id: " + menuItem.get_id(), false, null), HttpStatus.OK);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "MenuItem already exists, id: " + menuItem.get_id(), false, null), HttpStatus.FOUND);
         }
-        MenuItem isCreated = menuItemAndReviewService.createNewMenuItem(menuItem);
-        if (isCreated != null) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), isCreated + ", id: " + menuItem.get_id(), true, menuItem1), HttpStatus.OK);
+        MenuItem newMenuItem = menuItemAndReviewService.createNewMenuItem(menuItem);
+        if (newMenuItem != null) {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), newMenuItem + ", id: " + newMenuItem.get_id(), true, newMenuItem), HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Not Created", false, null), HttpStatus.OK);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Not Created", false, null), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -93,6 +93,20 @@ public class MenuItemAndReviewController {
 
     }
 
+    @PostMapping("/{sku}/reviews")
+    public ResponseEntity<Object> createReviewForMenuItemWithSku(@PathVariable("sku") @RequestParam String sku, @RequestBody MenuItem.Review review) {
+        List<MenuItem.Review> reviewList = menuItemAndReviewService.getAllReviewsForMenuItemWithSku(sku);
+        if (reviewList.isEmpty()) {
+            reviewList.add(review);
+        }
+        MenuItem.Review newReview = menuItemAndReviewService.createNewReview(review);
+        if (newReview != null) {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New review with id: " + newReview.get_id() + " created for menuItem with sku: " + sku, true, newReview.getContent()), HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Not Created", false, null), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/{sku}/reviews")
     public ResponseEntity<Object> getAllReviewsForMenuItemWithSku(@PathVariable("sku") @RequestParam String sku) {
         Optional<MenuItem> reviewedMenuItem = menuItemAndReviewService.getMenuItemBySku(sku);
@@ -105,12 +119,5 @@ public class MenuItemAndReviewController {
         }
         return null;
     }
-
-    @PostMapping()
-    public ResponseEntity<Object> createReviewForMenuItemWithSku(@PathVariable("sku") @RequestParam String sku, @RequestBody String content) {
-        Optional<MenuItem> menuItemOptional = menuItemAndReviewService.getMenuItemBySku(sku);
-        menuItemOptional.get().setReviewList(menuItemAndReviewService.);
-    }
-
 
 }

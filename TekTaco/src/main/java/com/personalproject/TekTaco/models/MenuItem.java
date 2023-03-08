@@ -115,14 +115,46 @@ public class MenuItem {
         private Date dateOf;
         private User reviewOwner;
 
-        public Review() {
-        }
-
         public Review(String content, String menuItemSku, Date dateOf, User reviewOwner) {
             this.content = content;
             this.menuItemSku = menuItemSku;
             this.dateOf = dateOf;
             this.reviewOwner = reviewOwner;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public String getMenuItemSku() {
+            return menuItemSku;
+        }
+
+        public void setMenuItemSku(String menuItemSku) {
+            this.menuItemSku = menuItemSku;
+        }
+
+        public Date getDateOf() {
+            return dateOf;
+        }
+
+        public void setDateOf(Date dateOf) {
+            this.dateOf = dateOf;
+        }
+
+        public User getReviewOwner() {
+            return reviewOwner;
+        }
+
+        public void setReviewOwner(User reviewOwner) {
+            this.reviewOwner = reviewOwner;
+        }
+
+        public Review() {
         }
 
     }
