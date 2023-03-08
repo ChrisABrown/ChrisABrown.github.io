@@ -41,7 +41,7 @@ public class MenuItemAndReviewController {
     }
 
     @GetMapping("/getOne/{id}")
-    public ResponseEntity<Object> getMenuItemById(@PathVariable("id") String id) {
+    public ResponseEntity<Object> getMenuItemById(@PathVariable String id) {
         List<MenuItem> menuItemList = menuItemAndReviewService.getAllMenuItems();
 
         Optional<MenuItem> foundMenuItem = menuItemAndReviewService.getMenuItemById(id);
@@ -82,7 +82,7 @@ public class MenuItemAndReviewController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> delete(@PathVariable("id") String id) {
+    public ResponseEntity<Object> delete(@PathVariable String id) {
         Optional<MenuItem> isDeleted = menuItemAndReviewService.getMenuItemById(id);
         if (isDeleted.isPresent()) {
             menuItemAndReviewService.deleteMenuItem(id);
@@ -94,7 +94,7 @@ public class MenuItemAndReviewController {
     }
 
     @PostMapping("/{sku}/reviews")
-    public ResponseEntity<Object> createReviewForMenuItemWithSku(@PathVariable("sku") @RequestParam String sku, @RequestBody MenuItem.Review review) {
+    public ResponseEntity<Object> createReviewForMenuItemWithSku(@PathVariable @RequestParam String sku, @RequestBody MenuItem.Review review) {
         List<MenuItem.Review> reviewList = menuItemAndReviewService.getAllReviewsForMenuItemWithSku(sku);
         if (reviewList.isEmpty()) {
             reviewList.add(review);
@@ -108,7 +108,7 @@ public class MenuItemAndReviewController {
     }
 
     @GetMapping("/{sku}/reviews")
-    public ResponseEntity<Object> getAllReviewsForMenuItemWithSku(@PathVariable("sku") @RequestParam String sku) {
+    public ResponseEntity<Object> getAllReviewsForMenuItemWithSku(@PathVariable @RequestParam String sku) {
         Optional<MenuItem> reviewedMenuItem = menuItemAndReviewService.getMenuItemBySku(sku);
         List<MenuItem.Review> reviewsList = menuItemAndReviewService.getAllReviewsForMenuItemWithSku(sku);
 
@@ -118,6 +118,19 @@ public class MenuItemAndReviewController {
             return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "All reviews for menuItem with sku: " + sku, true, reviewsList), HttpStatus.FOUND);
         }
         return null;
+    }
+
+    @DeleteMapping("/{sku}/reviews/{id}")
+    public ResponseEntity<Object> deleteReviewById(@PathVariable String id,  @PathVariable String sku) {
+        List<MenuItem.Review> reviewList = menuItemAndReviewService.getAllReviewsForMenuItemWithSku(sku);
+        Optional<MenuItem.Review> foundReview = menuItemAndReviewService.findReviewById(id);
+        if (reviewList.contains(foundReview)) {
+            menuItemAndReviewService.deleteReview(foundReview.get().get_id());
+            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "Review with id: " + id + " for MenuITem with sku: " + sku + " has been  successfully deleted", true, foundReview), HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Could not find review with the id: " + " for the MenuItem with sku: " + sku, false, null), HttpStatus.NOT_FOUND);
+        }
     }
 
 }

@@ -110,11 +110,12 @@ public class MenuItem {
     public static class Review {
         @Id
         private String _id;
+
         private String content;
+
         private String menuItemSku;
         private Date dateOf;
         private User reviewOwner;
-
         public Review(String content, String menuItemSku, Date dateOf, User reviewOwner) {
             this.content = content;
             this.menuItemSku = menuItemSku;
@@ -124,6 +125,10 @@ public class MenuItem {
 
         public String getContent() {
             return content;
+        }
+
+        public String get_id() {
+            return _id;
         }
 
         public void setContent(String content) {

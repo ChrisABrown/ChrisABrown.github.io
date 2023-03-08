@@ -30,7 +30,9 @@ public class MenuItemAndReviewService {
         return menuItemRepo.save(newItem);
     }
 
-    public MenuItem.Review createNewReview(MenuItem.Review newReview){return reviewRepo.save(newReview);}
+    public MenuItem.Review createNewReview(MenuItem.Review newReview) {
+        return reviewRepo.save(newReview);
+    }
 
     public List<MenuItem> getAllMenuItemsByProductType(String productType) {
         return menuItemRepo.findAll(productType);
@@ -98,15 +100,10 @@ public class MenuItemAndReviewService {
         return reviewRepo.findByDateOfAndReviewOwner(dateJoined, reviewOwner);
     }
 
-    public List<MenuItem.Review> getAllGoodReviews() {
-        String content = "good";
-        return reviewRepo.findByContent(content);
+    public Optional<MenuItem.Review> findReviewById(String id) {
+        return reviewRepo.findByReviewId(id);
     }
 
-    public List<MenuItem.Review> getAllBadReviews() {
-        String content = "bad";
-        return reviewRepo.findByContent(content);
-    }
 
     public void deleteReview(String id) {
         reviewRepo.deleteReviewById(id);

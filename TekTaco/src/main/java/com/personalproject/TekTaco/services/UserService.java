@@ -14,34 +14,42 @@ public class UserService {
     @Autowired
     UserRepository userRepo;
 
-public List<User> getAllUsers(){
-    return userRepo.findAll();
-}
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
+    }
 
-public User createNewUser(User newUser){
-    return userRepo.save(newUser);
-}
+    public User createNewUser(User newUser) {
+        return userRepo.save(newUser);
+    }
 
-public List<User> getUsersByDateJoinedBefore(Date dateBefore){
-    //TODO
-    //implement date creation and validation
+    public List<User> getUsersByDateJoinedBefore(Date dateBefore) {
+        //TODO
+        //implement date creation and validation
+        Date currentDate = new Date();
+        if (currentDate.before(dateBefore)) {
+            List<User> users = userRepo.findAll();
+            return users;
+        }
+        return userRepo.findUsersByDateJoinedBefore(dateBefore);
+    }
 
-    return userRepo.findUsersByDateJoinedBefore(dateBefore);
-}
+    public List<User> getUsersByDateJoinedAfter(Date dateAfter) {
+        //TODO
+        //implement date creation and validation
+        Date currentDate = new Date();
+        if (currentDate.after(dateAfter)) {
+            List<User> users = userRepo.findAll();
+            return users;
+        }
+        return userRepo.findUsersByDateJoinedAfter(dateAfter);
+    }
 
-public List<User> getUsersByDateJoinedAfter(Date dateAfter){
-    //TODO
-    //implement date creation and validation
+    public User getUserByUsername(String username) {
+        return userRepo.findUserByUsername(username);
+    }
 
-    return userRepo.findUsersByDateJoinedAfter(dateAfter);
-}
-
-public User getUserByUsername(String username){
-    return userRepo.findUserByUsername(username);
-}
-
-public void deleteUser(String id){
-    userRepo.deleteUserById(id);
-}
+    public void deleteUser(String id) {
+        userRepo.deleteUserById(id);
+    }
 
 }
