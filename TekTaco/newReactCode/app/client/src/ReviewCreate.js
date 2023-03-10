@@ -5,7 +5,7 @@ const ReviewCreate = ({ sku }) => {
   const [content, setContent] = useState("");
 
   const onSubmit = async (e) => {
-    await axios.post(`http://localhost:4002/menuItems/${sku}/reviews`, {
+    await axios.post(`http://localhost:4002/menuitems/reviews`, {
       content,
     });
 

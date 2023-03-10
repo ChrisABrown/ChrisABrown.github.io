@@ -9,11 +9,11 @@ app.use(cors());
 
 const reviewsByMenuItemSku = {};
 
-app.get("/menuItems/:sku/reviews", (req, res) => {
+app.get("/menuItems/reviews", (req, res) => {
   res.send(reviewsByMenuItemSku[req.params.sku] || []);
 });
 
-app.post("/menuItems/:sku/reviews", async (req, res) => {
+app.post("/menuItems/reviews", async (req, res) => {
   const reviewId = randomBytes(4).toString("hex");
   const { content } = req.body;
 
@@ -23,17 +23,21 @@ app.post("/menuItems/:sku/reviews", async (req, res) => {
 
   reviewsByMenuItemSku[req.params.sku] = reviews;
 
-  await axios
-    .post("http://localhost:4008/events", {
-      type: "ReviewCreated",
-      data: {
-        sku,
-        menuItem,
-      },
-    })
-    .catch((err) => console.error(err));
+  await axios.post("http://localhost:4008/events", {
+    type: "ReviewCreated",
+    data: {
+      id: reviewId,
+      content,
+      menuItemSku: req.params.sku,
+    },
+  });
 
   res.status(201).send(reviews);
+});
+
+app.post("/events", (req, res) => {
+  console.log("Event Received", req.body.type);
+  res.send({});
 });
 
 app.listen(4002, () => {

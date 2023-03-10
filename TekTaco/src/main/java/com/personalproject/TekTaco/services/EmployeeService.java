@@ -43,7 +43,7 @@ public class EmployeeService {
     }
 
     public Employee getEmployeeById(Integer id) {
-        return employeeRepo.findEmployeeById(id);
+        return employeeRepo.findEmployeeByEmployeeId(id);
     }
 
     public Employee getEmployeeAccessLevel(String accessLevel) {
@@ -60,7 +60,7 @@ public class EmployeeService {
     }
 
     public Optional<Employee> updateEmployeeInfo(Integer id, Employee employeeInfo) {
-        Optional<Employee> employee = Optional.ofNullable(employeeRepo.findEmployeeById(id));
+        Optional<Employee> employee = Optional.ofNullable(employeeRepo.findEmployeeByEmployeeId(id));
         if (employee.isPresent()) {
             Employee newHire = employee.get();
             newHire.setEmployeeId(employeeInfo.getEmployeeId());

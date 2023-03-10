@@ -9,28 +9,27 @@ app.use(cors());
 
 const employees = {};
 
-app.get("/4000/employees", (req, res) => {
+app.get("/employees", (req, res) => {
   res.send(employees);
 });
 
-app.post("/4000/employees", async (req, res) => {
+app.post("/employees", async (req, res) => {
   const id = randomBytes(5).toString("hex");
-  const { firstName } = req.body;
+  const { name } = req.body;
 
   employees[id] = {
     id,
-    firstName,
+    name,
   };
-
-  await axios.post("http://localhost:4008/events", {
-    type: "EmployeeCreated",
-    data: {
-      id: employeeId,
-      name,
-      email,
-      accessLevel,
-    },
-  });
+  await axios
+    .post("http://localhost:4008/events", {
+      type: "EmployeeCreated",
+      data: {
+        id,
+        name,
+      },
+    })
+    .catch((err) => console.error(err));
 
   res.status(201).send(employees[id]);
 });
@@ -42,5 +41,5 @@ app.post("/events", (req, res) => {
 });
 
 app.listen(4000, () => {
-  console.log("listening on 4000");
+  console.log("listening on 4000 - Employees");
 });

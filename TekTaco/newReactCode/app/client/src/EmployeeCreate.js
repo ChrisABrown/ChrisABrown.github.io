@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import useForm from "react-hook-form";
 import axios from "axios";
 
 const EmployeeCreate = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const [name, setName] = useState("");
+  const [adminAccess, setAdminAccess] = useState(false);
+
   const onSubmit = async () => {
-    await axios.post("http://localhost:4000/employees");
+    await axios.post("http://localhost:4000/employees", {
+      name,
+    });
+
+    setName("");
   };
 
   return (

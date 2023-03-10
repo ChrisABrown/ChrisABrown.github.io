@@ -18,13 +18,10 @@ const EmployeeList = () => {
       <div
         className="card"
         style={{ width: "30%", marginBottom: "20px" }}
-        key={employee.employeeId}
+        key={employee.id}
       >
         <div className="card-body">
           <h5>{employee.name}</h5>
-          <h6>{employee.accessLevel}</h6>
-          <h6>{employee.email}</h6>
-          <h6>{employee.employeeId}</h6>
         </div>
       </div>
     );
