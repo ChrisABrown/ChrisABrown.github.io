@@ -7,6 +7,7 @@ import ReactDOM from "react-dom/client";
 // import Menu from "./Components/MenuComponents/Menu";
 import Home from "./Home";
 import Menu from "./Menu";
+import InventoryPage from "./InventoryPage";
 // import AuthContextProvider from "./store/auth-context";
 
 export default function App() {
@@ -21,7 +22,7 @@ export default function App() {
           // element={<AuthContextProvider>{/* <Login /> */}</AuthContextProvider>}
         />
         {/* <Route path="/cart" element={<Cart />} /> */}
-        {/* <Route path="/inventory" element={<Inventory />} /> */}
+        <Route path="/inventory" element={<InventoryPage />} />
         {/* <Route path="/add-new-menuItem" element={<CreateNewMenuItem />} /> */}
       </Routes>
     </div>

@@ -22,6 +22,7 @@ const EmployeeList = () => {
       >
         <div className="card-body">
           <h5>{employee.name}</h5>
+          <h6>{employee.accessLevel}</h6>
         </div>
       </div>
     );

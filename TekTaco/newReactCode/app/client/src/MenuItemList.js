@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReviewCreate from "./ReviewCreate";
 import ReviewList from "./ReviewList";
 
-const MenuItemList = () => {
+export default function MenuItemList() {
   const [menuItems, setMenuItems] = useState({});
   const fetchMenuItems = async () => {
     const URL = "http://localhost:8080/";
@@ -45,6 +45,4 @@ const MenuItemList = () => {
       {renderedMenuItems}
     </div>
   );
-};
-
-export default MenuItemList;
+}

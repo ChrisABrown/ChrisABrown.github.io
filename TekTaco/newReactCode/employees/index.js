@@ -15,11 +15,12 @@ app.get("/employees", (req, res) => {
 
 app.post("/employees", async (req, res) => {
   const id = randomBytes(5).toString("hex");
-  const { name } = req.body;
+  const { name, accessLevel } = req.body;
 
   employees[id] = {
     id,
     name,
+    accessLevel,
   };
   await axios
     .post("http://localhost:4008/events", {
@@ -27,6 +28,7 @@ app.post("/employees", async (req, res) => {
       data: {
         id,
         name,
+        accessLevel,
       },
     })
     .catch((err) => console.error(err));

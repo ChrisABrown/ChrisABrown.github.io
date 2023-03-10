@@ -3,11 +3,14 @@ import axios from "axios";
 
 const EmployeeCreate = () => {
   const [name, setName] = useState("");
-  const [adminAccess, setAdminAccess] = useState(false);
+  const [accessLevel, setAccessLevel] = useState("");
 
   const onSubmit = async () => {
     await axios.post("http://localhost:4000/employees", {
-      name,
+      data: {
+        name,
+        accessLevel,
+      },
     });
 
     setName("");
@@ -24,11 +27,10 @@ const EmployeeCreate = () => {
             onChange={(e) => setName(e.target.value)}
             className="form-control"
           />
-          <label>Give Admin Access?</label>
+          <label>Access Level</label>
           <input
-            value={adminAccess}
-            type="checkbox"
-            onChange={() => setAdminAccess(true)}
+            value={accessLevel}
+            onChange={(e) => setAccessLevel(e.target.value)}
             className="form-control"
           />
         </div>

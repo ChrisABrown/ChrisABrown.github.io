@@ -13,7 +13,7 @@ app.get("/menuItems", (req, res) => {
   res.send(menuItems);
 });
 
-app.post("/menuItems/", (req, res) => {
+app.post("/menuItems", (req, res) => {
   const sku = randomBytes(4).toString("hex");
   const { menuItem } = req.body;
 
