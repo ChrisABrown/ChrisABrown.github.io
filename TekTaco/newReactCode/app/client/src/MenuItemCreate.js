@@ -4,16 +4,16 @@ import axios from "axios";
 const MenuItemCreate = () => {
   const [menuItem, setMenuItem] = useState({
     name: "",
-    price: "",
+    price: 0,
     image: "",
-    inStock: "",
+    inStock: 0,
     productType: "",
     description: "",
   });
 
   const onSubmit = async () => {
     await axios.post("http://localhost:4004/menuItems", {
-      data: { menuItem },
+      menuItem,
     });
   };
 
@@ -60,7 +60,12 @@ const MenuItemCreate = () => {
             onChange={handleChange("description")}
             className="form-control"
           />{" "}
-          <label>Reviews</label>
+          <label>Product Type</label>
+          <input
+            value={menuItem.productType}
+            onChange={handleChange("productType")}
+            className="form-control"
+          />{" "}
         </div>
         <button className="btn btn-primary">Submit</button>
       </form>

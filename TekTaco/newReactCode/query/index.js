@@ -27,8 +27,14 @@ app.post("/events", (req, res) => {
 
     menuItem.reviews.push({ id, content });
   }
+  if (type == "MenuItemCreated") {
+    const { sku, menuItem } = data;
+    const item = menuItems[sku];
 
-  console.log(employees);
+    menuItems[sku] = { sku, menuItem };
+  }
+
+  console.log(menuItems);
 });
 
 app.listen(4001, () => {

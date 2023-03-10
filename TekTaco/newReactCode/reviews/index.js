@@ -41,5 +41,5 @@ app.post("/events", (req, res) => {
 });
 
 app.listen(4002, () => {
-  console.log("listening on 4002");
+  console.log("listening on 4002 - reviews");
 });

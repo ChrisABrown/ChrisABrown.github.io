@@ -23,7 +23,7 @@ const ReviewCreate = ({ sku }) => {
             className="form-control"
           />
         </div>
-        <button className="btn btn-primary">Submit</button>
+        <button className="btn btn-secondary">Submit</button>
       </form>
     </div>
   );

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ReviewCreate from "./ReviewCreate";
-import ReviewList from "./ReviewList";
 
-export default function MenuItemList() {
+export default function InventoryList() {
   const [menuItems, setMenuItems] = useState([]);
   const fetchMenuItems = async () => {
     const URL = "http://localhost:4004/";
@@ -20,7 +18,6 @@ export default function MenuItemList() {
   useEffect(() => {
     fetchMenuItems().then((items) => {
       setMenuItems(items);
-      console.log(items);
     });
   }, []);
 
@@ -41,11 +38,8 @@ export default function MenuItemList() {
           <p>{product.description}</p>
           <p>{product.inStock}</p>
           <p>{product.productType}</p>
-          <ReviewList key={product.sku} sku={product.sku} />
-          <ReviewCreate sku={product.sku} />
-          <div>
-            <button className="btn btn-primary">Add to Cart</button>
-          </div>
+          <button>Update</button>
+          <button>Delete</button>
         </div>
       </div>
     );
