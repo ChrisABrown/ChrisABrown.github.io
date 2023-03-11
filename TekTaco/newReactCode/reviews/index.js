@@ -7,28 +7,28 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const reviewsByMenuItemId = {};
+const reviewsByMenuItemSku = {};
 
-app.get("/menuItems/reviews", (req, res) => {
-  res.send(reviewsByMenuItemId[req.params._id] || []);
+app.get("http://localhost:8080/menuItems/:sku/reviews", (req, res) => {
+  res.send(reviewsByMenuItemSku[req.params.sku] || []);
 });
 
-app.post("/menuItems/reviews", async (req, res) => {
+app.post("http://localhost:8080/menuItems/:sku/reviews", async (req, res) => {
   const reviewId = randomBytes(4).toString("hex");
   const { content } = req.body;
 
-  const reviews = reviewsByMenuItemId[req.params._id] || [];
+  const reviews = reviewsByMenuItemSku[req.params.sku] || [];
 
   reviews.push({ id: reviewId, content });
 
-  reviewsByMenuItemId[req.params._id] = reviews;
+  reviewsByMenuItemSku[req.params.sku] = reviews;
 
   await axios.post("http://localhost:4008/events", {
     type: "ReviewCreated",
     data: {
       id: reviewId,
       content,
-      menuItemId: req.params._id,
+      menuItemSku: req.params.sku,
     },
   });
 

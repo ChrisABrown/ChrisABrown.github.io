@@ -25,7 +25,7 @@ export default function MenuItemList() {
 
   const renderedMenuItems = Object.values(menuItems).map((item) => {
     const product = item;
-    console.log(product.reviews);
+    console.log(product);
 
     return (
       <div
@@ -35,13 +35,15 @@ export default function MenuItemList() {
       >
         <div className="card-body">
           <h3>{product.name}</h3>
+          <h4>{product.sku}</h4>
           <h6>${product.price.toFixed(2)}</h6>
           <img src={product.image} height={200} width={200} alt="food images" />
           <p>{product.description}</p>
           <p>{product.inStock}</p>
           <p>{product.productType}</p>
-          <ReviewList reviews={product.reviews} />
-          <ReviewCreate key={product._id} />
+          <p>{product.reviews}</p>
+          <ReviewList reviews={product.reviewList} />
+          <ReviewCreate key={product.sku} sku={product.sku} />
           <div>
             <button className="btn btn-primary">Add to Cart</button>
           </div>

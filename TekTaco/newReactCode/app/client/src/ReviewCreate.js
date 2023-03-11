@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import ReviewList from "./ReviewList";
 
-const ReviewCreate = ({ reviews }) => {
+const ReviewCreate = ({ sku }) => {
   const [content, setContent] = useState("");
+  console.log(sku);
 
   const onSubmit = async (e) => {
-    await axios.post(`http://localhost:4002/menuitems/reviews`, {
+    await axios.post(`http://localhost:8080/menuItems/${sku}/reviews`, {
+      sku,
       content,
     });
 

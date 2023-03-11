@@ -21,6 +21,7 @@ public class MenuItemAndReviewService {
 
     @Autowired
     MenuItemRepository menuItemRepo;
+    @Autowired
     ReviewRepository reviewRepo;
     private String id;
     private MenuItem itemDetails;
@@ -31,6 +32,9 @@ public class MenuItemAndReviewService {
     }
 
     public MenuItem.Review createNewReview(MenuItem.Review newReview) {
+        MenuItem menuItem = null;
+        List<MenuItem.Review> reviewList = menuItem.getReviewList();
+        reviewList.add(newReview);
         return reviewRepo.save(newReview);
     }
 
@@ -51,7 +55,7 @@ public class MenuItemAndReviewService {
     }
 
 
-    public Optional<MenuItem> updateMenuItem(String id, MenuItem itemDetails) {
+    public void updateMenuItem(String id, MenuItem itemDetails) {
         Optional<MenuItem> result;
         this.id = id;
         this.itemDetails = itemDetails;
@@ -71,7 +75,6 @@ public class MenuItemAndReviewService {
         } else {
             result = menuItem;
         }
-        return result;
     }
 
     public Optional<MenuItem> getMenuItemByName(String name) {
@@ -95,6 +98,7 @@ public class MenuItemAndReviewService {
     public List<MenuItem.Review> getAllReviewsForMenuItemWithSku(String sku) {
         return reviewRepo.findAll(sku);
     }
+
 
     public List<MenuItem.Review> getAllReviewsByReviewOwnerOrderedByDateJoined(Date dateJoined, User reviewOwner) {
         return reviewRepo.findByDateOfAndReviewOwner(dateJoined, reviewOwner);

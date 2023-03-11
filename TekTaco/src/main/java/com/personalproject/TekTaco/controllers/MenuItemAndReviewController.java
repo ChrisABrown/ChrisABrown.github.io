@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -95,37 +94,35 @@ public class MenuItemAndReviewController {
 
     @PostMapping("/{sku}/reviews")
     public ResponseEntity<Object> createReviewForMenuItemWithSku(@PathVariable @RequestParam String sku, @RequestBody MenuItem.Review review) {
-        List<MenuItem.Review> reviewList = menuItemAndReviewService.getAllReviewsForMenuItemWithSku(sku);
-        if (reviewList.isEmpty()) {
-            reviewList.add(review);
-        }
-        MenuItem.Review newReview = menuItemAndReviewService.createNewReview(review);
-        if (newReview != null) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New review with id: " + newReview.get_id() + " created for menuItem with sku: " + sku, true, newReview.getContent()), HttpStatus.CREATED);
+        Optional<MenuItem> anyMenuItem = menuItemAndReviewService.getMenuItemBySku(sku);
+        List<MenuItem.Review> anyMenuItemReviewList = anyMenuItem.get().getReviewList();
+        anyMenuItemReviewList.add(review);
+        if (review != null && anyMenuItemReviewList.contains(review)) {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New review created for menuItem with sku: " + sku, true, review.getContent()), HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Not Created", false, null), HttpStatus.NOT_FOUND);
         }
     }
 
+
     @GetMapping("/{sku}/reviews")
     public ResponseEntity<Object> getAllReviewsForMenuItemWithSku(@PathVariable @RequestParam String sku) {
         Optional<MenuItem> reviewedMenuItem = menuItemAndReviewService.getMenuItemBySku(sku);
-        List<MenuItem.Review> reviewsList = menuItemAndReviewService.getAllReviewsForMenuItemWithSku(sku);
+        List<MenuItem.Review> reviewListForReviewedMenuItem = reviewedMenuItem.get().getReviewList();
 
-        if (reviewsList.isEmpty()) {
+        if (reviewListForReviewedMenuItem.isEmpty()) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Could not find reviews for menuItem with sku: " + sku, false, null), HttpStatus.NOT_FOUND);
-        } else if (Objects.equals(reviewedMenuItem.get().getSku(), sku)) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "All reviews for menuItem with sku: " + sku, true, reviewsList), HttpStatus.FOUND);
+        } else {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "All reviews for menuItem with sku: " + sku, true, reviewedMenuItem), HttpStatus.FOUND);
         }
-        return null;
     }
 
     @DeleteMapping("/{sku}/reviews/{id}")
-    public ResponseEntity<Object> deleteReviewById(@PathVariable String id,  @PathVariable String sku) {
+    public ResponseEntity<Object> deleteReview(@PathVariable String id, @PathVariable String sku) {
         List<MenuItem.Review> reviewList = menuItemAndReviewService.getAllReviewsForMenuItemWithSku(sku);
         Optional<MenuItem.Review> foundReview = menuItemAndReviewService.findReviewById(id);
         if (reviewList.contains(foundReview)) {
-            menuItemAndReviewService.deleteReview(foundReview.get().get_id());
+
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "Review with id: " + id + " for MenuITem with sku: " + sku + " has been  successfully deleted", true, foundReview), HttpStatus.OK);
 
         } else {

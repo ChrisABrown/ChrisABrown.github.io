@@ -27,7 +27,7 @@ app.post("/menuItems", async (req, res) => {
       price: parseInt(menuItem["price"]),
       image: menuItem["image"],
       inStock: parseInt(menuItem["inStock"]),
-      reviews: [],
+      reviewList: menuItem["reviewList"],
       productType: menuItem["productType"],
       description: menuItem["description"],
     },

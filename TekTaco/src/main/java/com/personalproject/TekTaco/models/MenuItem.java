@@ -21,9 +21,10 @@ public class MenuItem {
     private String image;
     private String sku;
     private String productType;
-    private List<Review> reviewList = new ArrayList<>();
+    private List<Review> reviewList;
 
     private MenuItem() {
+        reviewList = new ArrayList<>();
     }
 
     public MenuItem(String name, int price, int inStock, String description, String image, String sku, List<Review> reviewList, String productType) {
@@ -105,11 +106,7 @@ public class MenuItem {
         this.productType = productType;
     }
 
-    @Data
-    @Document(collection = "Reviews")
     public static class Review {
-        @Id
-        private String _id;
 
         private String content;
 
@@ -127,9 +124,6 @@ public class MenuItem {
             return content;
         }
 
-        public String get_id() {
-            return _id;
-        }
 
         public void setContent(String content) {
             this.content = content;
