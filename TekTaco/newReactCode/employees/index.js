@@ -4,6 +4,7 @@ const axios = require("axios");
 const { randomBytes } = require("crypto");
 
 const app = express();
+
 app.use(express.json());
 app.use(cors());
 
@@ -14,21 +15,24 @@ app.get("/employees", (req, res) => {
 });
 
 app.post("/employees", async (req, res) => {
-  const id = randomBytes(5).toString("hex");
-  const { name, accessLevel } = req.body;
+  const id = randomBytes(3).toString("hex");
+  const { employee } = req.body;
 
   employees[id] = {
-    id,
-    name,
-    accessLevel,
+    employee: {
+      employeeId: id,
+      name: employee["name"],
+      accessLevel: employee["accessLevel"],
+      email: employee["email"],
+    },
   };
+
   await axios
     .post("http://localhost:4008/events", {
       type: "EmployeeCreated",
       data: {
         id,
-        name,
-        accessLevel,
+        employee,
       },
     })
     .catch((err) => console.error(err));

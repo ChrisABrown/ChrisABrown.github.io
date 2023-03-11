@@ -21,5 +21,5 @@ app.post("/events", (req, res) => {
 });
 
 app.listen(4008, () => {
-  console.log("listening on 4008");
+  console.log("listening on 4008 - event-bus");
 });

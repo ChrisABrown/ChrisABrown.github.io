@@ -1,28 +1,38 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-const EmployeeList = () => {
-  const [employees, setEmployees] = useState({});
-
+export default function EmployeeList() {
+  const [employees, setEmployees] = useState([]);
   const fetchEmployees = async () => {
-    const res = await axios.get("http://localhost:4000/employees");
-    setEmployees(res.data);
+    const URL = "http://localhost:4001/";
+    try {
+      const response = await fetch(`${URL}employees`, {
+        cache: "default",
+      });
+
+      return await response.json();
+    } catch (error) {
+      return console.log(error);
+    }
   };
 
   useEffect(() => {
-    fetchEmployees();
+    fetchEmployees().then((employees) => {
+      setEmployees(employees);
+    });
   }, []);
 
   const renderedEmployees = Object.values(employees).map((employee) => {
+    const staff = employee.employee;
     return (
       <div
         className="card"
         style={{ width: "30%", marginBottom: "20px" }}
-        key={employee.id}
+        key={staff.name}
       >
         <div className="card-body">
-          <h5>{employee.name}</h5>
-          <h6>{employee.accessLevel}</h6>
+          <h5>{staff.name}</h5>
+          <h6>{staff.email}</h6>
+          <h6>{staff.accessLevel}</h6>
         </div>
       </div>
     );
@@ -33,6 +43,4 @@ const EmployeeList = () => {
       {renderedEmployees}
     </div>
   );
-};
-
-export default EmployeeList;
+}

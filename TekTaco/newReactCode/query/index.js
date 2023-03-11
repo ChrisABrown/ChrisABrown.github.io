@@ -7,6 +7,7 @@ app.use(cors());
 
 const employees = {};
 const menuItems = {};
+const reviews = {};
 
 app.get("/employees", (req, res) => {
   res.send(employees);
@@ -16,16 +17,16 @@ app.post("/events", (req, res) => {
   const { type, data } = req.body;
 
   if (type === "EmployeeCreated") {
-    const { id, name, accessLevel } = data;
-    employees[id] = { id, name, accessLevel };
+    const { id, employee } = data;
+    employees[id] = { employee };
   }
 
   if (type === "ReviewCreated") {
     const { id, content, menuItemSku } = data;
 
-    const menuItem = menuItems[menuItemSku];
+    // const menuItem = menuItems[menuItemSku];
 
-    menuItem.reviews.push({ id, content });
+    reviews.push({ id, content });
   }
   if (type == "MenuItemCreated") {
     const { sku, menuItem } = data;
@@ -35,6 +36,7 @@ app.post("/events", (req, res) => {
   }
 
   console.log(menuItems);
+  console.log(employees);
 });
 
 app.listen(4001, () => {

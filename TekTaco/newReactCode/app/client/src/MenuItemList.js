@@ -5,7 +5,7 @@ import ReviewList from "./ReviewList";
 export default function MenuItemList() {
   const [menuItems, setMenuItems] = useState([]);
   const fetchMenuItems = async () => {
-    const URL = "http://localhost:4004/";
+    const URL = "http://localhost:8080/";
     try {
       const response = await fetch(`${URL}menuItems`, {
         cache: "default",
@@ -19,20 +19,19 @@ export default function MenuItemList() {
 
   useEffect(() => {
     fetchMenuItems().then((items) => {
-      setMenuItems(items);
-      console.log(items);
+      setMenuItems(items.data);
     });
   }, []);
 
   const renderedMenuItems = Object.values(menuItems).map((item) => {
-    const product = item.menuItem;
+    const product = item;
+    console.log(product.reviews);
 
-    console.log(product.price);
     return (
       <div
         className="card"
         style={{ width: "30%", marginBottom: "20px" }}
-        key={product.sku}
+        key={product._id}
       >
         <div className="card-body">
           <h3>{product.name}</h3>
@@ -41,8 +40,8 @@ export default function MenuItemList() {
           <p>{product.description}</p>
           <p>{product.inStock}</p>
           <p>{product.productType}</p>
-          <ReviewList key={product.sku} sku={product.sku} />
-          <ReviewCreate sku={product.sku} />
+          <ReviewList reviews={product.reviews} />
+          <ReviewCreate key={product._id} />
           <div>
             <button className="btn btn-primary">Add to Cart</button>
           </div>

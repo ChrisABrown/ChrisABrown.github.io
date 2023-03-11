@@ -7,28 +7,28 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const reviewsByMenuItemSku = {};
+const reviewsByMenuItemId = {};
 
 app.get("/menuItems/reviews", (req, res) => {
-  res.send(reviewsByMenuItemSku[req.params.sku] || []);
+  res.send(reviewsByMenuItemId[req.params._id] || []);
 });
 
 app.post("/menuItems/reviews", async (req, res) => {
   const reviewId = randomBytes(4).toString("hex");
   const { content } = req.body;
 
-  const reviews = reviewsByMenuItemSku[req.params.sku] || [];
+  const reviews = reviewsByMenuItemId[req.params._id] || [];
 
   reviews.push({ id: reviewId, content });
 
-  reviewsByMenuItemSku[req.params.sku] = reviews;
+  reviewsByMenuItemId[req.params._id] = reviews;
 
   await axios.post("http://localhost:4008/events", {
     type: "ReviewCreated",
     data: {
       id: reviewId,
       content,
-      menuItemSku: req.params.sku,
+      menuItemId: req.params._id,
     },
   });
 
@@ -41,5 +41,5 @@ app.post("/events", (req, res) => {
 });
 
 app.listen(4002, () => {
-  console.log("listening on 4002 - reviews");
+  console.log("listening on 4002 - Reviews");
 });

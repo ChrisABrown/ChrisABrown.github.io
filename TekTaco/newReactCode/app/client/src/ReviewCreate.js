@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import ReviewList from "./ReviewList";
 
-const ReviewCreate = ({ sku }) => {
+const ReviewCreate = ({ reviews }) => {
   const [content, setContent] = useState("");
 
   const onSubmit = async (e) => {

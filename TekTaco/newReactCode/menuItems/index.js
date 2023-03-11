@@ -33,15 +33,15 @@ app.post("/menuItems", async (req, res) => {
     },
   };
 
-  // menuItems.push({ menuItem });
-
-  await axios.post("http://localhost:4008/events", {
-    type: "MenuItemCreated",
-    data: {
-      id: sku,
-      menuItem,
-    },
-  });
+  await axios
+    .post("http://localhost:4008/events", {
+      type: "MenuItemCreated",
+      data: {
+        sku,
+        menuItem,
+      },
+    })
+    .catch((err) => console.error(err));
 
   res.status(201).send(menuItems[sku]);
 });
@@ -52,5 +52,5 @@ app.post("/events", (req, res) => {
 });
 
 app.listen(4004, () => {
-  console.log("listening on 4004");
+  console.log("listening on 4004 - MenuItems");
 });

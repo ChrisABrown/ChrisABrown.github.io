@@ -2,18 +2,24 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const EmployeeCreate = () => {
-  const [name, setName] = useState("");
-  const [accessLevel, setAccessLevel] = useState("");
+  const [employee, setEmployee] = useState({
+    name: "",
+    accessLevel: "",
+    email: "",
+  });
 
   const onSubmit = async () => {
     await axios.post("http://localhost:4000/employees", {
-      data: {
-        name,
-        accessLevel,
-      },
+      employee,
     });
+  };
 
-    setName("");
+  const handleChange = (field) => {
+    return (e) =>
+      setEmployee((employee) => ({
+        ...employee,
+        [field]: e.target.value,
+      }));
   };
 
   return (
@@ -23,16 +29,22 @@ const EmployeeCreate = () => {
           <h3>Add New Employee</h3>
           <label>Name</label>
           <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={employee.name}
+            onChange={handleChange("name")}
             className="form-control"
           />
           <label>Access Level</label>
           <input
-            value={accessLevel}
-            onChange={(e) => setAccessLevel(e.target.value)}
+            value={employee.accessLevel}
+            onChange={handleChange("accessLevel")}
             className="form-control"
-          />
+          />{" "}
+          <label>Email</label>
+          <input
+            value={employee.email}
+            onChange={handleChange("email")}
+            className="form-control"
+          />{" "}
         </div>
         <button className="btn btn-primary">Submit</button>
       </form>
