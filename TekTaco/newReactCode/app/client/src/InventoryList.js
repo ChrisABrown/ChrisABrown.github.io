@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 export default function InventoryList() {
   const [menuItems, setMenuItems] = useState([]);
   const fetchMenuItems = async () => {
-    const URL = "http://localhost:4004/";
+    const URL = "http://localhost:8080/";
     try {
       const response = await fetch(`${URL}menuItems`, {
         cache: "default",
@@ -17,14 +17,12 @@ export default function InventoryList() {
 
   useEffect(() => {
     fetchMenuItems().then((items) => {
-      setMenuItems(items);
+      setMenuItems(items.data);
     });
   }, []);
 
   const renderedMenuItems = Object.values(menuItems).map((item) => {
-    const product = item.menuItem;
-
-    console.log(product.price);
+    const product = item;
     return (
       <div
         className="card"
