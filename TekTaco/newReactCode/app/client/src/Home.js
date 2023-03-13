@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import './index.css'
+import HomeScreen from './screens/HomeScreen'
 
 const Home = () => {
   return (
@@ -11,8 +12,7 @@ const Home = () => {
       <Header />
       <main className='py-3'>
         <Container>
-          <h1>Welcome to TekTacos!</h1>
-          <MenuItemList />
+          <HomeScreen />
         </Container>
       </main>
       <Footer />
