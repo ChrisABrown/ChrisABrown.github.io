@@ -1,13 +1,11 @@
 import React from "react";
 import NavBar from "./NavBar";
 
-const Home = () => {
+export default function CartPage() {
   return (
     <div>
       <NavBar />
-      <h1>Welcome to TekTacos!</h1>
+      <h1>Your Cart</h1>
     </div>
   );
-};
-
-export default Home;
+}

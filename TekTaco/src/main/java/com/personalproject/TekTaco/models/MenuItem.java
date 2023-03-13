@@ -4,10 +4,6 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 @Data
 @Document(collection = "Inventory")
 public class MenuItem {
@@ -21,20 +17,18 @@ public class MenuItem {
     private String image;
     private String sku;
     private String productType;
-    private List<Review> reviewList;
 
     private MenuItem() {
-        reviewList = new ArrayList<>();
+
     }
 
-    public MenuItem(String name, int price, int inStock, String description, String image, String sku, List<Review> reviewList, String productType) {
+    public MenuItem(String name, int price, int inStock, String description, String image, String sku, String productType) {
         this.name = name;
         this.price = price;
         this.inStock = inStock;
         this.description = description;
         this.image = image;
         this.sku = sku;
-        this.reviewList = reviewList;
         this.productType = productType;
     }
 
@@ -106,55 +100,4 @@ public class MenuItem {
         this.productType = productType;
     }
 
-    public static class Review {
-
-        private String content;
-
-        private String menuItemSku;
-        private Date dateOf;
-        private User reviewOwner;
-        public Review(String content, String menuItemSku, Date dateOf, User reviewOwner) {
-            this.content = content;
-            this.menuItemSku = menuItemSku;
-            this.dateOf = dateOf;
-            this.reviewOwner = reviewOwner;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public String getMenuItemSku() {
-            return menuItemSku;
-        }
-
-        public void setMenuItemSku(String menuItemSku) {
-            this.menuItemSku = menuItemSku;
-        }
-
-        public Date getDateOf() {
-            return dateOf;
-        }
-
-        public void setDateOf(Date dateOf) {
-            this.dateOf = dateOf;
-        }
-
-        public User getReviewOwner() {
-            return reviewOwner;
-        }
-
-        public void setReviewOwner(User reviewOwner) {
-            this.reviewOwner = reviewOwner;
-        }
-
-        public Review() {
-        }
-
-    }
 }

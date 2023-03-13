@@ -10,11 +10,11 @@ app.use(cors());
 
 const employees = {};
 
-app.get("/employees", (req, res) => {
+app.get("/admin", (req, res) => {
   res.send(employees);
 });
 
-app.post("/employees", async (req, res) => {
+app.post("/admin", async (req, res) => {
   const id = randomBytes(3).toString("hex");
   const { employee } = req.body;
 

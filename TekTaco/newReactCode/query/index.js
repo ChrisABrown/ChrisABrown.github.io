@@ -1,5 +1,6 @@
 const cors = require("cors");
 const express = require("express");
+const axios = require("axios");
 
 const app = express();
 app.use(express.json());
@@ -7,7 +8,19 @@ app.use(cors());
 
 const employees = {};
 const menuItems = {};
-const reviews = {};
+const handleEvent = (type, data) => {
+  if (type === "EmployeeCreated") {
+    const { id, employee } = data;
+    employees[id] = { employee };
+  }
+
+  if (type == "MenuItemCreated") {
+    const { sku, menuItem } = data;
+    const item = menuItems[sku];
+
+    menuItems[sku] = { sku, menuItem };
+  }
+};
 
 app.get("/employees", (req, res) => {
   res.send(employees);
@@ -16,29 +29,18 @@ app.get("/employees", (req, res) => {
 app.post("/events", (req, res) => {
   const { type, data } = req.body;
 
-  if (type === "EmployeeCreated") {
-    const { id, employee } = data;
-    employees[id] = { employee };
-  }
-
-  if (type === "ReviewCreated") {
-    const { id, content, menuItemSku } = data;
-
-    // const menuItem = menuItems[menuItemSku];
-
-    reviews.push({ id, content });
-  }
-  if (type == "MenuItemCreated") {
-    const { sku, menuItem } = data;
-    const item = menuItems[sku];
-
-    menuItems[sku] = { sku, menuItem };
-  }
-
-  console.log(menuItems);
-  console.log(employees);
+  handleEvent(type, data);
+  res.send({});
 });
 
-app.listen(4001, () => {
+app.listen(4001, async () => {
   console.log("listening on 4001 - Query");
+
+  const res = await axios.get("http://localhost:4008/events");
+
+  for (let event of res.data) {
+    console.log("Processing event", event.type);
+
+    handleEvent(event.type, event.data);
+  }
 });

@@ -9,7 +9,7 @@ const EmployeeCreate = () => {
   });
 
   const onSubmit = async () => {
-    await axios.post("http://localhost:4000/employees", {
+    await axios.post("http://localhost:8080/admin", {
       employee,
     });
   };

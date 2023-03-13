@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 export default function EmployeeList() {
   const [employees, setEmployees] = useState([]);
   const fetchEmployees = async () => {
-    const URL = "http://localhost:4001/";
+    const URL = "http://localhost:8080/";
     try {
-      const response = await fetch(`${URL}employees`, {
+      const response = await fetch(`${URL}admin`, {
         cache: "default",
       });
 
@@ -22,7 +22,7 @@ export default function EmployeeList() {
   }, []);
 
   const renderedEmployees = Object.values(employees).map((employee) => {
-    const staff = employee.employee;
+    const staff = employee;
     return (
       <div
         className="card"
