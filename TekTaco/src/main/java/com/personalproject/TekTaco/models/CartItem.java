@@ -5,5 +5,5 @@ public class CartItem {
     private Integer price;
     private Integer quantity;
     private String imageUrl;
-    
+
 }
