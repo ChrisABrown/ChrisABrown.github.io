@@ -29,6 +29,7 @@ app.post("/menuItems", async (req, res) => {
       inStock: parseInt(menuItem["inStock"]),
       productType: menuItem["productType"],
       description: menuItem["description"],
+      status: "pending",
     },
   };
 

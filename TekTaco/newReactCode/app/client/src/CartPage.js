@@ -1,11 +1,9 @@
-import React from "react";
-import NavBar from "./NavBar";
+import React from 'react'
 
 export default function CartPage() {
   return (
     <div>
-      <NavBar />
       <h1>Your Cart</h1>
     </div>
-  );
+  )
 }
