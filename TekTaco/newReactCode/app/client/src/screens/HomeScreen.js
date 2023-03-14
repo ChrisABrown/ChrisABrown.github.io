@@ -27,8 +27,8 @@ const HomeScreen = () => {
       <Row>
         {Object.values(menuItems).map((item) => {
           return (
-            <Col sm={12} md={6} lg={4} xl={3}>
-              <Product key={item.sku} item={item} />
+            <Col sm={12} md={6} lg={4} xl={3} key={item._id}>
+              <Product item={item} />
             </Col>
           )
         })}
