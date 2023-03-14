@@ -1,5 +1,4 @@
 import React from 'react'
-import MenuItemList from './MenuItemList'
 import { Container } from 'react-bootstrap'
 import Footer from './components/Footer'
 import Header from './components/Header'

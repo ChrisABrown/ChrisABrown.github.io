@@ -17,17 +17,17 @@ public class User {
     private Date dateJoined;
     private String email;
     private String password;
-    private List<MenuItem.Review> reviewsMade = new ArrayList<>();
+
 
     public User() {
     }
 
-    public User(String username, Date dateJoined, String email, String password, List<MenuItem.Review> reviewsMade) {
+    public User(String username, Date dateJoined, String email, String password) {
         this.username = username;
         this.dateJoined = dateJoined;
         this.email = email;
         this.password = password;
-        this.reviewsMade = reviewsMade;
+
     }
 
     public String getUsername() {
@@ -62,11 +62,4 @@ public class User {
         this.password = password;
     }
 
-    public List<MenuItem.Review> getReviewsMade() {
-        return reviewsMade;
-    }
-
-    public void setReviewsMade(List<MenuItem.Review> reviewsMade) {
-        this.reviewsMade = reviewsMade;
-    }
 }

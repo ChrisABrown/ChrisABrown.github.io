@@ -16,24 +16,36 @@ public class MenuItem {
     private String description;
     private String image;
     private String sku;
+    private Double rating;
+
+
+
     private String productType;
 
     private MenuItem() {
 
     }
 
-    public MenuItem(String name, int price, int inStock, String description, String image, String sku, String productType) {
+    public MenuItem(String name, int price, int inStock, String description, String image, String sku, Double rating, String productType) {
         this.name = name;
         this.price = price;
         this.inStock = inStock;
         this.description = description;
         this.image = image;
         this.sku = sku;
+        this.rating = rating;
         this.productType = productType;
     }
 
     public MenuItem getInstance(MenuItemDefinition menuItem) {
         return new MenuItem();
+    }
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 
     public String getImage() {

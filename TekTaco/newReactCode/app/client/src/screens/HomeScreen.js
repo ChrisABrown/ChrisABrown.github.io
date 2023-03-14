@@ -7,9 +7,7 @@ const HomeScreen = () => {
   const fetchMenuItems = async () => {
     const URL = 'http://localhost:8080/'
     try {
-      const response = await fetch(`${URL}menuItems`, {
-        cache: 'default',
-      })
+      const response = await fetch(`${URL}menuItems`, {})
 
       return await response.json()
     } catch (error) {
@@ -30,7 +28,7 @@ const HomeScreen = () => {
         {Object.values(menuItems).map((item) => {
           return (
             <Col sm={12} md={6} lg={4} xl={3}>
-              <Product item={item} />
+              <Product key={item.sku} item={item} />
             </Col>
           )
         })}
