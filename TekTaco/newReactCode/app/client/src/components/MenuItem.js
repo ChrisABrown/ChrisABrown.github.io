@@ -1,20 +1,20 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import Rating from './Rating'
 
-const Product = ({ item }) => {
-  console.log(item)
+const MenuItem = ({ item }) => {
   return (
     <Card className='my-3 py-3 rounded'>
-      <a href={`/menuItems/${item._id}`}>
+      <Link to={`/menuItems/getOne/${item._id}`}>
         <Card.Img src={item.image} variant='top' height={400}></Card.Img>
-      </a>
+      </Link>
       <Card.Body>
-        <a href={`/menuItems/${item._id}`}>
+        <Link to={`/menuItems/getOne/${item._id}`}>
           <Card.Title as='div'>
             <strong>{item.name}</strong>
           </Card.Title>
-        </a>
+        </Link>
         <Card.Text as='div'>
           <Rating
             value={item.rating}
@@ -30,4 +30,4 @@ const Product = ({ item }) => {
   )
 }
 
-export default Product
+export default MenuItem

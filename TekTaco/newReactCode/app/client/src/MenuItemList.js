@@ -23,7 +23,6 @@ export default function MenuItemList() {
 
   const renderedMenuItems = Object.values(menuItems).map((item) => {
     const product = item
-    console.log(product)
 
     return (
       <div

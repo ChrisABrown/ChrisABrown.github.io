@@ -1,28 +1,27 @@
-import { Link, Route, Routes } from "react-router-dom";
-import ReactDOM from "react-dom/client";
-import Home from "./Home";
-import Menu from "./Menu";
-import InventoryPage from "./InventoryPage";
-import AdminPage from "./AdminPage";
-import CartPage from "./CartPage";
-// import AuthContextProvider from "./store/auth-context";
+import React from 'react'
+import { Container } from 'react-bootstrap'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import './index.css'
+import HomeScreen from './screens/HomeScreen'
+import MenuScreen from './screens/MenuScreen'
 
-export default function App() {
+const App = () => {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
-
-        <Route
-          path="/login"
-          element={<AdminPage />}
-          // element={<AuthContextProvider>{/* <Login /> */}</AuthContextProvider>}
-        />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/inventory" element={<InventoryPage />} />
-        {/* <Route path="/add-new-menuItem" element={<CreateNewMenuItem />} /> */}
-      </Routes>
-    </div>
-  );
+    <Router>
+      <Header />
+      <main className='py-3'>
+        <Container>
+          <Routes>
+            <Route path='/' element={<HomeScreen />} exact />
+            <Route path='/menuItems/getOne/:id' element={<MenuScreen />} />
+          </Routes>
+        </Container>
+      </main>
+      <Footer />
+    </Router>
+  )
 }
+
+export default App

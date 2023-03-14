@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -41,12 +42,11 @@ public class MenuItemController {
 
     @GetMapping("/getOne/{id}")
     public ResponseEntity<Object> getMenuItemById(@PathVariable String id) {
-        List<MenuItem> menuItemList = menuItemService.getAllMenuItems();
 
         Optional<MenuItem> foundMenuItem = menuItemService.getMenuItemById(id);
 
-        if (!menuItemList.isEmpty()) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "MenuItem with id: " + id + " found", true, foundMenuItem), HttpStatus.OK);
+        if (foundMenuItem.isPresent() && Objects.equals(foundMenuItem.get().get_id(), id)) {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "MenuItem with id: " + id + " found", true, foundMenuItem), HttpStatus.FOUND);
         } else {
             return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
         }
