@@ -1,65 +1,38 @@
 package com.personalproject.TekTaco.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
-@Data
 @Document(collection = "Users")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     private String _id;
-    private String username;
-    private Date dateJoined;
-    private String email;
-    private String password;
+    private String name;
+    @DocumentReference
+    private ArrayList<Order> orders;
 
-
-    public User() {
+    public String getName() {
+        return name;
     }
 
-    public User(String username, Date dateJoined, String email, String password) {
-        this.username = username;
-        this.dateJoined = dateJoined;
-        this.email = email;
-        this.password = password;
-
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUsername() {
-        return username;
+    public ArrayList<Order> getOrders() {
+        return orders;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
     }
-
-    public Date getDateJoined() {
-        return dateJoined;
-    }
-
-    public void setDateJoined(Date dateJoined) {
-        this.dateJoined = dateJoined;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 }

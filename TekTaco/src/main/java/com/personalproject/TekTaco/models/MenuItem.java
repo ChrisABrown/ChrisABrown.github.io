@@ -33,9 +33,7 @@ public class MenuItem {
     private List<Review> reviewIds;
 
 
-    public MenuItem getInstance(MenuItemDefinition menuItem) {
-        return new MenuItem();
-    }
+
 
     public Integer getNumOfReviews() {
         return numOfReviews;
