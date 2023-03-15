@@ -34,5 +34,4 @@ build/
 .vscode/
 
 ENV files
-.env
 application.properties
