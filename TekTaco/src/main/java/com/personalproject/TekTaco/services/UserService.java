@@ -14,12 +14,13 @@ import java.util.Set;
 public class UserService {
 
     @Autowired
-    UserRepository userRepo;
+    private UserRepository userRepo;
 
     public Set<User> getAllUsers() {
         return userRepo.find();
     }
-    public Optional<User> getUserById(String id){
+
+    public Optional<User> getUserById(String id) {
         return userRepo.findById(id);
     }
 

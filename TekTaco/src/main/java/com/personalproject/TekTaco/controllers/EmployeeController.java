@@ -20,7 +20,7 @@ import java.util.Set;
 public class EmployeeController {
 
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
 
     @GetMapping
     public List<Employee> getAllEmployees() {

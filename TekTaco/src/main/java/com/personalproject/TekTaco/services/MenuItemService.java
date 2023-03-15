@@ -17,8 +17,7 @@ import java.util.Optional;
 public class MenuItemService {
 
     @Autowired
-    MenuItemRepository menuItemRepo;
-
+    private MenuItemRepository menuItemRepo;
 
 
     public MenuItem createNewMenuItem(MenuItem newItem) {

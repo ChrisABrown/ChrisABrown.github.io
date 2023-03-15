@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -18,7 +17,7 @@ import java.util.Set;
 public class EmployeeService {
 
     @Autowired
-    EmployeeRepository employeeRepo;
+    private EmployeeRepository employeeRepo;
 
 
     public List<Employee> createNewEmployees(Set<Employee> newEmployees) {

@@ -19,7 +19,7 @@ import java.util.Optional;
 public class MenuItemController {
 
     @Autowired
-    MenuItemService menuItemService;
+    private MenuItemService menuItemService;
 
     @GetMapping
     public ResponseEntity<Object> getAllMenuItems() {
