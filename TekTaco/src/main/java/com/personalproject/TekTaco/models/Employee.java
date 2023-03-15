@@ -1,40 +1,38 @@
 package com.personalproject.TekTaco.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
 
 @Document(collection = "Employees")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employee {
     @Id
-    private Integer employeeId;
+    private ObjectId employeeId;
     private String name;
     private String password;
-    private String accessLevel;
+
+    private Boolean isAdmin;
+
+
     private String email;
-
-    public Employee() {
-    }
-
-    public Employee(int employeeId, String name, String password, String accessLevel, String email) {
-        this.employeeId = employeeId;
-        this.name = name;
-        this.password = password;
-        this.accessLevel = accessLevel;
-        this.email = email;
-    }
 
     @Override
     public String toString() {
-        return String.format("Employee[employeeId='%s', name='%s', email='%s', accessLevel='%s']", employeeId, name, email, accessLevel);
+        return String.format("Employee[employeeId='%s', name='%s', email='%s', isAdmin='%s']", employeeId, name, email, isAdmin);
     }
 
-    public int getEmployeeId() {
+    public ObjectId getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(ObjectId employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -54,12 +52,12 @@ public class Employee {
         this.password = password;
     }
 
-    public String getAccessLevel() {
-        return accessLevel;
+    public Boolean getAdmin() {
+        return isAdmin;
     }
 
-    public void setAccessLevel(String accessLevel) {
-        this.accessLevel = accessLevel;
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 
     public String getEmail() {

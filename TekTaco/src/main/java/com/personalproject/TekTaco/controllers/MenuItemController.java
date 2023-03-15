@@ -3,6 +3,7 @@ package com.personalproject.TekTaco.controllers;
 import com.personalproject.TekTaco.models.AppResponse;
 import com.personalproject.TekTaco.models.MenuItem;
 import com.personalproject.TekTaco.services.MenuItemService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
-@RequestMapping("/menuItems")
+@RequestMapping("/api/v1/menuItems")
 public class MenuItemController {
 
     @Autowired
@@ -41,7 +42,7 @@ public class MenuItemController {
     }
 
     @GetMapping("/getOne/{id}")
-    public ResponseEntity<Object> getMenuItemById(@PathVariable String id) {
+    public ResponseEntity<Object> getMenuItemById(@PathVariable ObjectId id) {
 
         Optional<MenuItem> foundMenuItem = menuItemService.getMenuItemById(id);
 
@@ -68,11 +69,11 @@ public class MenuItemController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateMenuItem(@PathVariable String id, @RequestBody MenuItem updatedMenuItem) {
+    public ResponseEntity<Object> updateMenuItem(@PathVariable ObjectId id, @RequestBody MenuItem updatedMenuItem) {
         Optional<MenuItem> existingMenuItem = menuItemService.getMenuItemById(id);
 
         if (existingMenuItem.isPresent() && updatedMenuItem.get_id().equals(existingMenuItem.get().get_id())) {
-            String existingItemId = existingMenuItem.get().get_id();
+            ObjectId existingItemId = existingMenuItem.get().get_id();
             menuItemService.updateMenuItem(existingItemId, updatedMenuItem);
             return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Updated menuItem with id: " + existingItemId, true, updatedMenuItem), HttpStatus.FOUND);
         } else {
@@ -81,7 +82,7 @@ public class MenuItemController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> delete(@PathVariable String id) {
+    public ResponseEntity<Object> delete(@PathVariable ObjectId id) {
         Optional<MenuItem> isDeleted = menuItemService.getMenuItemById(id);
         if (isDeleted.isPresent()) {
             menuItemService.deleteMenuItem(id);

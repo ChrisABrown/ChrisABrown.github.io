@@ -3,6 +3,7 @@ package com.personalproject.TekTaco.services;
 
 import com.personalproject.TekTaco.models.MenuItem;
 import com.personalproject.TekTaco.repositories.MenuItemRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,7 @@ public class MenuItemService {
 
     @Autowired
     MenuItemRepository menuItemRepo;
-    private String id;
-    private MenuItem itemDetails;
+
 
 
     public MenuItem createNewMenuItem(MenuItem newItem) {
@@ -30,7 +30,7 @@ public class MenuItemService {
         return menuItemRepo.findAll(productType);
     }
 
-    public Optional<MenuItem> getMenuItemById(String id) {
+    public Optional<MenuItem> getMenuItemById(ObjectId id) {
         return menuItemRepo.findById(id);
     }
 
@@ -43,10 +43,8 @@ public class MenuItemService {
     }
 
 
-    public void updateMenuItem(String id, MenuItem itemDetails) {
+    public void updateMenuItem(ObjectId id, MenuItem itemDetails) {
         Optional<MenuItem> result;
-        this.id = id;
-        this.itemDetails = itemDetails;
 
         Optional<MenuItem> menuItem = menuItemRepo.findById(id);
         if (menuItem.isPresent()) {
@@ -79,7 +77,7 @@ public class MenuItemService {
         return count = menuItemRepo.count();
     }
 
-    public void deleteMenuItem(String id) {
+    public void deleteMenuItem(ObjectId id) {
         menuItemRepo.deleteMenuItemBy_id(id);
     }
 

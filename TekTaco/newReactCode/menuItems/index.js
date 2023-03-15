@@ -11,11 +11,11 @@ app.use(cors())
 
 const menuItems = {}
 
-app.get('/menuItems/get', (req, res) => {
+app.get('api/v1/menuItems/get', (req, res) => {
   res.send(menuItems)
 })
 
-app.post('/menuItems/add-new-menuItem', async (req, res) => {
+app.post('api/v1/menuItems/add-new-menuItem', async (req, res) => {
   const sku = randomBytes(4).toString('hex')
 
   const { menuItem } = req.body
@@ -35,7 +35,7 @@ app.post('/menuItems/add-new-menuItem', async (req, res) => {
   }
 
   await axios
-    .post('http://localhost:8080/add-new-menuItem', {
+    .post('http://localhost:8080/api/v1/menuItems/add-new-menuItem', {
       type: 'MenuItemCreated',
       data: {
         sku,

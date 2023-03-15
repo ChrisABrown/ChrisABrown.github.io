@@ -1,14 +1,23 @@
 package com.personalproject.TekTaco.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-@Data
+import java.util.List;
+
+
 @Document(collection = "Inventory")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MenuItem {
     @Id
-    private String _id;
+    private ObjectId _id;
 
     private String name;
     private int price;
@@ -20,23 +29,8 @@ public class MenuItem {
     private Integer numOfReviews;
 
     private String productType;
-
-    private MenuItem() {
-
-    }
-
-    public MenuItem(String name, int price, int inStock, String description, String image, String sku, Double rating, Integer numOfReviews, String productType) {
-        this.name = name;
-        this.price = price;
-        this.inStock = inStock;
-        this.description = description;
-        this.image = image;
-        this.sku = sku;
-        this.rating = rating;
-        this.numOfReviews = numOfReviews;
-        this.productType = productType;
-    }
-
+    @DocumentReference
+    private List<Review> reviewIds;
 
 
     public MenuItem getInstance(MenuItemDefinition menuItem) {
@@ -50,6 +44,7 @@ public class MenuItem {
     public void setNumOfReviews(Integer numOfReviews) {
         this.numOfReviews = numOfReviews;
     }
+
     public Double getRating() {
         return rating;
     }
@@ -66,11 +61,11 @@ public class MenuItem {
         this.image = image;
     }
 
-    public String get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 
-    public void set_id(String _id) {
+    public void set_id(ObjectId _id) {
         this._id = _id;
     }
 

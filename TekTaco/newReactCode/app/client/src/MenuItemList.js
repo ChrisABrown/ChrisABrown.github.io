@@ -5,7 +5,7 @@ export default function MenuItemList() {
   const fetchMenuItems = async () => {
     const URL = 'http://localhost:8080/'
     try {
-      const response = await fetch(`${URL}menuItems`, {
+      const response = await fetch(`${URL}api/v1/menuItems`, {
         cache: 'default',
       })
 
