@@ -26,6 +26,7 @@ public class MenuItemService {
 
 
     public MenuItem createNewMenuItem(MenuItem newItem) {
+        newItem.setSku();
         return menuItemRepo.save(newItem);
     }
 
@@ -43,16 +44,17 @@ public class MenuItemService {
             newMenuItem.setName(itemDetails.getName());
             newMenuItem.setPrice(itemDetails.getPrice());
             newMenuItem.setInStock(itemDetails.getInStock());
+            newMenuItem.setImage(itemDetails.getImage());
             newMenuItem.setDescription(itemDetails.getDescription());
-            newMenuItem.setSku(itemDetails.getSku());
+            newMenuItem.setSku();
             newMenuItem.setProductType(itemDetails.getProductType());
 
-            Optional.of(menuItemRepo.save(newMenuItem));
+            menuItemRepo.save(newMenuItem);
         }
     }
 
     public void deleteMenuItem(String id) {
-        menuItemRepo.deleteMenuItemBy_id(id);
+        menuItemRepo.deleteById(id);
     }
 
 }

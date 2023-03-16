@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.List;
+import java.util.Random;
 
 
 @Document(collection = "Inventory")
@@ -23,11 +24,13 @@ public class MenuItem {
     private int inStock;
     private String description;
     private String image;
+
     private String sku;
+
     private Double rating;
     private Integer numOfReviews;
-
     private String productType;
+
     @DocumentReference
     private List<Review> reviewIds;
 
@@ -40,4 +43,11 @@ public class MenuItem {
         this.sku = sku;
         this.productType = productType;
     }
+    public void setSku() {
+        Random num = new Random();
+        int skuGenerator = num.nextInt();
+        this.sku = Integer.toHexString(skuGenerator);
+    }
+
+
 }

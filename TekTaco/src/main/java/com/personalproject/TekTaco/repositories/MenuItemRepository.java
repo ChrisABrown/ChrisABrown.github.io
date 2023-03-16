@@ -15,9 +15,6 @@ public interface MenuItemRepository extends MongoRepository<MenuItem, String> {
     Optional<MenuItem> findById(String id);
     Optional<MenuItem> findMenuItemBySku(String sku);
 
-    @Query(value = "{'_id': ?0}", delete = true)
-    void deleteMenuItemBy_id(String id);
-
     long count();
 
 }

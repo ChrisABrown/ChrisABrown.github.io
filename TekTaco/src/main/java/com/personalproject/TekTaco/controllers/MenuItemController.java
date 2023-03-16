@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", methods = RequestMethod.GET)
+@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
 @RequestMapping("api/v1/menuItems")
 public class MenuItemController {
 
@@ -54,12 +54,12 @@ public class MenuItemController {
     @PostMapping("/add-new-menuItem")
     public ResponseEntity<Object> createNewMenuItem(@RequestBody MenuItem menuItem) {
         Optional<MenuItem> menuItem1 = menuItemService.getMenuItemById(menuItem.get_id());
-        if (menuItem1.isPresent()) {
+        if (menuItem1.isPresent() && menuItem1.get().getName().equals(menuItem.getName())) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "MenuItem already exists, id: " + menuItem.get_id(), false, null), HttpStatus.FOUND);
         }
         MenuItem newMenuItem = menuItemService.createNewMenuItem(menuItem);
         if (newMenuItem != null) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), newMenuItem + ", id: " + newMenuItem.get_id(), true, newMenuItem), HttpStatus.CREATED);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New Menu Item created with id: " + newMenuItem.get_id(), true, newMenuItem), HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Not Created", false, null), HttpStatus.NOT_FOUND);
         }
@@ -84,9 +84,9 @@ public class MenuItemController {
         Optional<MenuItem> isDeleted = menuItemService.getMenuItemById(id);
         if (isDeleted.isPresent()) {
             menuItemService.deleteMenuItem(id);
-            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "MenuItem, id: " + id + " has been deleted", true, null), HttpStatus.OK);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "MenuItem with id: " + id + " has been deleted", true, null), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "MenuItem, id: " + id + " not found", false, null), HttpStatus.OK);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "MenuItem with id: " + id + " not found", false, null), HttpStatus.OK);
         }
 
     }
