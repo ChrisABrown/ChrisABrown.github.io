@@ -17,22 +17,8 @@ public class User {
     @Id
     private String _id;
     private String name;
+    private String email;
     @DocumentReference
     private ArrayList<Order> orders;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ArrayList<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(ArrayList<Order> orders) {
-        this.orders = orders;
-    }
 }
