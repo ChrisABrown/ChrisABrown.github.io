@@ -19,56 +19,51 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepo;
 
+    public List<Employee> getAllEmployees() {
+        return employeeRepo.findAll();
+    }
+
+    public Employee getEmployeeById(ObjectId id) {
+        return employeeRepo.findEmployeeById((id));
+    }
+
 
     public List<Employee> createNewEmployees(Set<Employee> newEmployees) {
         List<Employee> employeeList = newEmployees.stream().toList();
         return employeeRepo.saveAll(employeeList);
     }
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepo.findAll();
-    }
-
-    public String findNumberOfEmployees() {
-        long count = employeeRepo.count();
-        return ("Number of current employees: " + count);
-    }
-
     public Set<Employee> getAdminEmployees(Boolean isAdmin) {
-        Set<Employee> adminEmployees = employeeRepo.findAll(isAdmin);
+        Set<Employee> adminEmployees = employeeRepo.findAdminEmployees(isAdmin);
         for (Employee adminEmployee : adminEmployees) {
-            Boolean admin = adminEmployee.getAdmin();
+            Boolean admin = adminEmployee.getIsAdmin();
             if (admin) {
-                return employeeRepo.findAll(true);
+                return employeeRepo.findAdminEmployees(true);
             }
             return null;
         }
         return adminEmployees;
     }
 
-    public Employee getEmployeeById(ObjectId id) {
-        return employeeRepo.findEmployeeByEmployeeId(id);
-    }
-
 
     public void deleteEmployee(ObjectId id) {
         id = getEmployeeById(id).getEmployeeId();
         try {
-            employeeRepo.deleteById(String.valueOf(id));
+            employeeRepo.deleteById(id);
         } catch (EmptyResultDataAccessException exception) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Employee found for the id " + id);
         }
     }
 
     public Optional<Employee> updateEmployeeInfo(ObjectId id, Employee employeeInfo) {
-        Optional<Employee> employee = Optional.ofNullable(employeeRepo.findEmployeeByEmployeeId(id));
+        Optional<Employee> employee = employeeRepo.findById(id);
         if (employee.isPresent()) {
             Employee newHire = employee.get();
             newHire.setEmployeeId(employeeInfo.getEmployeeId());
             newHire.setName(employeeInfo.getName());
             newHire.setEmail(employeeInfo.getEmail());
             newHire.setPassword(employeeInfo.getPassword());
-            newHire.setAdmin(employeeInfo.getAdmin());
+            newHire.setIsAdmin(employeeInfo.getIsAdmin());
             return Optional.of(employeeRepo.save(newHire));
         }
         return employee;

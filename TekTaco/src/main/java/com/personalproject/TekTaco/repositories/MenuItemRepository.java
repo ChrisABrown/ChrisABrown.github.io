@@ -12,18 +12,11 @@ import java.util.Optional;
 
 
 @Repository
-public interface MenuItemRepository extends MongoRepository<MenuItem, String> {
+public interface MenuItemRepository extends MongoRepository<MenuItem, ObjectId> {
 
     @Query("{'_id':?0}")
     Optional<MenuItem> findById(ObjectId id);
-
-    @Query("{'name':?0}")
-    MenuItem findMenuItemByName(String name);
-    @Query("{'sku': ?0}")
     Optional<MenuItem> findMenuItemBySku(String sku);
-
-    @Query(value = "{'productType':?0}", sort = "{'productType':  1}", fields = "{'name' :1," + " 'inStock': 1," + " 'price': 1," + " 'productType': 1," + " 'description': 1," + " 'SKU':  1," + " 'image': 1}")
-    List<MenuItem> findAll(String productType);
 
     @Query(value = "{'_id': ?0}", delete = true)
     void deleteMenuItemBy_id(ObjectId id);

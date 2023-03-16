@@ -31,16 +31,6 @@ public class MenuItemController {
         }
     }
 
-    @GetMapping("/get/{productType}")
-    public ResponseEntity<Object> getAllMenuItemsByProductType(@PathVariable String productType) {
-        List<MenuItem> menuItems = menuItemService.getAllMenuItemsByProductType(productType);
-        if (!menuItems.isEmpty()) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "List of " + productType + " Menu Items", true, menuItems), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
-        }
-    }
-
     @GetMapping("/getOne/{id}")
     public ResponseEntity<Object> getMenuItemById(@PathVariable ObjectId id) {
 
@@ -52,6 +42,18 @@ public class MenuItemController {
             return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/getOne/{sku}")
+    public ResponseEntity<Object> getMenuItemBySku(@PathVariable String sku) {
+        Optional<MenuItem> foundMenuItem = menuItemService.getMenuItemBySku(sku);
+        if (foundMenuItem.isPresent() && Objects.equals(foundMenuItem.get().getSku(), sku)) {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "MenuItem with Sku: " + sku + " found", true, foundMenuItem), HttpStatus.FOUND);
+        } else {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
+
+        }
+    }
+
 
     @PostMapping("/add-new-menuItem")
     public ResponseEntity<Object> createNewMenuItem(@RequestBody MenuItem menuItem) {
@@ -68,7 +70,7 @@ public class MenuItemController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Object> updateMenuItem(@PathVariable ObjectId id, @RequestBody MenuItem updatedMenuItem) {
         Optional<MenuItem> existingMenuItem = menuItemService.getMenuItemById(id);
 

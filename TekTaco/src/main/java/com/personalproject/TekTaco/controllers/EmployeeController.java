@@ -22,6 +22,17 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @GetMapping("/staff-list/{employeeId}")
+    public ResponseEntity<Object> getEmployee(@RequestParam @PathVariable ObjectId employeeId) {
+        List<Employee> employeeList = employeeService.getAllEmployees();
+        Employee employee = employeeService.getEmployeeById(employeeId);
+        if (!employeeList.contains(employee)) {
+            employeeList.add(employee);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Found employee with id " + employeeId, true, employeeList), HttpStatus.FOUND);
+        }
+        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), employee + "No data found", false, null), HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
@@ -39,16 +50,6 @@ public class EmployeeController {
 
     }
 
-
-    @GetMapping("/staff-list/{employeeId}")
-    public ResponseEntity<Object> getEmployee(@RequestParam @PathVariable ObjectId employeeId) {
-        List<Employee> employeeList = employeeService.getAllEmployees();
-        Employee employee = employeeService.getEmployeeById(employeeId);
-        if (!employee.getAdmin()) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FORBIDDEN.value(), employee + "does not have admin permissions", false, employee), HttpStatus.FORBIDDEN);
-        }
-        return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "List of employees", true, employeeList), HttpStatus.OK);
-    }
 
     @PostMapping
     public List<Employee> createNewEmployees(@Validated @RequestBody Set<Employee> newHires) {

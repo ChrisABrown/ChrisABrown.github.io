@@ -32,7 +32,7 @@ import java.util.Set;
     private Integer shippingPrice;
     private Integer totalPrice;
     private Boolean isPaid;
-    private Date paidAt;
+    private Date paidOn;
     private Boolean isDelivered;
 
     public User getUser() {

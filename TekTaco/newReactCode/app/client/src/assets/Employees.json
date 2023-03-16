@@ -1,0 +1,38 @@
+[
+  {
+    "name": "John Williams",
+    "password": "cH1cK3n$",
+    "isAdmin": true,
+    "email": "johnnyboy@gmail.com"
+  },
+  {
+    "name": "Shirley Temple",
+    "password": "bu8813buTT@",
+    "isAdmin": false,
+    "email": "shirtem@gmail.com"
+  },
+  {
+    "name": "",
+    "password": "1234",
+    "isAdmin": true,
+    "email": "cake@gmail.com"
+  },
+  {
+    "name": "Jane Doe",
+    "password": "j03R0g@N",
+    "isAdmin": false,
+    "email": "wackyraces@gmail.com"
+  },
+  {
+    "name": "Billy Rae",
+    "password": "bubbl3$",
+    "isAdmin": true,
+    "email": "donotreply@gmail.com"
+  },
+  {
+    "name": "John Jacob",
+    "password": "6U66l3$",
+    "isAdmin": false,
+    "email": "croissant@gmail.com"
+  }
+]

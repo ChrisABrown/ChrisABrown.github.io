@@ -32,87 +32,13 @@ public class MenuItem {
     @DocumentReference
     private List<Review> reviewIds;
 
-
-
-
-    public Integer getNumOfReviews() {
-        return numOfReviews;
-    }
-
-    public void setNumOfReviews(Integer numOfReviews) {
-        this.numOfReviews = numOfReviews;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public ObjectId get_id() {
-        return _id;
-    }
-
-    public void set_id(ObjectId _id) {
-        this._id = _id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public MenuItem(String name, int price, int inStock, String description, String image, String sku, String productType) {
         this.name = name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getInStock() {
-        return inStock;
-    }
-
-    public void setInStock(int inStock) {
         this.inStock = inStock;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
+        this.image = image;
         this.sku = sku;
-    }
-
-    public String getProductType() {
-        return productType;
-    }
-
-    public void setProductType(String productType) {
         this.productType = productType;
     }
-
 }

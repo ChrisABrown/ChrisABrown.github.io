@@ -1,0 +1,62 @@
+[
+  {
+    "user": {
+      "firstName": "James",
+      "lastName": "Johnson",
+      "email": "johnson@johnson.com"
+    },
+    "orderedItems": [],
+    "shipping address": {
+      "street address": "130 Maple lane",
+      "city": "New York",
+      "state": "TX",
+      "zipcode": 73028
+    },
+    "paymentMethod": "Paypal",
+    "paymentResult": "Success",
+    "isPaid": true,
+    "deliveryCharge": 4,
+    "deliveredTo": {},
+    "isDelivered": true
+  },
+  {
+    "user": {
+      "firstName": "James",
+      "lastName": "Johnson",
+      "email": "johnson@johnson.com"
+    },
+    "orderedItems": [],
+    "shipping address": {
+      "street address": "130 Maple lane",
+      "city": "New York",
+      "state": "TX",
+      "zipcode": 73028
+    },
+    "paymentMethod": "Paypal",
+    "paymentResult": "Success",
+    "isPaid": true,
+    "deliveryCharge": 4,
+    "deliveredTo": {},
+    "isDelivered": true
+  },
+  {
+    "user": {
+      "firstName": "James",
+      "lastName": "Johnson",
+      "email": "johnson@johnson.com"
+    },
+    "orderedItems": [],
+    "shipping address": {
+      "street address": "130 Maple lane",
+      "city": "New York",
+      "state": "TX",
+      "zipcode": 73028
+    },
+    "paymentMethod": "Paypal",
+    "paymentResult": "Success",
+    "isPaid": true,
+    "deliveryCharge": 4,
+    "deliveredTo": {},
+    "isDelivered": true
+  }
+]
