@@ -34,8 +34,9 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
+    public ResponseEntity<Object> getAllEmployees() {
+        List<Employee> allEmployees = employeeService.getAllEmployees();
+        return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all employees: ", true, allEmployees), HttpStatus.FOUND);
     }
 
     @GetMapping("/staff-list/")

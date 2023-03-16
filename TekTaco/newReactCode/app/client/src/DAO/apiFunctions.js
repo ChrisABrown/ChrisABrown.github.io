@@ -23,7 +23,7 @@ export async function fetchMenuItems() {
 
 export async function fetchMenuItemById(id) {
   try {
-    const response = await fetch(`${URL}api/v1/menuItems/getOne/${id}`, {
+    const response = await fetch(`${URL}api/v1/menuItems/get/${id}`, {
       cache: 'force-cache',
     })
 

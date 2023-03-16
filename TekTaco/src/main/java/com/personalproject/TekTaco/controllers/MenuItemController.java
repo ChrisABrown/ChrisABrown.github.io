@@ -3,7 +3,6 @@ package com.personalproject.TekTaco.controllers;
 import com.personalproject.TekTaco.models.AppResponse;
 import com.personalproject.TekTaco.models.MenuItem;
 import com.personalproject.TekTaco.services.MenuItemService;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +13,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
-@RequestMapping("/api/v1/menuItems")
+@CrossOrigin(origins = "http://localhost:3000", methods = RequestMethod.GET)
+@RequestMapping("api/v1/menuItems")
 public class MenuItemController {
 
     @Autowired
@@ -23,16 +22,13 @@ public class MenuItemController {
 
     @GetMapping
     public ResponseEntity<Object> getAllMenuItems() {
-        List<MenuItem> menuItems = menuItemService.getAllMenuItems();
-        if (!menuItems.isEmpty()) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "All available Menu Items", true, menuItems), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No Data found", false, null), HttpStatus.NOT_FOUND);
-        }
+        List<MenuItem> allMenuItems = menuItemService.getAllMenuItems();
+        return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all Menu Items: ", true, allMenuItems), HttpStatus.FOUND);
+
     }
 
-    @GetMapping("/getOne/{id}")
-    public ResponseEntity<Object> getMenuItemById(@PathVariable ObjectId id) {
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Object> getMenuItemById(@PathVariable String id) {
 
         Optional<MenuItem> foundMenuItem = menuItemService.getMenuItemById(id);
 
@@ -71,11 +67,11 @@ public class MenuItemController {
 
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Object> updateMenuItem(@PathVariable ObjectId id, @RequestBody MenuItem updatedMenuItem) {
+    public ResponseEntity<Object> updateMenuItem(@PathVariable String id, @RequestBody MenuItem updatedMenuItem) {
         Optional<MenuItem> existingMenuItem = menuItemService.getMenuItemById(id);
 
         if (existingMenuItem.isPresent() && updatedMenuItem.get_id().equals(existingMenuItem.get().get_id())) {
-            ObjectId existingItemId = existingMenuItem.get().get_id();
+            String existingItemId = existingMenuItem.get().get_id();
             menuItemService.updateMenuItem(existingItemId, updatedMenuItem);
             return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Updated menuItem with id: " + existingItemId, true, updatedMenuItem), HttpStatus.FOUND);
         } else {
@@ -84,7 +80,7 @@ public class MenuItemController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> delete(@PathVariable ObjectId id) {
+    public ResponseEntity<Object> delete(@PathVariable String id) {
         Optional<MenuItem> isDeleted = menuItemService.getMenuItemById(id);
         if (isDeleted.isPresent()) {
             menuItemService.deleteMenuItem(id);

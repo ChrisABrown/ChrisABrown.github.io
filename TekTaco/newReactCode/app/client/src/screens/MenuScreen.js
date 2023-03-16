@@ -33,7 +33,7 @@ const MenuScreen = () => {
             </ListGroupItem>
             <ListGroupItem>
               <Rating
-                value={menuItem.rating}
+                value={parseInt(menuItem.rating)}
                 text={`${menuItem.numOfReviews} reviews`}
               />
             </ListGroupItem>
