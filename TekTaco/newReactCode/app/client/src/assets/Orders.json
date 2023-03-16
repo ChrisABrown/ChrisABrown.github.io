@@ -10,7 +10,7 @@
       "street address": "130 Maple lane",
       "city": "New York",
       "state": "TX",
-      "zipcode": 73028
+      "zip-code": 73028
     },
     "paymentMethod": "Paypal",
     "paymentResult": "Success",
@@ -29,7 +29,7 @@
       "street address": "130 Maple lane",
       "city": "New York",
       "state": "TX",
-      "zipcode": 73028
+      "zip-code": 73028
     },
     "paymentMethod": "Paypal",
     "paymentResult": "Success",
@@ -48,7 +48,7 @@
       "street address": "130 Maple lane",
       "city": "New York",
       "state": "TX",
-      "zipcode": 73028
+      "zip-code": 73028
     },
     "paymentMethod": "Paypal",
     "paymentResult": "Success",
