@@ -34,9 +34,10 @@ public class UserService {
         Optional<User> userOptional = userRepo.findById(id);
         if (userOptional.isPresent()) {
             newUser = userOptional.get();
+            newUser.setFirstName(userInfo.getFirstName());
+            newUser.setLastName(userInfo.getLastName());
+            newUser.setUsername();
             newUser.setEmail(userInfo.getEmail());
-            newUser.setUserName(userInfo.getUserName());
-
             userRepo.save(newUser);
         }
     }

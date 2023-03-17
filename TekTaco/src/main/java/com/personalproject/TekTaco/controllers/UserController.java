@@ -47,10 +47,10 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateUser(@PathVariable String id, @RequestBody User userInfo) {
         if (Objects.equals(userInfo.get_id(), id)) {
-            userService.updateUser(id, userInfo);
-            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "User with id: " + id + " updated", true, userInfo), HttpStatus.OK);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
+        userService.updateUser(id, userInfo);
+        return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "User with id: " + id + " updated", true, userInfo), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
