@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class ReviewService {
 
@@ -18,10 +20,11 @@ public class ReviewService {
     private MongoTemplate mongoTemplate;
 
     public Review createReview(String reviewBody, String sku) {
-
-        Review review = reviewRepo.insert(new Review(reviewBody));
-
-        mongoTemplate.update(MenuItem.class).matching(Criteria.where("sku").is(sku)).apply(new Update().push("reviewsIds").value(review));
+        Review review = reviewRepo.insert(new Review(reviewBody, LocalDateTime.now(), LocalDateTime.now()));
+        mongoTemplate.update(MenuItem.class)
+                .matching(Criteria.where("sku")
+                        .is(sku)).apply(new Update().push("reviewIds").value(review))
+                .first();
         return review;
 
     }

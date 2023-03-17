@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.POST, RequestMethod.PUT})
@@ -60,13 +63,12 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateEmployeeInfo(@PathVariable String id, @RequestBody Employee employeeInfo) {
-        Optional<Employee> employee = employeeService.updateEmployeeInfo(id, employeeInfo);
-        assert employee.orElse(null) != null;
-        if (Objects.equals(employee.orElse(null).getEmployeeId(), id)) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Update Employee info with id: " + id, true, employee), HttpStatus.FOUND);
+    public ResponseEntity<Object> updateEmployeeInfo(@PathVariable String id, @RequestBody Employee updatedEmployee) {
+        if (Objects.equals(updatedEmployee.getEmployeeId(), id)) {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
+        employeeService.updateEmployeeInfo(id, updatedEmployee);
+        return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Update Employee info with id: " + id, true, updatedEmployee), HttpStatus.FOUND);
     }
 
     @DeleteMapping("/{employeeId}")

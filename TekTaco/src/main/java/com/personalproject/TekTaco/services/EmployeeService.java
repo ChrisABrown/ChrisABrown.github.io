@@ -49,18 +49,17 @@ public class EmployeeService {
         }
     }
 
-    public Optional<Employee> updateEmployeeInfo(String id, Employee employeeInfo) {
+    public void updateEmployeeInfo(String id, Employee employeeInfo) {
+        Employee newEmployee = new Employee();
         Optional<Employee> employee = employeeRepo.findById(id);
         if (employee.isPresent()) {
-            Employee newHire = employee.get();
-            newHire.setEmployeeId(employeeInfo.getEmployeeId());
-            newHire.setName(employeeInfo.getName());
-            newHire.setEmail(employeeInfo.getEmail());
-            newHire.setPassword(employeeInfo.getPassword());
-            newHire.setIsAdmin(employeeInfo.getIsAdmin());
-            return Optional.of(employeeRepo.save(newHire));
+            newEmployee = employee.get();
+            newEmployee.setName(employeeInfo.getName());
+            newEmployee.setEmail(employeeInfo.getEmail());
+            newEmployee.setPassword(employeeInfo.getPassword());
+            newEmployee.setIsAdmin(employeeInfo.getIsAdmin());
+            employeeRepo.save(newEmployee);
         }
-        return employee;
     }
 
 }
