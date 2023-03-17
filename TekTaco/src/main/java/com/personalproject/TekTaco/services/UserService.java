@@ -5,7 +5,6 @@ import com.personalproject.TekTaco.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -16,44 +15,34 @@ public class UserService {
     @Autowired
     private UserRepository userRepo;
 
-    public Set<User> getAllUsers() {
-        return userRepo.find();
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
     }
 
     public Optional<User> getUserById(String id) {
         return userRepo.findById(id);
     }
 
-    public User createNewUser(User newUser) {
-        return userRepo.save(newUser);
+    public List<User> createNewUsers(Set<User> newUsers) {
+        List<User> users = newUsers.stream().toList();
+        users.forEach(User::setUsername);
+        return userRepo.saveAll(newUsers);
     }
 
-    public Set<User> getUsersByDateJoinedBefore(Date dateBefore) {
-        //TODO
-        //implement date creation and validation
-        Date currentDate = new Date();
-        if (currentDate.before(dateBefore)) {
-            return userRepo.find();
+    public void updateUser(String id, User userInfo) {
+        User newUser = new User();
+        Optional<User> userOptional = userRepo.findById(id);
+        if (userOptional.isPresent()) {
+            newUser = userOptional.get();
+            newUser.setEmail(userInfo.getEmail());
+            newUser.setUserName(userInfo.getUserName());
+
+            userRepo.save(newUser);
         }
-        return null;
     }
 
-    public List<User> getUsersByDateJoinedAfter(Date dateAfter) {
-        //TODO
-        //implement date creation and validation
-        Date currentDate = new Date();
-        if (currentDate.after(dateAfter)) {
-            return userRepo.findAll();
-        }
-        return userRepo.findUsersByDateJoinedAfter(dateAfter);
-    }
-
-    public User getUserByUsername(String username) {
-        return userRepo.findUserByUsername(username);
-    }
-
-    public void deleteUser(String id) {
-        userRepo.deleteUserById(id);
+    public void delete(String id) {
+        userRepo.deleteById(id);
     }
 
 }

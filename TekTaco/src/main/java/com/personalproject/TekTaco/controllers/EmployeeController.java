@@ -9,10 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.POST, RequestMethod.PUT})
@@ -72,13 +69,13 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{employeeId}")
-    public ResponseEntity<Object> deleteEmployeeById(@PathVariable String employeeId) {
-        Employee employee = employeeService.getEmployeeById(employeeId);
-        if (!employee.getEmployeeId().equals(employeeId)) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> delete(@PathVariable String employeeId) {
+        Optional<Employee> employee = Optional.ofNullable(employeeService.getEmployeeById(employeeId));
+        if (employee.isPresent()) {
+            employeeService.deleteEmployee(employee.get().getEmployeeId());
+            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "Deleted Employee with id: " + employee.get().getEmployeeId(), true, null), HttpStatus.OK);
         }
-        employeeService.deleteEmployee(employee.getEmployeeId());
-        return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "Deleted Employee with id: " + employee.getEmployeeId(), true, null), HttpStatus.OK);
+        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
     }
 
 

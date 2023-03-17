@@ -43,6 +43,7 @@ public class MenuItem {
         this.sku = sku;
         this.productType = productType;
     }
+
     public void setSku() {
         Random num = new Random();
         int skuGenerator = num.nextInt();
