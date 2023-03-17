@@ -24,7 +24,6 @@ public class MenuItemController {
     public ResponseEntity<Object> getAllMenuItems() {
         List<MenuItem> allMenuItems = menuItemService.getAllMenuItems();
         return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all Menu Items: ", true, allMenuItems), HttpStatus.FOUND);
-
     }
 
     @GetMapping("/get/{id}")
@@ -34,9 +33,8 @@ public class MenuItemController {
 
         if (foundMenuItem.isPresent() && Objects.equals(foundMenuItem.get().get_id(), id)) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "MenuItem with id: " + id + " found", true, foundMenuItem), HttpStatus.FOUND);
-        } else {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/getOne/{sku}")
@@ -44,10 +42,8 @@ public class MenuItemController {
         Optional<MenuItem> foundMenuItem = menuItemService.getMenuItemBySku(sku);
         if (foundMenuItem.isPresent() && Objects.equals(foundMenuItem.get().getSku(), sku)) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "MenuItem with Sku: " + sku + " found", true, foundMenuItem), HttpStatus.FOUND);
-        } else {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
-
         }
+        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
     }
 
 
@@ -60,23 +56,19 @@ public class MenuItemController {
         MenuItem newMenuItem = menuItemService.createNewMenuItem(menuItem);
         if (newMenuItem != null) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New Menu Item created with id: " + newMenuItem.get_id(), true, newMenuItem), HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Not Created", false, null), HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Not Created", false, null), HttpStatus.NOT_FOUND);
+
     }
 
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Object> updateMenuItem(@PathVariable String id, @RequestBody MenuItem updatedMenuItem) {
-        Optional<MenuItem> existingMenuItem = menuItemService.getMenuItemById(id);
-
-        if (existingMenuItem.isPresent() && updatedMenuItem.get_id().equals(existingMenuItem.get().get_id())) {
-            String existingItemId = existingMenuItem.get().get_id();
-            menuItemService.updateMenuItem(existingItemId, updatedMenuItem);
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Updated menuItem with id: " + existingItemId, true, updatedMenuItem), HttpStatus.FOUND);
-        } else {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found for id: " + existingMenuItem, false, null), HttpStatus.NOT_FOUND);
+        if (Objects.equals(updatedMenuItem.get_id(), id)) {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found for id: " + id, false, null), HttpStatus.NOT_FOUND);
         }
+        menuItemService.updateMenuItem(id, updatedMenuItem);
+        return new ResponseEntity<>((new AppResponse(HttpStatus.FOUND.value(), "Updated the menu item with id: " + id, true, updatedMenuItem)), HttpStatus.FOUND);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -85,10 +77,8 @@ public class MenuItemController {
         if (isDeleted.isPresent()) {
             menuItemService.deleteMenuItem(id);
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "MenuItem with id: " + id + " has been deleted", true, null), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "MenuItem with id: " + id + " not found", false, null), HttpStatus.OK);
         }
-
+        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "MenuItem with id: " + id + " not found", false, null), HttpStatus.NOT_FOUND);
     }
 
 

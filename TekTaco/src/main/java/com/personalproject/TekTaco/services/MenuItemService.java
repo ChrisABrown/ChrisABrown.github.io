@@ -16,6 +16,7 @@ public class MenuItemService {
     @Autowired
     private MenuItemRepository menuItemRepo;
 
+
     public List<MenuItem> getAllMenuItems() {
         return menuItemRepo.findAll();
     }
@@ -37,16 +38,17 @@ public class MenuItemService {
 
 
     public void updateMenuItem(String id, MenuItem itemDetails) {
+        MenuItem newMenuItem = new MenuItem();
         Optional<MenuItem> menuItem = menuItemRepo.findById(id);
         if (menuItem.isPresent()) {
-            MenuItem newMenuItem = menuItem.get();
-            newMenuItem.set_id(itemDetails.get_id());
+            newMenuItem = menuItem.get();
             newMenuItem.setName(itemDetails.getName());
             newMenuItem.setPrice(itemDetails.getPrice());
             newMenuItem.setInStock(itemDetails.getInStock());
             newMenuItem.setImage(itemDetails.getImage());
             newMenuItem.setDescription(itemDetails.getDescription());
-            newMenuItem.setSku();
+            newMenuItem.setRating(itemDetails.getRating());
+            newMenuItem.setNumOfReviews(itemDetails.getNumOfReviews());
             newMenuItem.setProductType(itemDetails.getProductType());
 
             menuItemRepo.save(newMenuItem);

@@ -14,10 +14,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 public class Employee {
     @Id
-    private ObjectId employeeId;
+    private String employeeId;
     private String name;
     private String password;
-    private Boolean isAdmin;
+    private Boolean isAdmin = false;
     private String email;
 
 }

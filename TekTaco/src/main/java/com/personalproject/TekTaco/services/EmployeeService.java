@@ -2,7 +2,6 @@ package com.personalproject.TekTaco.services;
 
 import com.personalproject.TekTaco.models.Employee;
 import com.personalproject.TekTaco.repositories.EmployeeRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -23,30 +22,25 @@ public class EmployeeService {
         return employeeRepo.findAll();
     }
 
-    public Employee getEmployeeById(ObjectId id) {
+    public Employee getEmployeeById(String id) {
         return employeeRepo.findEmployeeById((id));
     }
 
 
     public List<Employee> createNewEmployees(Set<Employee> newEmployees) {
         List<Employee> employeeList = newEmployees.stream().toList();
+        employeeList.forEach(employee -> {
+            employee.setIsAdmin(employee.getIsAdmin());
+        });
         return employeeRepo.saveAll(employeeList);
     }
 
-    public Set<Employee> getAdminEmployees(Boolean isAdmin) {
-        Set<Employee> adminEmployees = employeeRepo.findAdminEmployees(isAdmin);
-        for (Employee adminEmployee : adminEmployees) {
-            Boolean admin = adminEmployee.getIsAdmin();
-            if (admin) {
-                return employeeRepo.findAdminEmployees(true);
-            }
-            return null;
-        }
-        return adminEmployees;
+    public List<Employee> getAdminEmployees() {
+        return employeeRepo.findAdminEmployees();
     }
 
 
-    public void deleteEmployee(ObjectId id) {
+    public void deleteEmployee(String id) {
         id = getEmployeeById(id).getEmployeeId();
         try {
             employeeRepo.deleteById(id);
@@ -55,7 +49,7 @@ public class EmployeeService {
         }
     }
 
-    public Optional<Employee> updateEmployeeInfo(ObjectId id, Employee employeeInfo) {
+    public Optional<Employee> updateEmployeeInfo(String id, Employee employeeInfo) {
         Optional<Employee> employee = employeeRepo.findById(id);
         if (employee.isPresent()) {
             Employee newHire = employee.get();
