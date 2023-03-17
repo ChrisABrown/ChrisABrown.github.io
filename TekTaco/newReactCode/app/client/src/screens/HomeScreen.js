@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import MenuItem from '../components/MenuItem'
 import { Row, Col } from 'react-bootstrap'
-import { fetchMenuItems } from '../DAO/apiFunctions'
 
-const HomeScreen = () => {
-  const [menuItems, setMenuItems] = useState([])
-
-  useEffect(() => {
-    fetchMenuItems().then((items) => {
-      setMenuItems(items.data)
-    })
-  }, [])
-
+const HomeScreen = ({ menuItems }) => {
   return (
     <>
       <h1>Latest Menu Additions</h1>

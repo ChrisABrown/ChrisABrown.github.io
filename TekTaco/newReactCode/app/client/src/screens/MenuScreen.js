@@ -9,17 +9,17 @@ import {
 } from 'react-bootstrap'
 import { Link, useParams } from 'react-router-dom'
 import Rating from '../components/Rating'
-import { fetchMenuItemById } from '../DAO/apiFunctions'
+import { fetchMenuItemBySku } from '../api/menuItemFunctions'
 
 const MenuScreen = () => {
   const [menuItem, setMenuItem] = useState({})
-  const { id } = useParams()
+  const { sku } = useParams()
 
   useEffect(() => {
-    fetchMenuItemById(id).then((product) => {
+    fetchMenuItemBySku(sku).then((product) => {
       setMenuItem(product.data)
     })
-  }, [id])
+  }, [sku])
 
   return (
     <div key={menuItem._id}>

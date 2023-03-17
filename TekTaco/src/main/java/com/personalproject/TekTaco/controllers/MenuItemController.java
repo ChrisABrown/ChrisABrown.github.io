@@ -23,7 +23,7 @@ public class MenuItemController {
     @GetMapping
     public ResponseEntity<Object> getAllMenuItems() {
         List<MenuItem> allMenuItems = menuItemService.getAllMenuItems();
-        return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all Menu Items: ", true, allMenuItems), HttpStatus.FOUND);
+        return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "List of all Menu Items: ", true, allMenuItems), HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")

@@ -6,11 +6,11 @@ import Rating from './Rating'
 const MenuItem = ({ item }) => {
   return (
     <Card className='my-3 py-3 rounded'>
-      <Link to={`/menuItems/getOne/${item._id}`}>
+      <Link to={`/menuItems/${item.sku}`}>
         <Card.Img src={item.image} variant='top' height={400}></Card.Img>
       </Link>
       <Card.Body>
-        <Link to={`/menuItems/getOne/${item._id}`}>
+        <Link to={`/menuItems/${item.sku}`}>
           <Card.Title as='div'>
             <strong>{item.name}</strong>
           </Card.Title>
