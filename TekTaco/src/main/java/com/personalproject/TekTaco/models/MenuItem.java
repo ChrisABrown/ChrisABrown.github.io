@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -28,11 +29,10 @@ public class MenuItem {
     private String sku;
 
     private Double rating;
-    private Integer numOfReviews;
     private String productType;
-
     @DocumentReference
-    private List<Review> reviewIds;
+    private List<Review> reviewIds = new ArrayList<>();
+    private Integer numOfReviews;
 
     public MenuItem(String name, int price, int inStock, String description, String image, String sku, String productType) {
         this.name = name;
@@ -42,6 +42,7 @@ public class MenuItem {
         this.image = image;
         this.sku = sku;
         this.productType = productType;
+
     }
 
     public void setSku() {

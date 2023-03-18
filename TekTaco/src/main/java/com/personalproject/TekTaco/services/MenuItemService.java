@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @Service
@@ -26,9 +27,9 @@ public class MenuItemService {
     }
 
 
-    public MenuItem createNewMenuItem(MenuItem newItem) {
-        newItem.setSku();
-        return menuItemRepo.save(newItem);
+    public List<MenuItem> createNewMenuItems(Set<MenuItem> newItems) {
+        newItems.forEach(MenuItem::setSku);
+        return menuItemRepo.saveAll(newItems);
     }
 
 
@@ -48,7 +49,6 @@ public class MenuItemService {
             newMenuItem.setImage(itemDetails.getImage());
             newMenuItem.setDescription(itemDetails.getDescription());
             newMenuItem.setRating(itemDetails.getRating());
-            newMenuItem.setNumOfReviews(itemDetails.getNumOfReviews());
             newMenuItem.setProductType(itemDetails.getProductType());
 
             menuItemRepo.save(newMenuItem);

@@ -5,19 +5,23 @@ export const URL = 'http://localhost:8080/api/v1/menuItems'
 export async function fetchMenuItems() {
   try {
     const res = await axios.get(`${URL}`)
-
-    return console.log(res)
+    if (res.data.status !== 200) {
+      throw new Error('Something went wrong')
+    }
+    return await res
   } catch (error) {
-    return console.log(error)
+    return error
   }
 }
 
 export async function fetchMenuItemBySku(sku) {
   try {
-    const response = await fetch(`${URL}/getOne/${sku}`)
-
-    return await response.json()
+    const res = await axios.get(`${URL}/getOne/${sku}`)
+    if (res.data.status !== 200) {
+      throw new Error('Something went wrong')
+    }
+    return console.log(res)
   } catch (error) {
-    return console.log(error)
+    return error
   }
 }

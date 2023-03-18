@@ -7,7 +7,7 @@ const MenuItem = ({ item }) => {
   return (
     <Card className='my-3 py-3 rounded'>
       <Link to={`/menuItems/${item.sku}`}>
-        <Card.Img src={item.image} variant='top' height={400}></Card.Img>
+        <Card.Img src={item.image} height={300}></Card.Img>
       </Link>
       <Card.Body>
         <Link to={`/menuItems/${item.sku}`}>

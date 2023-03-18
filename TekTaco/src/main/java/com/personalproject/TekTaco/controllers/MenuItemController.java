@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
@@ -47,18 +48,10 @@ public class MenuItemController {
     }
 
 
-    @PostMapping("/add-new-menuItem")
-    public ResponseEntity<Object> createNewMenuItem(@RequestBody MenuItem menuItem) {
-        Optional<MenuItem> menuItem1 = menuItemService.getMenuItemById(menuItem.get_id());
-        if (menuItem1.isPresent() && menuItem1.get().getName().equals(menuItem.getName())) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "MenuItem already exists, id: " + menuItem.get_id(), false, null), HttpStatus.FOUND);
-        }
-        MenuItem newMenuItem = menuItemService.createNewMenuItem(menuItem);
-        if (newMenuItem != null) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New Menu Item created with id: " + newMenuItem.get_id(), true, newMenuItem), HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Not Created", false, null), HttpStatus.NOT_FOUND);
-
+    @PostMapping("/add-new-menuItems")
+    public ResponseEntity<Object> createNewMenuItems(@RequestBody Set<MenuItem> newMenuItems) {
+        List<MenuItem> menuItemList = menuItemService.createNewMenuItems(newMenuItems);
+        return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New Menu Items created", true, menuItemList), HttpStatus.CREATED);
     }
 
 

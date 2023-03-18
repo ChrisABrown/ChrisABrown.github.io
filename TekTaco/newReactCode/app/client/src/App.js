@@ -6,7 +6,6 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import { CartProvider } from './context/CartContext'
 import './index.css'
-import { fetchMenuItems } from './api/menuItemFunctions.js'
 import HomeScreen from './screens/HomeScreen'
 import MenuScreen from './screens/MenuScreen'
 import { listMenuItems } from './actions/listMenuItemsActions.js'
@@ -14,13 +13,11 @@ import { listMenuItems } from './actions/listMenuItemsActions.js'
 export default function App() {
   const dispatch = useDispatch()
 
+  const menuItemList = useSelector((state) => state.menuItemList)
+  const { loading, error, menuItems } = menuItemList
   useEffect(() => {
     dispatch(listMenuItems())
   }, [dispatch])
-  const menuItems = []
-
-  const { data } = fetchMenuItems()
-  console.log(data)
 
   return (
     <>
@@ -32,7 +29,12 @@ export default function App() {
               <Route
                 path='/'
                 element={
-                  <HomeScreen key={menuItems._id} menuItems={menuItems} />
+                  <HomeScreen
+                    key={menuItems.sku}
+                    menuItems={menuItems}
+                    loading={loading}
+                    error={error}
+                  />
                 }
                 exact
               />

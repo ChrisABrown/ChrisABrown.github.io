@@ -1,14 +1,14 @@
 [
   {
     "name": "Basic TekTaco",
-    "price": 5,
     "productType": "Entree",
     "inStock": 10,
     "description": "Ground beef seasoned with house spices, topped with lettuce, tomatoes, cheese, and your choice of spicy or mild salsa",
     "image": "https://thumbs.dreamstime.com/b/two-beef-tacos-cheese-lettuce-tomatoes-has-lens-flare-background-40979675.jpg",
-    "rating": 4.5,
-    "numOfReviews": 4,
-    "reviewIds": []
+    "rating": 4,
+    "reviewIds": [],
+    "price": 5,
+    "numOfReviews": 5
   },
   {
     "name": "Deluxe TekTaco",
@@ -17,9 +17,9 @@
     "description": "Steak seasoned with house spices, topped with cheese, chopped cilantro, sauteed onions and your choice of spicy or mild salsa",
     "image": "https://th.bing.com/th/id/R.cf1213ccf1b1e360d0eb182cdd97f4fc?rik=841e2dQDhcfwFQ&pid=ImgRaw&r=0",
     "reviewIds": [],
-    "rating": 4.5,
-    "numOfReviews": 4,
-    "price": 6
+    "rating": 5,
+    "price": 6,
+    "numOfReviews": 7
   },
   {
     "name": "Veggie TekTaco",
@@ -28,9 +28,9 @@
     "description": "Diced mushrooms seasoned with house spices, topped with vegan cheese, cabbage, fajita veggies and your choice of spicy or mild salsa ",
     "image": "https://www.wellplated.com/wp-content/uploads/2018/12/Vegetarian-Tofu-Mushroom-Tacos.jpg",
     "reviewIds": [],
-    "rating": 4.5,
-    "numOfReviews": 4,
-    "price": 5
+    "rating": 5,
+    "price": 5,
+    "numOfReviews": 4
   },
   {
     "name": "Chips and Queso",
@@ -40,8 +40,8 @@
     "image": "https://media-cdn.tripadvisor.com/media/photo-s/07/6f/f3/e2/chips-queso.jpg",
     "reviewIds": [],
     "rating": 4.5,
-    "numOfReviews": 4,
-    "price": 4
+    "price": 4,
+    "numOfReviews": 3
   },
   {
     "name": "Chips and Guacamole",
@@ -51,8 +51,8 @@
     "image": "https://th.bing.com/th/id/R.d003c4d1c790d8b8095b6126599169a2?rik=4TK8u64so%2b16fg&pid=ImgRaw&r=0",
     "reviewIds": [],
     "rating": 4.5,
-    "numOfReviews": 4,
-    "price": 4
+    "price": 4,
+    "numOfReviews": 4
   },
   {
     "name": "Nachos",
@@ -62,8 +62,8 @@
     "image": "https://ak1.picdn.net/shutterstock/videos/16286791/thumb/1.jpgl",
     "reviewIds": [],
     "rating": 4.5,
-    "numOfReviews": 4,
-    "price": 6
+    "price": 6,
+    "numOfReviews": 5
   },
   {
     "name": "Water",
@@ -72,9 +72,9 @@
     "description": "Natural Spring Water",
     "image": "https://tse2.mm.bing.net/th/id/OIP.yxE_YynmvOx8j42hxVOkUQHaFj?pid=ImgDet&rs=1",
     "reviewIds": [],
-    "rating": 4.5,
-    "numOfReviews": 4,
-    "price": 2
+    "rating": 3.5,
+    "price": 2,
+    "numOfReviews": 3
   },
   {
     "name": "Fountain soda",
@@ -83,9 +83,9 @@
     "description": "choice of Coke, Sprite, or Dr.Pepper",
     "image": "https://tse2.mm.bing.net/th/id/OIP.1l_X-zVPNuCbrO4qITGUIAHaJm?pid=ImgDet&rs=1",
     "reviewIds": [],
-    "rating": 3.5,
-    "numOfReviews": 4,
-    "price": 3
+    "rating": 1.5,
+    "price": 3,
+    "numOfReviews": 3
   },
   {
     "name": "Juice",
@@ -94,8 +94,8 @@
     "description": "freshly squeezed juice",
     "image": "https://tse4.mm.bing.net/th/id/OIP.-VtyPfi_oyXQnLF9xLVkpQHaEo?pid=ImgDet&rs=1",
     "reviewIds": [],
-    "rating": 2.5,
-    "numOfReviews": 4,
-    "price": 2
+    "rating": 5,
+    "price": 2,
+    "numOfReviews": 3
   }
 ]

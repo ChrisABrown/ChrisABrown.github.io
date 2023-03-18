@@ -7,22 +7,22 @@ import {
   ListGroupItem,
   Row,
 } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import Rating from '../components/Rating'
-import { fetchMenuItemBySku } from '../api/menuItemFunctions'
+import { listMenuItemDetails } from '../actions/listMenuItemsActions'
 
 const MenuScreen = () => {
-  const [menuItem, setMenuItem] = useState({})
+  const dispatch = useDispatch()
   const { sku } = useParams()
+  const menuItem = []
 
   useEffect(() => {
-    fetchMenuItemBySku(sku).then((product) => {
-      setMenuItem(product.data)
-    })
-  }, [sku])
+    dispatch(listMenuItemDetails(sku))
+  }, [dispatch, sku])
 
   return (
-    <div key={menuItem._id}>
+    <div key={menuItem.sku}>
       <Link className='btn btn-light my-3'> Go Back</Link>
       <Row>
         <Col md={6}>
