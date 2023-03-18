@@ -1,75 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Button,
-  Col,
-  Image,
-  ListGroup,
-  ListGroupItem,
-  Row,
-} from 'react-bootstrap'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-import Rating from '../components/Rating'
 import { listMenuItemDetails } from '../actions/listMenuItemsActions'
+import Loader from '../components/Loader'
+import MenuItemDetails from '../components/MenuItemDetails'
+import Message from '../components/Message'
 
-const MenuScreen = () => {
+const MenuScreen = ({ history }) => {
+  const [quantity, setQuantity] = useState(0)
+
   const dispatch = useDispatch()
   const { sku } = useParams()
-  const menuItem = []
+  const menuItemDetails = useSelector((state) => state.menuItemDetails)
+
+  const { loading, error, menuItem } = menuItemDetails
 
   useEffect(() => {
     dispatch(listMenuItemDetails(sku))
   }, [dispatch, sku])
 
+  const addToCartHandler = () => {
+    history.push(`/cart/${sku}?qty=${quantity}`)
+  }
+
   return (
-    <div key={menuItem.sku}>
-      <Link className='btn btn-light my-3'> Go Back</Link>
-      <Row>
-        <Col md={6}>
-          <Image src={menuItem.image} alt={menuItem.name} fluid />
-          <ListGroup variant='flush'>
-            <ListGroupItem>
-              <h3>{menuItem.name}</h3>
-            </ListGroupItem>
-            <ListGroupItem>
-              <Rating
-                value={parseInt(menuItem.rating)}
-                text={`${menuItem.numOfReviews} reviews`}
-              />
-            </ListGroupItem>
-            <ListGroupItem>Price: ${menuItem.price}</ListGroupItem>
-            <ListGroupItem>Description: {menuItem.description}</ListGroupItem>
-          </ListGroup>
-        </Col>
-        <Col md={3}>
-          <ListGroup variant='flush'>
-            <ListGroupItem>
-              <Row>
-                <Col>Price:</Col>
-                <Col>{menuItem.price}</Col>
-              </Row>
-            </ListGroupItem>
-            <ListGroupItem>
-              <Row>
-                <Col>Status:</Col>
-                <Col>{menuItem.inStock > 0 ? 'In Stock' : 'Out of Stock'}</Col>
-              </Row>
-            </ListGroupItem>
-            <ListGroupItem>
-              <Row>
-                <Button
-                  className='btn-block'
-                  type='button'
-                  disabled={menuItem.inStock === 0}
-                >
-                  Add to Cart
-                </Button>
-              </Row>
-            </ListGroupItem>
-          </ListGroup>
-        </Col>
-      </Row>
-    </div>
+    <>
+      <Link className='btn btn-light my-3' to='/'>
+        {' '}
+        Go Back
+      </Link>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <MenuItemDetails
+          key={sku}
+          menuItem={menuItem}
+          quantity={quantity}
+          setQuantity={setQuantity}
+          addToCartHandler={addToCartHandler}
+        />
+      )}
+    </>
   )
 }
 

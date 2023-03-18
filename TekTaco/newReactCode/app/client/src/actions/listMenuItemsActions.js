@@ -33,7 +33,7 @@ export const listMenuItemDetails = (sku) => async (dispatch) => {
     const res = await fetchMenuItemBySku(sku)
     dispatch({
       type: MENU_ITEM_DETAILS_SUCCESS,
-      payload: res,
+      payload: res.response.data.data,
     })
   } catch (error) {
     dispatch({

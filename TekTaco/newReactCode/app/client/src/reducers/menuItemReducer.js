@@ -20,10 +20,7 @@ export const menuItemListReducer = (state = { menuItems: [] }, action) => {
   }
 }
 
-export const menuItemDetailsReducer = (
-  state = { menuItem: { reviews: [] } },
-  action
-) => {
+export const menuItemDetailsReducer = (state = { menuItem: {} }, action) => {
   switch (action.type) {
     case MENU_ITEM_DETAILS_REQUEST:
       return { loading: true, ...state }

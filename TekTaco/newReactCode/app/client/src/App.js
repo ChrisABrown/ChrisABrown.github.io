@@ -15,6 +15,7 @@ export default function App() {
 
   const menuItemList = useSelector((state) => state.menuItemList)
   const { loading, error, menuItems } = menuItemList
+
   useEffect(() => {
     dispatch(listMenuItems())
   }, [dispatch])
@@ -38,10 +39,7 @@ export default function App() {
                 }
                 exact
               />
-              <Route
-                path='/menuItems/:sku'
-                element={<MenuScreen key={menuItems._id} />}
-              />
+              <Route path='/menuItems/:sku' element={<MenuScreen />} />
             </Routes>
           </Container>
         </main>
