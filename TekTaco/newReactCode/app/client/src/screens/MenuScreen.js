@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { listMenuItemDetails } from '../actions/listMenuItemsActions'
@@ -7,7 +6,7 @@ import Loader from '../components/Loader'
 import MenuItemDetails from '../components/MenuItemDetails'
 import Message from '../components/Message'
 
-const MenuScreen = ({ history }) => {
+const MenuScreen = () => {
   const [quantity, setQuantity] = useState(0)
 
   const dispatch = useDispatch()
@@ -19,10 +18,6 @@ const MenuScreen = ({ history }) => {
   useEffect(() => {
     dispatch(listMenuItemDetails(sku))
   }, [dispatch, sku])
-
-  const addToCartHandler = () => {
-    history.push(`/cart/${sku}?qty=${quantity}`)
-  }
 
   return (
     <>
@@ -37,10 +32,10 @@ const MenuScreen = ({ history }) => {
       ) : (
         <MenuItemDetails
           key={sku}
+          sku={sku}
           menuItem={menuItem}
           quantity={quantity}
           setQuantity={setQuantity}
-          addToCartHandler={addToCartHandler}
         />
       )}
     </>

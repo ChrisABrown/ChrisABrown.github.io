@@ -9,13 +9,20 @@ import {
   Row,
 } from 'react-bootstrap'
 import Rating from '../components/Rating'
+import history from '../history'
 
 export default function MenuItemDetails({
   menuItem,
   quantity,
+  sku,
   setQuantity,
-  addToCartHandler,
 }) {
+  const cartURL = `/cart/${sku}?qty=${quantity}`
+
+  const addToCartHandler = () => {
+    history.push(`${cartURL}`)
+  }
+
   return (
     <Row>
       <Col md={6}>
@@ -81,7 +88,7 @@ export default function MenuItemDetails({
           <ListGroupItem>
             <Row>
               <Button
-                onClick={addToCartHandler()}
+                onClick={addToCartHandler}
                 className='btn-block'
                 type='button'
                 disabled={menuItem.inStock === 0}

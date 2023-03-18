@@ -8,6 +8,7 @@ import { CartProvider } from './context/CartContext'
 import './index.css'
 import HomeScreen from './screens/HomeScreen'
 import MenuScreen from './screens/MenuScreen'
+import CartScreen from './screens/CartScreen'
 import { listMenuItems } from './actions/listMenuItemsActions.js'
 
 export default function App() {
@@ -40,6 +41,7 @@ export default function App() {
                 exact
               />
               <Route path='/menuItems/:sku' element={<MenuScreen />} />
+              <Route path='/cart/:sku?' element={<CartScreen />} />
             </Routes>
           </Container>
         </main>
