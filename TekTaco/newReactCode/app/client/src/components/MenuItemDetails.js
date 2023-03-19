@@ -33,12 +33,12 @@ export default function MenuItemDetails({
           </ListGroupItem>
           <ListGroupItem>
             <Rating
-              value={parseInt(menuItem.rating)}
+              value={Number(menuItem.rating)}
               text={`${menuItem.numOfReviews} reviews`}
             />
           </ListGroupItem>
           <ListGroupItem>
-            <strong>Price:</strong> ${menuItem.price}
+            <strong>Price:</strong> ${Number(menuItem.price).toFixed(2)}
           </ListGroupItem>
           <ListGroupItem>
             <strong>Description:</strong> {menuItem.description}
@@ -52,7 +52,7 @@ export default function MenuItemDetails({
               <Col>
                 <strong>Price:</strong>
               </Col>
-              <Col>${menuItem.price}</Col>
+              <Col>${Number(menuItem.price).toFixed(2)}</Col>
             </Row>
           </ListGroupItem>
           <ListGroupItem>

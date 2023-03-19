@@ -11,6 +11,7 @@ const MenuScreen = ({ navigate, location }) => {
 
   const dispatch = useDispatch()
   const { sku } = useParams()
+
   const menuItemDetails = useSelector((state) => state.menuItemDetails)
 
   const { loading, error, menuItem } = menuItemDetails

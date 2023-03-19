@@ -13,7 +13,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
         return {
           ...state,
           cartItems: state.cartItems.map((b) =>
-            b.menuItem === item.menuItem ? item : b
+            b.menuItem === existingItem.menuItem ? item : b
           ),
         }
       } else {
@@ -25,7 +25,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
     case CART_REMOVE_ITEM:
       return {
         ...state,
-        cart: state.cart.filter((menuItem) => menuItem.sku !== action.payload),
+        cartItems: state.cartItems.filter((b) => b.menuItem !== action.payload),
       }
     default:
       return state

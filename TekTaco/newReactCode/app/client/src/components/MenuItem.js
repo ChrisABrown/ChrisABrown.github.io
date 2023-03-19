@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom'
 import Rating from './Rating'
 
 const MenuItem = ({ item }) => {
+  const menuItemURL = `/menuItems/${item.sku}`
+
   return (
     <Card className='my-3 py-3 rounded'>
-      <Link to={`/menuItems/${item.sku}`}>
+      <Link to={menuItemURL}>
         <Card.Img src={item.image} height={300}></Card.Img>
       </Link>
       <Card.Body>
-        <Link to={`/menuItems/${item.sku}`}>
+        <Link to={menuItemURL}>
           <Card.Title as='div'>
             <strong>{item.name}</strong>
           </Card.Title>
