@@ -9,18 +9,18 @@ import {
   Row,
 } from 'react-bootstrap'
 import Rating from '../components/Rating'
-import history from '../history'
 
 export default function MenuItemDetails({
   menuItem,
   quantity,
+  navigate,
   sku,
   setQuantity,
 }) {
   const cartURL = `/cart/${sku}?qty=${quantity}`
 
   const addToCartHandler = () => {
-    history.push(`${cartURL}`)
+    navigate(`${cartURL}`)
   }
 
   return (
