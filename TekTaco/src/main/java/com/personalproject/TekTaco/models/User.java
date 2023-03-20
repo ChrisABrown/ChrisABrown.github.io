@@ -3,29 +3,27 @@ package com.personalproject.TekTaco.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import java.util.ArrayList;
 
 @Document(collection = "Users")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@AllArgsConstructor
+public class Employee {
     @Id
-    private String _id;
+    private String employeeId;
+    private String userName;
     private String firstName;
     private String lastName;
-    private String userName;
+    private String password;
+    private Boolean isAdmin = false;
     private String email;
-    @DocumentReference
-    private ArrayList<Order> orders;
 
     public void setUsername() {
         this.userName = this.firstName.charAt(0) + this.lastName;
     }
-
 
 }
