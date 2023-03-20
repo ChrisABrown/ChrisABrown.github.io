@@ -1,38 +1,23 @@
 [
   {
-    "name": "John Williams",
+    "firstName": "John",
+    "lastName": "Williams",
     "password": "cH1cK3n$",
-    "isAdmin": true,
+    "roles": "ADMIN, LEAD",
     "email": "johnnyboy@gmail.com"
   },
   {
-    "name": "Shirley Temple",
+    "firstName": "Shirley",
+    "lastName": "Temple",
     "password": "bu8813buTT@",
-    "isAdmin": false,
+    "roles": "ADMIN, USER",
     "email": "shirtem@gmail.com"
   },
   {
-    "name": "",
-    "password": "1234",
-    "isAdmin": true,
-    "email": "cake@gmail.com"
-  },
-  {
-    "name": "Jane Doe",
+    "firstName": "Jane",
+    "lastName": "Doe",
     "password": "j03R0g@N",
-    "isAdmin": false,
+    "roles": "USER",
     "email": "wackyraces@gmail.com"
-  },
-  {
-    "name": "Billy Rae",
-    "password": "bubbl3$",
-    "isAdmin": true,
-    "email": "donotreply@gmail.com"
-  },
-  {
-    "name": "John Jacob",
-    "password": "6U66l3$",
-    "isAdmin": false,
-    "email": "croissant@gmail.com"
   }
 ]

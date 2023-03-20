@@ -27,17 +27,6 @@ public class MenuItemController {
         return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "List of all Menu Items: ", true, allMenuItems), HttpStatus.OK);
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Object> getMenuItemById(@PathVariable String id) {
-
-        Optional<MenuItem> foundMenuItem = menuItemService.getMenuItemById(id);
-
-        if (foundMenuItem.isPresent() && Objects.equals(foundMenuItem.get().get_id(), id)) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "MenuItem with id: " + id + " found", true, foundMenuItem), HttpStatus.FOUND);
-        }
-        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
-    }
-
     @GetMapping("/getOne/{sku}")
     public ResponseEntity<Object> getMenuItemBySku(@PathVariable String sku) {
         Optional<MenuItem> foundMenuItem = menuItemService.getMenuItemBySku(sku);

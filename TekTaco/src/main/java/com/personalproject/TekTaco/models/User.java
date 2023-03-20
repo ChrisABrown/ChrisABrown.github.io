@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -12,15 +13,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employee {
+public class User {
     @Id
-    private String employeeId;
+    private ObjectId userId;
+    @Indexed(unique = true)
     private String userName;
     private String firstName;
     private String lastName;
     private String password;
-    private Boolean isAdmin = false;
+    @Indexed(unique = true)
     private String email;
+    private String roles;
 
     public void setUsername() {
         this.userName = this.firstName.charAt(0) + this.lastName;

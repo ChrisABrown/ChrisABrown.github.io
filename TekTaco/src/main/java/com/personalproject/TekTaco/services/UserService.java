@@ -2,64 +2,54 @@ package com.personalproject.TekTaco.services;
 
 import com.personalproject.TekTaco.models.User;
 import com.personalproject.TekTaco.repositories.UserRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserService {
 
     @Autowired
-    private UserRepository employeeRepo;
+    private UserRepository userRepo;
 
-    public List<User> getAllEmployees() {
-        return employeeRepo.findAll();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public User addUser(User user){
+        user.setUsername();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepo.save(user);
     }
 
-    public User getEmployeeById(String id) {
-        return employeeRepo.findEmployeeById((id));
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
     }
 
-
-    public List<User> createNewEmployees(Set<User> newUsers) {
-        List<User> userList = newUsers.stream().toList();
-        userList.forEach(user -> {
-            user.setIsAdmin(user.getIsAdmin());
-        });
-        return employeeRepo.saveAll(userList);
+    public Optional<User> getUserByUserName(String userName) {
+        return userRepo.findByUserName(userName);
     }
 
-    public List<User> getAdminEmployees() {
-        return employeeRepo.findAdminEmployees();
-    }
+    public void updateUser(String username, User newUserDetails){
+        User user = new User();
+        Optional<User> userForUpdate = userRepo.findByUserName(username);
+        if(userForUpdate.isPresent()){
+            user = userForUpdate.get();
+            user.setFirstName(newUserDetails.getFirstName());
+            user.setLastName(newUserDetails.getLastName());
+            user.setUsername();
+            user.setRoles(newUserDetails.getRoles());
+            user.setEmail(newUserDetails.getEmail());
+            user.setPassword(passwordEncoder.encode(newUserDetails.getPassword()));
 
-
-    public void deleteEmployee(String id) {
-        id = getEmployeeById(id).getEmployeeId();
-        try {
-            employeeRepo.deleteById(id);
-        } catch (EmptyResultDataAccessException exception) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Employee found for the id " + id);
+            userRepo.save(user);
         }
     }
 
-    public void updateEmployeeInfo(String id, User userInfo) {
-        User newUser = new User();
-        Optional<User> employee = employeeRepo.findById(id);
-        if (employee.isPresent()) {
-            newUser = employee.get();
-            newUser.setName(userInfo.getName());
-            newUser.setEmail(userInfo.getEmail());
-            newUser.setPassword(userInfo.getPassword());
-            newUser.setIsAdmin(userInfo.getIsAdmin());
-            employeeRepo.save(newUser);
-        }
+    public void deleteUser(ObjectId id){
+        userRepo.deleteById(id);
     }
-
 }

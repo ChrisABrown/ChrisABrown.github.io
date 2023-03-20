@@ -28,6 +28,7 @@ export default function App() {
   useEffect(() => {
     dispatch(listMenuItems())
   }, [dispatch])
+
   const { sku } = useParams()
 
   return (
@@ -58,6 +59,7 @@ export default function App() {
                 <CartScreen sku={sku} navigate={navigate} location={location} />
               }
             />
+            <Route path='/*' />
           </Routes>
         </Container>
       </main>

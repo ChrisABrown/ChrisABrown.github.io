@@ -10,9 +10,12 @@ import App from './App.js'
 import './index.css'
 import { Provider } from 'react-redux'
 import store from './store.js'
+import ErrorScreen from './screens/ErrorScreen.js'
 
 const router = createBrowserRouter(
-  createRoutesFromElements(<Route path='/*' element={<App />} />)
+  createRoutesFromElements(
+    <Route path='/*' element={<App />} errorElement={<ErrorScreen />} />
+  )
 )
 
 ReactDOM.createRoot(document.getElementById('root')).render(

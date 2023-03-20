@@ -2,81 +2,88 @@ package com.personalproject.TekTaco.controllers;
 
 import com.personalproject.TekTaco.models.AppResponse;
 import com.personalproject.TekTaco.models.User;
-import com.personalproject.TekTaco.services.EmployeeService;
+import com.personalproject.TekTaco.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.POST, RequestMethod.PUT})
-@RequestMapping("/admin")
+@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
+@RequestMapping("/api/v1/admin")
 public class UserController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private UserService userService;
+
+    @GetMapping("/staff-list/{userName}")
+    public ResponseEntity<Object> getUser(@PathVariable String userName) {
+        List<User> userList = userService.getAllUsers();
+        Optional<User> user = userService.getUserByUserName(userName);
+        if (user.isPresent() && userList.contains(user.get())) {
+            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Found User with username: " + userName, true, user), HttpStatus.FOUND);
+        }
+        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found ", false, user), HttpStatus.NOT_FOUND);
+    }
 
     @GetMapping
     public ResponseEntity<Object> getAllEmployees() {
-        List<User> allUsers = employeeService.getAllEmployees();
+        List<User> allUsers = userService.getAllUsers();
         return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all employees: ", true, allUsers), HttpStatus.FOUND);
     }
 
-    @GetMapping("/staff-list/{employeeId}")
-    public ResponseEntity<Object> getEmployee(@RequestParam @PathVariable String employeeId) {
-        List<User> userList = employeeService.getAllEmployees();
-        User user = employeeService.getEmployeeById(employeeId);
-        if (!userList.contains(user)) {
-            userList.add(user);
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Found employee with id " + employeeId, true, userList), HttpStatus.FOUND);
-        }
-        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), user + "No data found", false, null), HttpStatus.NOT_FOUND);
+    @PostMapping("/new-user")
+    public ResponseEntity<Object> addNewUser(@RequestBody User user) {
+        userService.addUser(user);
+        return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New user created", true, user), HttpStatus.CREATED);
     }
 
-    @GetMapping("/staff{isAdmin}")
-    public ResponseEntity<Object> getEmployeesByAccessLevel(@PathVariable @RequestParam boolean isAdmin) {
-        List<User> adminUsers = employeeService.getAdminEmployees();
-        List<User> allUsers = employeeService.getAllEmployees();
-        List<User> userUsers = new ArrayList<>();
+    @GetMapping("/staff-list/admin-list/{roles}")
+    public ResponseEntity<Object> getUsersByRole(@PathVariable String roles) {
+        List<User> allUsers = userService.getAllUsers();
+        List<User> adminUsers = new ArrayList<>();
+        List<User> userList = new ArrayList<>();
+
         for (User users : allUsers) {
-            if (!users.getIsAdmin()) {
-                userUsers.add(users);
+            if (users.getRoles().contains("ROLE_USER") && users.getRoles().equals(roles)) {
+                userList.add(users);
+                return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of users with user access: ", true, userList), HttpStatus.FOUND);
+            } else if (users.getRoles().contains("ROLE_ADMIN") && users.getRoles().equals(roles)) {
+                adminUsers.add(users);
+                return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all users with admin access: ", true, adminUsers), HttpStatus.FOUND);
             }
-        }
-        if (isAdmin) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Set of all employees with admin access: ", true, adminUsers), HttpStatus.FOUND);
-        }
-        return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Set of all employees with user access: ", true, userUsers), HttpStatus.FOUND);
-    }
-
-
-    @PostMapping("/add-new-employees")
-    public ResponseEntity<Object> createNewEmployees(@Validated @RequestBody Set<User> newHires) {
-        List<User> newUsers = employeeService.createNewEmployees(newHires);
-        return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New hires: ", true, newUsers), HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateEmployeeInfo(@PathVariable String id, @RequestBody User updatedUser) {
-        if (Objects.equals(updatedUser.getEmployeeId(), id)) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
-        }
-        employeeService.updateEmployeeInfo(id, updatedUser);
-        return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Update Employee info with id: " + id, true, updatedUser), HttpStatus.FOUND);
-    }
-
-    @DeleteMapping("/{employeeId}")
-    public ResponseEntity<Object> delete(@PathVariable String employeeId) {
-        Optional<User> employee = Optional.ofNullable(employeeService.getEmployeeById(employeeId));
-        if (employee.isPresent()) {
-            employeeService.deleteEmployee(employee.get().getEmployeeId());
-            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "Deleted Employee with id: " + employee.get().getEmployeeId(), true, null), HttpStatus.OK);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Users found have no matching roles", false, users), HttpStatus.FOUND);
         }
         return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
     }
 
 
+    @PutMapping("/update-user/{username}")
+    public ResponseEntity<Object> updateUser(@PathVariable String username, @RequestBody User updatedUser) {
+        Optional<User> userByUserName = userService.getUserByUserName(username);
+        if (userByUserName.isPresent() && Objects.equals(userByUserName.get().getUserName(), username)) {
+            userService.updateUser(username, updatedUser);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "User with username: " + username + " updated", true, updatedUser), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found ", false, null), HttpStatus.NOT_FOUND);
+    }
+
+
+    @DeleteMapping("/delete-user/{username}")
+    public ResponseEntity<Object> delete(@PathVariable String username) {
+        Optional<User> userOptional = userService.getUserByUserName(username);
+        if (userOptional.isPresent()) {
+            userService.deleteUser(userOptional.get().getUserId());
+            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "Deleted User with id: " + userOptional.get().getUserId(), true, userOptional), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
+    }
 }
+
+
+
