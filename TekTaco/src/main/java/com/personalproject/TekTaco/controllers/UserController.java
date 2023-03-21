@@ -42,13 +42,13 @@ public class UserController {
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(),
                     "Valid request",
                     true,
-                    new String[] {userService.getUserDetails(authRequest.getUsername()), token} 
+                    new String[] {userService.getUserDetails(authRequest.getUsername()), token}
             ), HttpStatus.OK);
         }
         throw new UsernameNotFoundException("Invalid user request!");
     }
 
-    @GetMapping("/staff-list/{userName}")
+    @GetMapping("/{userName}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> getUser(@PathVariable String userName) {
         List<User> userList = userService.getAllUsers();
@@ -72,7 +72,7 @@ public class UserController {
         return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New user created", true, user), HttpStatus.CREATED);
     }
 
-    @GetMapping("/staff-list/admin-list/{roles}")
+    @GetMapping("/{roles}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> getUsersByRole(@PathVariable String roles) {
         List<User> userList = userService.getUsersByRoles(roles);
@@ -86,7 +86,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/update-user/{username}")
+    @PutMapping("/{username}")
     public ResponseEntity<Object> updateUser(@PathVariable String username, @RequestBody User updatedUser) {
         Optional<User> userByUserName = userService.getUserByUserName(username);
         if (userByUserName.isPresent() && Objects.equals(userByUserName.get().getUserName(), username)) {
@@ -97,7 +97,7 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/delete-user/{username}")
+    @DeleteMapping("/{username}")
     public ResponseEntity<Object> delete(@PathVariable String username) {
         Optional<User> userOptional = userService.getUserByUserName(username);
         if (userOptional.isPresent()) {

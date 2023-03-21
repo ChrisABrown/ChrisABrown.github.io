@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -28,13 +29,24 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SecurityConfig {
+public class SecurityConfig  {
 
-    String[] allowedRequests = {"/api/v1/menuItems/**", "/api/v1/admin/new-user", "/api/v1/admin/auth-login"};
-    String[] authorizedRequests = {"/api/v1/reviews", "/api/v1/admin", "/api/v1/admin/staff-list/**"};
+   private static final  String[] allowedRequests = {
+           "/api/v1/menuItems/**",
+           "/api/v1/admin/new-user",
+           "/api/v1/admin/auth-login",
+           "/v3/api-docs/**",
+           "swagger-resources/**",
+           "/swagger-ui/**",
+           "/webjars/**"
+   };
+    private static final String[] authorizedRequests = {
+            "/api/v1/reviews",
+            "/api/v1/admin",
+            "/api/v1/admin/staff-list/**"
+    };
     String[] allowedOrigins = {"http://localhost:3000"};
     String[] allowedMethods = {"POST", "PUT", "GET", "DELETE"};
-    String loginPage = "http:localhost:3000/login";
 
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
@@ -49,12 +61,11 @@ public class SecurityConfig {
 
         return http.cors(withDefaults())
                 .csrf().disable()
-                .authorizeHttpRequests().requestMatchers(allowedRequests).permitAll()
-                .and()
-                .authorizeHttpRequests().requestMatchers(authorizedRequests)
-                .authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeHttpRequests().requestMatchers(allowedRequests)
+                .permitAll().anyRequest().authenticated()
                 .and()
                 .authenticationProvider(authProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

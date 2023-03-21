@@ -27,7 +27,7 @@ public class MenuItemController {
         return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "List of all Menu Items: ", true, allMenuItems), HttpStatus.OK);
     }
 
-    @GetMapping("/getOne/{sku}")
+    @GetMapping("/{sku}")
     public ResponseEntity<Object> getMenuItemBySku(@PathVariable String sku) {
         Optional<MenuItem> foundMenuItem = menuItemService.getMenuItemBySku(sku);
         if (foundMenuItem.isPresent() && Objects.equals(foundMenuItem.get().getSku(), sku)) {
@@ -37,14 +37,14 @@ public class MenuItemController {
     }
 
 
-    @PostMapping("/add-new-menuItems")
+    @PostMapping
     public ResponseEntity<Object> createNewMenuItems(@RequestBody Set<MenuItem> newMenuItems) {
         List<MenuItem> menuItemList = menuItemService.createNewMenuItems(newMenuItems);
         return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New Menu Items created", true, menuItemList), HttpStatus.CREATED);
     }
 
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateMenuItem(@PathVariable String id, @RequestBody MenuItem updatedMenuItem) {
         if (Objects.equals(updatedMenuItem.get_id(), id)) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found for id: " + id, false, null), HttpStatus.NOT_FOUND);
@@ -53,7 +53,7 @@ public class MenuItemController {
         return new ResponseEntity<>((new AppResponse(HttpStatus.FOUND.value(), "Updated the menu item with id: " + id, true, updatedMenuItem)), HttpStatus.FOUND);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable String id) {
         Optional<MenuItem> isDeleted = menuItemService.getMenuItemById(id);
         if (isDeleted.isPresent()) {
