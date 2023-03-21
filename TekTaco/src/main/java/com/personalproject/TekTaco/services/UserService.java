@@ -32,6 +32,12 @@ public class UserService {
     public Optional<User> getUserByUserName(String userName) {
         return userRepo.findByUserName(userName);
     }
+    public User getUserByEmail(String email){return userRepo.findByEmail(email);}
+    public List<User> getUsersByRoles(String roles){return userRepo.findByRoles(roles);}
+    public String getUserDetails(String username){
+        User withUserName = userRepo.findWithUserName(username);
+        return withUserName.toString();
+         }
 
     public void updateUser(String username, User newUserDetails){
         User user = new User();
@@ -52,4 +58,6 @@ public class UserService {
     public void deleteUser(ObjectId id){
         userRepo.deleteById(id);
     }
+
+
 }

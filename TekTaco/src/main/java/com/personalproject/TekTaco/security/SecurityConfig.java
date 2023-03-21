@@ -30,8 +30,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    String[] allowedRequests = {"/api/v1/menuItems/**", "/api/v1/admin/new-user", "/api/v1/admin/auth"};
-    String[] authorizedRequests = {"/api/v1/reviews", "/api/v1/admin"};
+    String[] allowedRequests = {"/api/v1/menuItems/**", "/api/v1/admin/new-user", "/api/v1/admin/auth-login"};
+    String[] authorizedRequests = {"/api/v1/reviews", "/api/v1/admin", "/api/v1/admin/staff-list/**"};
     String[] allowedOrigins = {"http://localhost:3000"};
     String[] allowedMethods = {"POST", "PUT", "GET", "DELETE"};
     String loginPage = "http:localhost:3000/login";

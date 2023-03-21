@@ -29,4 +29,16 @@ public class User {
         this.userName = this.firstName.charAt(0) + this.lastName;
     }
 
+
+    @Override
+    public String toString() {
+
+        return "userId: " + userId +
+                " userName: " + userName +
+                " firstName: " + firstName +
+                " lastName: " + lastName +
+                " email: " + email +
+                " roles: " + roles
+                ;
+    }
 }

@@ -15,10 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
@@ -36,13 +33,23 @@ public class UserController {
 
 
     @PostMapping("/auth-login")
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        if (authentication.isAuthenticated()) return jwtService.generateToken(authRequest.getUsername());
+    public ResponseEntity<Object> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+        Authentication authentication = authManager
+                .authenticate
+                        (new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        if (authentication.isAuthenticated()) {
+            String token = jwtService.generateToken(authRequest.getUsername());
+            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(),
+                    "Valid request",
+                    true,
+                    new String[] {userService.getUserDetails(authRequest.getUsername()), token} 
+            ), HttpStatus.OK);
+        }
         throw new UsernameNotFoundException("Invalid user request!");
     }
 
     @GetMapping("/staff-list/{userName}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> getUser(@PathVariable String userName) {
         List<User> userList = userService.getAllUsers();
         Optional<User> user = userService.getUserByUserName(userName);
@@ -66,20 +73,14 @@ public class UserController {
     }
 
     @GetMapping("/staff-list/admin-list/{roles}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> getUsersByRole(@PathVariable String roles) {
-        List<User> allUsers = userService.getAllUsers();
-        List<User> adminUsers = new ArrayList<>();
-        List<User> userList = new ArrayList<>();
+        List<User> userList = userService.getUsersByRoles(roles);
 
-        for (User users : allUsers) {
-            if (users.getRoles().contains("ROLE_USER") && users.getRoles().equals(roles)) {
-                userList.add(users);
-                return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of users with user access: ", true, userList), HttpStatus.FOUND);
-            } else if (users.getRoles().contains("ROLE_ADMIN") && users.getRoles().equals(roles)) {
-                adminUsers.add(users);
-                return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all users with admin access: ", true, adminUsers), HttpStatus.FOUND);
+        for (User users : userList) {
+            if (users.getRoles().equals(roles)) {
+                return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of users with " + roles + " access: ", true, userList), HttpStatus.FOUND);
             }
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Users found have no matching roles", false, users), HttpStatus.FOUND);
         }
         return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
     }
