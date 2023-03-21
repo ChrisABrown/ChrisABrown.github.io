@@ -17,3 +17,14 @@ h2 {
 .rating span {
   margin: 0.1rem;
 }
+
+a {
+  color: rgb(7, 5, 0);
+  text-decoration: none;
+}
+div.my-3 {
+  background-color: bisque;
+}
+main {
+  border-radius: 10px;
+}

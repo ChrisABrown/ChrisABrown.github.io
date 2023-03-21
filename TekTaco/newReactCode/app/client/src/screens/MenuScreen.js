@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { Button } from 'react-bootstrap'
 import { listMenuItemDetails } from '../actions/menuItemActions'
 import Loader from '../components/Loader'
 import MenuItemDetails from '../components/MenuItemDetails'
@@ -22,10 +23,9 @@ const MenuScreen = ({ navigate, location }) => {
 
   return (
     <>
-      <Link className='btn btn-light my-3' to='/'>
-        {' '}
+      <Button className='btn btn-light my-3' onClick={() => navigate('/')}>
         Go Back
-      </Link>
+      </Button>
       {loading ? (
         <Loader />
       ) : error ? (

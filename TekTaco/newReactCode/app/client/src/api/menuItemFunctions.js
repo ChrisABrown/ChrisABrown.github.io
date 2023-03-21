@@ -16,7 +16,7 @@ export async function fetchMenuItems() {
 
 export async function fetchMenuItemBySku(sku) {
   try {
-    const res = await axios.get(`${URL}/getOne/${sku}`)
+    const res = await axios.get(`${URL}/${sku}`)
     if (res.data.status === 302) {
       return await res
     }

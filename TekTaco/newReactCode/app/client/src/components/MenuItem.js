@@ -8,11 +8,9 @@ const MenuItem = ({ item }) => {
 
   return (
     <Card className='my-3 py-3 rounded'>
-      <Link to={menuItemURL}>
-        <Card.Img src={item.image} height={300}></Card.Img>
-      </Link>
       <Card.Body>
         <Link to={menuItemURL}>
+          <Card.Img src={item.image} height={300} />
           <Card.Title as='div'>
             <strong>{item.name}</strong>
           </Card.Title>
@@ -23,7 +21,7 @@ const MenuItem = ({ item }) => {
             text={`${item.numOfReviews} reviews`}
             className='my-3'
           >
-            {item.rating} from {item.numOfReviews} reviews
+            {item.rating} {item.numOfReviews}
           </Rating>
         </Card.Text>
         <Card.Text as='h3'>${item.price.toFixed(2)}</Card.Text>
