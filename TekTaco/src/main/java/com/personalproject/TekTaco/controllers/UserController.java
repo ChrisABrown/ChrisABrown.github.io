@@ -1,11 +1,18 @@
 package com.personalproject.TekTaco.controllers;
 
 import com.personalproject.TekTaco.models.AppResponse;
+import com.personalproject.TekTaco.models.AuthRequest;
 import com.personalproject.TekTaco.models.User;
+import com.personalproject.TekTaco.services.JwtService;
 import com.personalproject.TekTaco.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,6 +28,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private AuthenticationManager authManager;
+
+
+    @PostMapping("/auth-login")
+    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        if (authentication.isAuthenticated()) return jwtService.generateToken(authRequest.getUsername());
+        throw new UsernameNotFoundException("Invalid user request!");
+    }
+
     @GetMapping("/staff-list/{userName}")
     public ResponseEntity<Object> getUser(@PathVariable String userName) {
         List<User> userList = userService.getAllUsers();
@@ -32,9 +53,10 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> getAllEmployees() {
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Object> getAllUsers() {
         List<User> allUsers = userService.getAllUsers();
-        return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all employees: ", true, allUsers), HttpStatus.FOUND);
+        return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all Users: ", true, allUsers), HttpStatus.FOUND);
     }
 
     @PostMapping("/new-user")

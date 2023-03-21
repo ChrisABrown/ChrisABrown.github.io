@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
@@ -33,7 +34,7 @@ import java.util.Set;
     private Integer deliveryCharge;
     private Integer totalPrice;
     private Boolean isPaid;
-    private LocalDateTime paidOn;
+    private LocalDate paidOn;
     private Boolean isDelivered;
 
 
