@@ -66,7 +66,7 @@ public class UserController {
         return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all Users: ", true, allUsers), HttpStatus.FOUND);
     }
 
-    @PostMapping("/new-user")
+    @PostMapping
     public ResponseEntity<Object> addNewUser(@RequestBody User user) {
         userService.addUser(user);
         return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New user created", true, user), HttpStatus.CREATED);

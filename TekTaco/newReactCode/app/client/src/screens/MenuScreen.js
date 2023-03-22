@@ -7,7 +7,7 @@ import Loader from '../components/Loader'
 import MenuItemDetails from '../components/MenuItemDetails'
 import Message from '../components/Message'
 
-const MenuScreen = ({ navigate, location }) => {
+const MenuScreen = ({ navigate }) => {
   const [quantity, setQuantity] = useState(1)
 
   const dispatch = useDispatch()
@@ -35,7 +35,6 @@ const MenuScreen = ({ navigate, location }) => {
           key={sku}
           sku={sku}
           navigate={navigate}
-          location={location}
           menuItem={menuItem}
           quantity={quantity}
           setQuantity={setQuantity}

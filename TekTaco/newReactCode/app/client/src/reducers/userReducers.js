@@ -5,7 +5,7 @@ import {
   USER_LOGIN_LOGOUT,
 } from '../constants/userConstants'
 
-export const userLoginReducer = (state = {}, action) => {
+export const userLoginReducer = (state = { userInfo: {} }, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true }

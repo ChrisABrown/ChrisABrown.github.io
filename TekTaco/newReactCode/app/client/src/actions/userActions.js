@@ -5,13 +5,11 @@ import {
   USER_LOGIN_SUCCESS,
 } from '../constants/userConstants'
 
-export const login = (username, password) => (dispatch) => {
+export const login = (username, password) => async (dispatch) => {
   try {
-    dispatch({
-      type: USER_LOGIN_REQUEST,
-    })
+    dispatch({ type: USER_LOGIN_REQUEST })
 
-    const { data } = userLogin({ username, password }).then()
+    const { data } = await userLogin(username, password)
 
     dispatch({
       type: USER_LOGIN_SUCCESS,

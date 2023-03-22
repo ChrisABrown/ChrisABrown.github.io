@@ -16,6 +16,7 @@ import './index.css'
 import CartScreen from './screens/CartScreen'
 import HomeScreen from './screens/HomeScreen'
 import MenuScreen from './screens/MenuScreen'
+import LoginScreen from './screens/LoginScreen.js'
 
 export default function App() {
   const location = useSearchParams()
@@ -47,11 +48,10 @@ export default function App() {
                   error={error}
                 />
               }
-              exact
             />
             <Route
               path='/menuItems/:sku'
-              element={<MenuScreen navigate={navigate} location={location} />}
+              element={<MenuScreen navigate={navigate} />}
             />
             <Route
               path='/cart/:sku?'
@@ -59,7 +59,10 @@ export default function App() {
                 <CartScreen sku={sku} navigate={navigate} location={location} />
               }
             />
-            <Route path='/*' />
+            <Route
+              path='/login'
+              element={<LoginScreen location={location} />}
+            />
           </Routes>
         </Container>
       </main>
