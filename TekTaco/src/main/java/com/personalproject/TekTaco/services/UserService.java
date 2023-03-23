@@ -34,9 +34,9 @@ public class UserService {
     }
     public User getUserByEmail(String email){return userRepo.findByEmail(email);}
     public List<User> getUsersByRoles(String roles){return userRepo.findByRoles(roles);}
-    public String getUserDetails(String username){
+    public User getUserDetails(String username){
         User withUserName = userRepo.findWithUserName(username);
-        return withUserName.toString();
+        return withUserName;
          }
 
     public void updateUser(String username, User newUserDetails){

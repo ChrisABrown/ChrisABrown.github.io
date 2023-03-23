@@ -30,15 +30,5 @@ public class User {
     }
 
 
-    @Override
-    public String toString() {
 
-        return "userId: " + userId +
-                " userName: " + userName +
-                " firstName: " + firstName +
-                " lastName: " + lastName +
-                " email: " + email +
-                " roles: " + roles
-                ;
-    }
 }

@@ -29,7 +29,7 @@ const LoginScreen = ({ location }) => {
   const { loading, userInfo, error } = userLogin
 
   const submitHandler = (e) => {
-    e.prevent.default()
+    e.preventDefault()
     dispatch(login(username, password))
   }
 

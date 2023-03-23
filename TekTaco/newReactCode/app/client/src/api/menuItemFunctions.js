@@ -8,7 +8,7 @@ export async function fetchMenuItems() {
     if (res.data.status !== 200) {
       throw new Error('Something went wrong')
     }
-    return await res
+    return res
   } catch (error) {
     return error
   }
@@ -18,7 +18,7 @@ export async function fetchMenuItemBySku(sku) {
   try {
     const res = await axios.get(`${URL}/${sku}`)
     if (res.data.status === 302) {
-      return await res
+      return res
     }
   } catch (error) {
     return error

@@ -12,10 +12,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
@@ -32,23 +33,21 @@ public class UserController {
     private AuthenticationManager authManager;
 
 
-    @PostMapping("/auth-login")
+    @PostMapping("/login")
     public ResponseEntity<Object> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authManager
-                .authenticate
-                        (new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+
+        String token = jwtService.generateToken(authRequest.getUsername());
+
+        Optional<User> userDetails = userService.getUserByUserName(authRequest.getUsername());
+
         if (authentication.isAuthenticated()) {
-            String token = jwtService.generateToken(authRequest.getUsername());
-            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(),
-                    "Valid request",
-                    true,
-                    new String[] {userService.getUserDetails(authRequest.getUsername()), token}
-            ), HttpStatus.OK);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "Valid request", true, userDetails, token), HttpStatus.OK);
         }
-        throw new UsernameNotFoundException("Invalid user request!");
+        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Unauthorized", false, null), HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/{userName}")
+    @GetMapping("/user/{userName}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> getUser(@PathVariable String userName) {
         List<User> userList = userService.getAllUsers();
@@ -59,20 +58,20 @@ public class UserController {
         return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found ", false, user), HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping
+    @GetMapping("/users")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> getAllUsers() {
         List<User> allUsers = userService.getAllUsers();
         return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all Users: ", true, allUsers), HttpStatus.FOUND);
     }
 
-    @PostMapping
+    @PostMapping("/user")
     public ResponseEntity<Object> addNewUser(@RequestBody User user) {
         userService.addUser(user);
         return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New user created", true, user), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{roles}")
+    @GetMapping("/users/{roles}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> getUsersByRole(@PathVariable String roles) {
         List<User> userList = userService.getUsersByRoles(roles);
@@ -86,7 +85,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/{username}")
+    @PutMapping("/user/{username}")
     public ResponseEntity<Object> updateUser(@PathVariable String username, @RequestBody User updatedUser) {
         Optional<User> userByUserName = userService.getUserByUserName(username);
         if (userByUserName.isPresent() && Objects.equals(userByUserName.get().getUserName(), username)) {
@@ -97,7 +96,7 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/{username}")
+    @DeleteMapping("/user/{username}")
     public ResponseEntity<Object> delete(@PathVariable String username) {
         Optional<User> userOptional = userService.getUserByUserName(username);
         if (userOptional.isPresent()) {

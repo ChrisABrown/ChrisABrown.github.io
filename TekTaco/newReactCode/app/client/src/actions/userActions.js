@@ -8,15 +8,15 @@ import {
 export const login = (username, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST })
-
-    const { data } = await userLogin(username, password)
+    const res = await userLogin(username, password)
+    console.log(res)
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: data,
+      payload: res,
     })
 
-    localStorage.setItem('userInfo', JSON.stringify(data[0]))
+    localStorage.setItem('userInfo', JSON.stringify(res))
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
