@@ -1,8 +1,19 @@
 import React from 'react'
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
+import { logout } from '../actions/userActions'
 import CartIcon from './CartIcon'
+
 const Header = () => {
+  const dispatch = useDispatch()
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+  const logoutHandler = () => {
+    dispatch(logout())
+    alert(`${userInfo.userName} Successfully logged out.`)
+    window.location.reload(true)
+  }
   return (
     <header>
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
@@ -25,11 +36,23 @@ const Header = () => {
                   <CartIcon />
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to='/login'>
-                <Nav.Link>
-                  <i className='fas fa fa-user'> Login </i>
-                </Nav.Link>
-              </LinkContainer>
+              {userInfo ? (
+                <NavDropdown title={userInfo.userName} id='nav-dropdown'>
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout{' '}
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to='/login'>
+                  <Nav.Link>
+                    <i className='fas fa fa-user'> Login </i>
+                  </Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -16,19 +16,22 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Arrays;
 import java.util.List;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SecurityConfig {
+public class WebSecurityConfig {
 
     private static final String[] allowedRequests = {
             "/api/v1/menuItems/**",
@@ -48,10 +51,11 @@ public class SecurityConfig {
 
     };
     String[] allowedOrigins = {"http://localhost:3000"};
-    String[] allowedMethods = {"POST", "PUT", "GET", "DELETE"};
+
 
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
+
 
     @Bean
     UserDetailsService userDetailsService() {
@@ -61,19 +65,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http.cors(withDefaults())
+        return http.cors()
+                .and()
                 .csrf().disable()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeHttpRequests().requestMatchers(allowedRequests)
                 .permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers(authorizedRequests)
                 .authenticated()
                 .and()
-//                .authenticationProvider(authProvider())
-//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .authenticationProvider(authProvider())
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
 
@@ -82,8 +87,10 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigSource() {
         CorsConfiguration cors = new CorsConfiguration();
-        cors.setAllowedOrigins(List.of(allowedOrigins));
-        cors.setAllowedMethods(List.of(allowedMethods));
+        cors.setAllowedOrigins(Arrays.asList(allowedOrigins));
+        cors.setAllowedMethods(List.of("**"));
+        cors.setAllowedHeaders(List.of("*"));
+        cors.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", cors);
         return source;
@@ -101,6 +108,7 @@ public class SecurityConfig {
         daoAuthProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthProvider;
     }
+
 
     @Bean
     public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {

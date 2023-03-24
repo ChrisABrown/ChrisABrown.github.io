@@ -17,6 +17,7 @@ import CartScreen from './screens/CartScreen'
 import HomeScreen from './screens/HomeScreen'
 import MenuScreen from './screens/MenuScreen'
 import LoginScreen from './screens/LoginScreen.js'
+import RegisterScreen from './screens/RegisterScreen.js'
 
 export default function App() {
   const location = useSearchParams()
@@ -61,7 +62,13 @@ export default function App() {
             />
             <Route
               path='/login'
-              element={<LoginScreen location={location} />}
+              element={<LoginScreen navigate={navigate} location={location} />}
+            />
+            <Route
+              path='/register'
+              element={
+                <RegisterScreen navigate={navigate} location={location} />
+              }
             />
           </Routes>
         </Container>

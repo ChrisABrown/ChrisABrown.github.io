@@ -1,48 +1,51 @@
-import React, { useState, useEffect } from 'react'
-import { Link, redirect } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
-  Row,
   Col,
   Form,
+  FormControl,
   FormGroup,
   FormLabel,
-  FormControl,
+  Row,
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
+import { Link } from 'react-router-dom'
 import { login } from '../actions/userActions'
 import FormContainer from '../components/FormContainer'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
-const LoginScreen = ({ location }) => {
+const LoginScreen = ({ navigate, location }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const searchParams = location
 
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
 
-  const [searchParams] = location
-  const registrar = searchParams ? searchParams[1] : '/'
+  const registrar = searchParams.search
+    ? searchParams.search.split('=')[1]
+    : '/'
 
   const { loading, userInfo, error } = userLogin
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(registrar)
+    }
+  }, [userInfo, registrar, navigate])
 
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(login(username, password))
   }
-
-  useEffect(() => {
-    if (userInfo) {
-      redirect(registrar)
-    }
-  }, [userInfo, registrar])
-
   return (
     <FormContainer>
       <h1>Sign In</h1>
-      {error && <Message variant='danger'>{error}</Message>}
+      {error && (
+        <Message variant='danger'>Invalid Username or Password</Message>
+      )}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <FormGroup controlId='username'>
@@ -71,7 +74,7 @@ const LoginScreen = ({ location }) => {
         <Col>
           New User?{' '}
           <Link
-            to={registrar ? `register?redirect=${registrar}` : '/register'}
+            to={registrar ? `/register?redirect=${registrar}` : '/register'}
             style={{ color: '#6fa8dc' }}
           >
             Click here to Register
