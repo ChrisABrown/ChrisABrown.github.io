@@ -34,4 +34,6 @@ build/
 .vscode/
 
 ENV files
+localhost.pem
+localhost-key.pem
 .env
