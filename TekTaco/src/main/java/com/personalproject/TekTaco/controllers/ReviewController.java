@@ -1,6 +1,6 @@
 package com.personalproject.TekTaco.controllers;
 
-import com.personalproject.TekTaco.models.AppResponse;
+import com.personalproject.TekTaco.payload.AppResponse;
 import com.personalproject.TekTaco.models.Review;
 import com.personalproject.TekTaco.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;

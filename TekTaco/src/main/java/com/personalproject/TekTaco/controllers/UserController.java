@@ -1,18 +1,21 @@
 package com.personalproject.TekTaco.controllers;
 
-import com.personalproject.TekTaco.models.AppResponse;
-import com.personalproject.TekTaco.models.AuthRequest;
 import com.personalproject.TekTaco.models.User;
-import com.personalproject.TekTaco.services.JwtService;
+import com.personalproject.TekTaco.payload.AppResponse;
+import com.personalproject.TekTaco.payload.AuthRequest;
+import com.personalproject.TekTaco.security.UserInfo;
+import com.personalproject.TekTaco.security.jwt.JwtService;
 import com.personalproject.TekTaco.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,32 +38,32 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Object> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<Object> authenticateUser(@Valid @RequestBody AuthRequest authRequest) {
         Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 
-        String token = jwtService.generateToken(authRequest.getUsername());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        Optional<User> userDetails = userService.getUserByUserName(authRequest.getUsername());
+        UserInfo userDetails = (UserInfo) authentication.getPrincipal();
 
+        ResponseCookie jwtCookie = jwtService.generateJwtCookie(userDetails);
         if (authentication.isAuthenticated()) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "Valid request", true, userDetails, token), HttpStatus.OK);
+            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(userService.getUserByUserName(userDetails.getUsername()));
         }
-        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "Unauthorized", false, null), HttpStatus.NOT_FOUND);
+        return null;
+
     }
 
-    @GetMapping("/user/{userName}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Object> getUser(@PathVariable String userName) {
+    @GetMapping("/user/{username}")
+    public ResponseEntity<Object> getUser(@PathVariable String username) {
         List<User> userList = userService.getAllUsers();
-        Optional<User> user = userService.getUserByUserName(userName);
+        Optional<User> user = userService.getUserByUserName(username);
         if (user.isPresent() && userList.contains(user.get())) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Found User with username: " + userName, true, user), HttpStatus.FOUND);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Found User with username: " + username, true, user), HttpStatus.FOUND);
         }
         return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found ", false, user), HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> getAllUsers() {
         List<User> allUsers = userService.getAllUsers();
         return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all Users: ", true, allUsers), HttpStatus.FOUND);
@@ -73,7 +76,6 @@ public class UserController {
     }
 
     @GetMapping("/users/{roles}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> getUsersByRole(@PathVariable String roles) {
         List<User> userList = userService.getUsersByRoles(roles);
 
@@ -89,7 +91,7 @@ public class UserController {
     @PutMapping("/user/{username}")
     public ResponseEntity<Object> updateUser(@PathVariable String username, @RequestBody User updatedUser) {
         Optional<User> userByUserName = userService.getUserByUserName(username);
-        if (userByUserName.isPresent() && Objects.equals(userByUserName.get().getUserName(), username)) {
+        if (userByUserName.isPresent() && Objects.equals(userByUserName.get().getUsername(), username)) {
             userService.updateUser(username, updatedUser);
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "User with username: " + username + " updated", true, updatedUser), HttpStatus.OK);
         }

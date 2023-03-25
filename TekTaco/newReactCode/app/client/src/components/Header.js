@@ -11,7 +11,7 @@ const Header = () => {
   const { userInfo } = userLogin
   const logoutHandler = () => {
     dispatch(logout())
-    alert(`${userInfo.userName} Successfully logged out.`)
+    alert(`${userInfo.username} Successfully logged out.`)
     window.location.reload(true)
   }
   return (
@@ -37,7 +37,7 @@ const Header = () => {
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
-                <NavDropdown title={userInfo.userName} id='nav-dropdown'>
+                <NavDropdown title={userInfo.username} id='nav-dropdown'>
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>

@@ -1,4 +1,4 @@
-package com.personalproject.TekTaco.models;
+package com.personalproject.TekTaco.payload;
 
 
 import lombok.AllArgsConstructor;

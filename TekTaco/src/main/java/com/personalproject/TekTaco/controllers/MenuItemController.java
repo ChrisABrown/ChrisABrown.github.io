@@ -1,6 +1,6 @@
 package com.personalproject.TekTaco.controllers;
 
-import com.personalproject.TekTaco.models.AppResponse;
+import com.personalproject.TekTaco.payload.AppResponse;
 import com.personalproject.TekTaco.models.MenuItem;
 import com.personalproject.TekTaco.services.MenuItemService;
 import org.springframework.beans.factory.annotation.Autowired;

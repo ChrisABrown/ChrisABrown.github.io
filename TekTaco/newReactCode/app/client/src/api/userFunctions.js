@@ -16,7 +16,8 @@ export async function userLogin(username, password) {
       { username, password },
       config
     )
-    return await res.data.data
+    console.log(res.data)
+    return await res.data
   } catch (error) {
     console.log(error)
     return Promise.reject(error)

@@ -1,6 +1,7 @@
 package com.personalproject.TekTaco.security;
 
-import com.personalproject.TekTaco.filters.JwtAuthFilter;
+import com.personalproject.TekTaco.security.jwt.AuthEntryPointJwt;
+import com.personalproject.TekTaco.security.jwt.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,23 +17,44 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class WebSecurityConfig {
+public class SecurityConfig {
+    @Bean
+    public JwtAuthFilter authenticationJwtTokenFilter() {
+        return new JwtAuthFilter();
+    }
 
+    @Bean
+    UserDetailsService userDetailsService() {
+        return new UserInfoServiceImpl();
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
+    @Bean
+    public AuthenticationProvider authProvider() {
+        DaoAuthenticationProvider daoAuthProvider = new DaoAuthenticationProvider();
+        daoAuthProvider.setUserDetailsService(userDetailsService());
+        daoAuthProvider.setPasswordEncoder(passwordEncoder());
+        return daoAuthProvider;
+    }
     private static final String[] allowedRequests = {
             "/api/v1/menuItems/**",
             "/api/v1/admin/users",
@@ -43,6 +65,7 @@ public class WebSecurityConfig {
             "/swagger-ui/**",
             "/webjars/**"
     };
+
     private static final String[] authorizedRequests = {
             "/api/v1/reviews",
             "/api/v1/admin/users/**",
@@ -50,68 +73,37 @@ public class WebSecurityConfig {
 
 
     };
+
     String[] allowedOrigins = {"http://localhost:3000"};
 
-
-    @Autowired
-    private JwtAuthFilter jwtAuthFilter;
+    String[] allowedMethods = {"POST", "PUT", "GET", "DELETE"};
 
 
     @Bean
-    UserDetailsService userDetailsService() {
-        return new UserInfoUserDetailsService();
-    }
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeHttpRequests().requestMatchers(allowedRequests).permitAll()
+                .requestMatchers(authorizedRequests).permitAll()
+                .anyRequest().authenticated();
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authenticationProvider(authProvider());
 
-        return http.cors()
-                .and()
-                .csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeHttpRequests().requestMatchers(allowedRequests)
-                .permitAll()
-                .and()
-                .authorizeHttpRequests().requestMatchers(authorizedRequests)
-                .authenticated()
-                .and()
-                .authenticationProvider(authProvider())
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
-
+        return http.build();
     }
 
     @Bean
     CorsConfigurationSource corsConfigSource() {
         CorsConfiguration cors = new CorsConfiguration();
-        cors.setAllowedOrigins(Arrays.asList(allowedOrigins));
-        cors.setAllowedMethods(List.of("**"));
-        cors.setAllowedHeaders(List.of("*"));
-        cors.setAllowCredentials(true);
+        cors.setAllowedOrigins(List.of(allowedOrigins));
+        cors.setAllowedMethods(List.of(allowedMethods));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", cors);
         return source;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
-    @Bean
-    public AuthenticationProvider authProvider() {
-        DaoAuthenticationProvider daoAuthProvider = new DaoAuthenticationProvider();
-        daoAuthProvider.setUserDetailsService(userDetailsService());
-        daoAuthProvider.setPasswordEncoder(passwordEncoder());
-        return daoAuthProvider;
-    }
-
-
-    @Bean
-    public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
 }
