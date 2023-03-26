@@ -1,5 +1,6 @@
 package com.personalproject.TekTaco.controllers;
 
+import com.personalproject.TekTaco.controllers.exceptions.UsernameAlreadyExistsException;
 import com.personalproject.TekTaco.models.User;
 import com.personalproject.TekTaco.payload.AppResponse;
 import com.personalproject.TekTaco.payload.AuthRequest;
@@ -23,7 +24,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT}, allowCredentials = "true")
 @RequestMapping("/api/v1/admin")
 public class UserController {
 
@@ -60,7 +61,7 @@ public class UserController {
         if (user.isPresent() && userList.contains(user.get())) {
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "Found User with username: " + username, true, user), HttpStatus.OK);
         }
-        return new ResponseEntity<>(  new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found ", false, user), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found ", false, user), HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/users")
@@ -68,6 +69,7 @@ public class UserController {
         List<User> allUsers = userService.getAllUsers();
         return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "List of all Users: ", true, allUsers), HttpStatus.FOUND);
     }
+
 
     @PostMapping("/user")
     public ResponseEntity<Object> addNewUser(@RequestBody User user) {
@@ -91,9 +93,8 @@ public class UserController {
     @PutMapping("/user/{username}")
     public ResponseEntity<Object> updateUser(@Valid @PathVariable String username, @RequestBody User updatedUser) {
         Optional<User> userByUserName = userService.getUserByUserName(username);
-        jwtService.getJwtFromCookies()
-        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(username))
-        if (userByUserName.isPresent() && Objects.equals(userByUserName.get().getUsername(), username)) {
+
+        if (userByUserName.isPresent()) {
             userService.updateUser(username, updatedUser);
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "User with username: " + username + " updated", true, updatedUser), HttpStatus.OK);
         }

@@ -4,6 +4,7 @@ import com.personalproject.TekTaco.models.User;
 import com.personalproject.TekTaco.repositories.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class UserService {
     private UserRepository userRepo;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
     public User addUser(User user){
         user.setUsername();
@@ -36,8 +37,7 @@ public class UserService {
     public User getUserByEmail(String email){return userRepo.findByEmail(email);}
     public List<User> getUsersByRoles(String roles){return userRepo.findByRoles(roles);}
     public User getUserDetails(String username){
-        User withUserName = userRepo.findWithUserName(username);
-        return withUserName;
+        return userRepo.findWithUserName(username);
          }
 
     public void updateUser(String username, User newUserDetails){
@@ -45,10 +45,11 @@ public class UserService {
         Optional<User> userForUpdate = userRepo.findByUserName(username);
         if(userForUpdate.isPresent()){
             user = userForUpdate.get();
+            user.setUserId(userForUpdate.get().getUserId());
             user.setFirstName(newUserDetails.getFirstName());
             user.setLastName(newUserDetails.getLastName());
             user.setUsername();
-            user.setRoles(newUserDetails.getRoles());
+            user.setRoles(userForUpdate.get().getRoles());
             user.setEmail(newUserDetails.getEmail());
             user.setPassword(passwordEncoder.encode(newUserDetails.getPassword()));
 
@@ -58,6 +59,13 @@ public class UserService {
 
     public void deleteUser(ObjectId id){
         userRepo.deleteById(id);
+    }
+
+    public boolean existsByUsername(String username){
+        return userRepo.existsByUsername(username);
+    }
+    public boolean existsByEmail(String email){
+        return userRepo.existsByEmail(email);
     }
 
 

@@ -41,14 +41,14 @@ public class SecurityConfig {
         return new UserInfoServiceImpl();
     }
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+    public AuthenticationManager authManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
     @Bean
@@ -77,14 +77,15 @@ public class SecurityConfig {
 
     };
 
-    String[] allowedOrigins = {"http://localhost:3000/**"};
+    String[] allowedOrigins = {"http://localhost:3000"};
 
     String[] allowedMethods = {"POST", "PUT", "GET", "DELETE"};
 
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(withDefaults()).csrf().disable()
+        http.cors(withDefaults())
+                .csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests().requestMatchers(allowedRequests).permitAll()

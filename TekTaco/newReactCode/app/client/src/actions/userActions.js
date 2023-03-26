@@ -60,10 +60,10 @@ export const register =
 
       dispatch({
         type: USER_LOGIN_SUCCESS,
-        payload: res,
+        payload: res.data.data,
       })
 
-      localStorage.setItem('userInfo', JSON.stringify(res))
+      localStorage.setItem('userRegInfo', JSON.stringify(res.data.data))
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
@@ -105,27 +105,33 @@ export const getUserDetails = () => async (dispatch, getState) => {
     })
   }
 }
-export const updateUserProfile = (username, user) => async (dispatch) => {
-  try {
-    dispatch({ type: USER_UPDATE_PROFILE_REQUEST })
+export const updateUserProfile =
+  (username, { firstName, lastName, email, password }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: USER_UPDATE_PROFILE_REQUEST })
 
-    const res = await AuthService.newUserDetails(username, user).then((res) => {
-      console.log(res)
+      const res = await AuthService.newUserDetails(username, {
+        firstName,
+        lastName,
+        email,
+        password,
+      }).then((res) => {
+        return res
+      })
 
-      return res
-    })
-
-    dispatch({
-      type: USER_UPDATE_PROFILE_SUCCESS,
-      payload: res,
-    })
-  } catch (error) {
-    dispatch({
-      type: USER_UPDATE_PROFILE_FAIL,
-      payload:
-        error.response && error.response.message
-          ? error.response.data.message
-          : error.message,
-    })
+      dispatch({
+        type: USER_UPDATE_PROFILE_SUCCESS,
+        payload: res,
+      })
+      localStorage.setItem('updateInfo', JSON.stringify(res))
+    } catch (error) {
+      dispatch({
+        type: USER_UPDATE_PROFILE_FAIL,
+        payload:
+          error.response && error.response.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
   }
-}

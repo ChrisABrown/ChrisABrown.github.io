@@ -56,7 +56,7 @@ const ProfileScreen = ({ navigate }) => {
           firstName,
           lastName,
           email,
-          password,
+          password: `${user.password}`,
         })
       )
     }
@@ -77,7 +77,7 @@ const ProfileScreen = ({ navigate }) => {
               type='firstName'
               placeholder='Enter your first name'
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onInput={(e) => setFirstName(e.target.value)}
             />
           </FormGroup>
 
@@ -87,7 +87,7 @@ const ProfileScreen = ({ navigate }) => {
               type='lastName'
               placeholder='Enter your last name'
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              onInput={(e) => setLastName(e.target.value)}
             />
           </FormGroup>
           <FormGroup controlId='email'>
@@ -96,7 +96,7 @@ const ProfileScreen = ({ navigate }) => {
               type='email'
               placeholder='Enter your email'
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onInput={(e) => setEmail(e.target.value)}
             />
           </FormGroup>
 
@@ -106,7 +106,7 @@ const ProfileScreen = ({ navigate }) => {
               type='password'
               placeholder='Enter password'
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onInput={(e) => setPassword(e.target.value)}
             />
           </FormGroup>
 
@@ -116,7 +116,7 @@ const ProfileScreen = ({ navigate }) => {
               type='password'
               placeholder='Confirm password'
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onInput={(e) => setConfirmPassword(e.target.value)}
             />
           </FormGroup>
 

@@ -30,7 +30,7 @@ const RegisterScreen = ({ navigate, location }) => {
 
   const registrar = searchParams.search
     ? searchParams.search.split('=')[1]
-    : '/'
+    : '/register'
 
   const { loading, userInfo, error } = userRegister
 

@@ -4,6 +4,8 @@ export const userURL = 'http://localhost:8080/api/v1/admin/'
 
 const axiosInstance = axios.create({
   baseURL: userURL,
+  withCredentials: true,
+  credentials: 'same-origin',
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Credentials': true,
@@ -50,10 +52,17 @@ const userDetails = async (username) => {
 
 const newUserDetails = async (username, user) => {
   const userDetails = `/user/${username}`
+
+  const { firstName, lastName, email, password } = user
   try {
-    const res = await axiosInstance.put(userDetails, { user })
-    console.log(res.data)
-    return res.data
+    const res = await axiosInstance.put(userDetails, {
+      firstName,
+      lastName,
+      email,
+      password,
+    })
+
+    return res.data.data
   } catch (error) {
     return Promise.reject(error)
   }
