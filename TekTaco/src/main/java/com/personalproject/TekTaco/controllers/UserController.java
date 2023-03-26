@@ -53,14 +53,14 @@ public class UserController {
 
     }
 
-    @GetMapping("/user/{username}")
-    public ResponseEntity<Object> getUser(@PathVariable String username) {
+    @GetMapping("/user/{username}/profile")
+    public ResponseEntity<Object> getUserDetails(@PathVariable String username) {
         List<User> userList = userService.getAllUsers();
         Optional<User> user = userService.getUserByUserName(username);
         if (user.isPresent() && userList.contains(user.get())) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "Found User with username: " + username, true, user), HttpStatus.FOUND);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "Found User with username: " + username, true, user), HttpStatus.OK);
         }
-        return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found ", false, user), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(  new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found ", false, user), HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/users")
@@ -89,8 +89,10 @@ public class UserController {
 
 
     @PutMapping("/user/{username}")
-    public ResponseEntity<Object> updateUser(@PathVariable String username, @RequestBody User updatedUser) {
+    public ResponseEntity<Object> updateUser(@Valid @PathVariable String username, @RequestBody User updatedUser) {
         Optional<User> userByUserName = userService.getUserByUserName(username);
+        jwtService.getJwtFromCookies()
+        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(username))
         if (userByUserName.isPresent() && Objects.equals(userByUserName.get().getUsername(), username)) {
             userService.updateUser(username, updatedUser);
             return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "User with username: " + username + " updated", true, updatedUser), HttpStatus.OK);

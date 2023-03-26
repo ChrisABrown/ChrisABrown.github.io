@@ -18,6 +18,7 @@ import HomeScreen from './screens/HomeScreen'
 import MenuScreen from './screens/MenuScreen'
 import LoginScreen from './screens/LoginScreen.js'
 import RegisterScreen from './screens/RegisterScreen.js'
+import ProfileScreen from './screens/ProfileScreen.js'
 
 export default function App() {
   const location = useSearchParams()
@@ -47,6 +48,7 @@ export default function App() {
                   menuItems={menuItems}
                   loading={loading}
                   error={error}
+                  exact
                 />
               }
             />
@@ -69,6 +71,10 @@ export default function App() {
               element={
                 <RegisterScreen navigate={navigate} location={location} />
               }
+            />
+            <Route
+              path='/profile'
+              element={<ProfileScreen navigate={navigate} />}
             />
           </Routes>
         </Container>

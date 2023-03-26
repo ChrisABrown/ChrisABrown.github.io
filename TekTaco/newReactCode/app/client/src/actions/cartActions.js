@@ -1,4 +1,4 @@
-import { fetchMenuItemBySku } from '../api/menuItemFunctions'
+import { fetchMenuItemBySku } from '../services/menuItemFunctions'
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants'
 
 export const addToCart = (sku, quantity) => async (dispatch, getState) => {

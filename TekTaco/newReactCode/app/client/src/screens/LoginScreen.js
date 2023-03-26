@@ -43,9 +43,7 @@ const LoginScreen = ({ navigate, location }) => {
   return (
     <FormContainer>
       <h1>Sign In</h1>
-      {error && (
-        <Message variant='danger'>Invalid Username or Password</Message>
-      )}
+      {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <FormGroup controlId='username'>

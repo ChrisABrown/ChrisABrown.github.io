@@ -6,7 +6,10 @@ import {
   MENU_ITEM_DETAILS_REQUEST,
   MENU_ITEM_DETAILS_SUCCESS,
 } from '../constants/menuItemConstants'
-import { fetchMenuItemBySku, fetchMenuItems } from '../api/menuItemFunctions'
+import {
+  fetchMenuItemBySku,
+  fetchMenuItems,
+} from '../services/menuItemFunctions'
 
 export const listMenuItems = () => async (dispatch) => {
   try {

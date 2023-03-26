@@ -53,7 +53,7 @@ const RegisterScreen = ({ navigate, location }) => {
     <FormContainer>
       <h1>Register New User</h1>
       {/* TODO: cannot be blank */}
-      {error && <Message variant='danger'>Cannot be blank</Message>}{' '}
+      {error && <Message variant='danger'>{error}</Message>}{' '}
       {message && <Message variant='danger'>{message}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
@@ -97,7 +97,7 @@ const RegisterScreen = ({ navigate, location }) => {
         </FormGroup>
 
         <FormGroup controlId='confirmPassword'>
-          <FormLabel>Password</FormLabel>
+          <FormLabel>Confirm your Password</FormLabel>
           <FormControl
             type='password'
             placeholder='Confirm password'
