@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.Set;
 
 @Document(collection = "Orders")
@@ -18,11 +19,11 @@ import java.util.Set;
 @AllArgsConstructor
 public class Order {
     @Id
-    private ObjectId orderId;
-    @DocumentReference
-    private User user;
-    @DocumentReference
-    private Set<MenuItem> orderedItems;
+    private String orderId;
+
+    @CreatedBy
+    private String username;
+    private Set<CartItem> orderedItems;
     //name, qty, image, price
     private Object deliveryAddress;
     //address, city, state, zipcode
@@ -32,32 +33,9 @@ public class Order {
     private Integer deliveryCharge;
     private Integer totalPrice;
     private Boolean isPaid;
+    @CreatedDate
     private LocalDate paidOn;
 
-    public Order(User user,
-                 Set<MenuItem> orderedItems,
-                 Object deliveryAddress,
-                 String paymentMethod,
-                 Object paymentResult,
-                 int taxPrice,
-                 Integer deliveryCharge,
-                 Integer totalPrice,
-                 Boolean isPaid,
-                 LocalDate paidOn) {
-        this.user = user;
-        this.orderedItems = orderedItems;
-        this.deliveryAddress = deliveryAddress;
-        this.paymentMethod = paymentMethod;
-        this.paymentResult = paymentResult;
-        this.taxPrice = taxPrice;
-        this.deliveryCharge = deliveryCharge;
-        this.totalPrice = totalPrice;
-        this.isPaid = isPaid;
-        this.paidOn = paidOn;
-    }
 
-    public Order(User user, Collection<Object> orderDetails) {
-        //TODO pool all properties of order into orderDetails without adding  it as a field
-        this.user = user;
-    }
+
 }

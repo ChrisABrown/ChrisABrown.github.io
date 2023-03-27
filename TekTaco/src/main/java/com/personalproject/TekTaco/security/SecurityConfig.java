@@ -66,20 +66,23 @@ public class SecurityConfig {
             "/v3/api-docs/**",
             "swagger-resources/**",
             "/swagger-ui/**",
-            "/webjars/**"
+            "/webjars/**",
+            "/"
     };
 
     private static final String[] authorizedRequests = {
             "/api/v1/reviews",
             "/api/v1/admin/users/**",
             "/api/v1/admin/user/**",
+            "api/v1/order"
 
 
     };
 
-    String[] allowedOrigins = {"http://localhost:3000"};
+    String[] allowedOrigins = {"http://localhost:3000", "https://localhost:3000"};
 
     String[] allowedMethods = {"POST", "PUT", "GET", "DELETE"};
+    String[] allowedHeaders = {"Access-Control-Allow-Origin"};
 
 
     @Bean
@@ -89,6 +92,8 @@ public class SecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests().requestMatchers(allowedRequests).permitAll()
+                .and()
+                .authorizeHttpRequests()
                 .requestMatchers(authorizedRequests).permitAll()
                 .anyRequest().authenticated();
 
@@ -102,10 +107,12 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigSource() {
         CorsConfiguration cors = new CorsConfiguration();
+        cors.setAllowCredentials(true);
+        cors.setAllowedHeaders(List.of(allowedHeaders));
         cors.setAllowedOrigins(List.of(allowedOrigins));
         cors.setAllowedMethods(List.of(allowedMethods));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", cors);
+        source.registerCorsConfiguration("/", cors);
         return source;
     }
 

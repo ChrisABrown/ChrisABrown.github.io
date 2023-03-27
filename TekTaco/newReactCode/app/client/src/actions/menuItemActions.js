@@ -6,18 +6,15 @@ import {
   MENU_ITEM_DETAILS_REQUEST,
   MENU_ITEM_DETAILS_SUCCESS,
 } from '../constants/menuItemConstants'
-import {
-  fetchMenuItemBySku,
-  fetchMenuItems,
-} from '../services/menuItemFunctions'
+import DataService from '../services/data.service'
 
 export const listMenuItems = () => async (dispatch) => {
   try {
     dispatch({ type: MENU_ITEM_LIST_REQUEST })
-    const res = await fetchMenuItems()
+    const res = await DataService.fetchMenuItems()
     dispatch({
       type: MENU_ITEM_LIST_SUCCESS,
-      payload: res.data.data,
+      payload: res,
     })
   } catch (error) {
     dispatch({
@@ -33,10 +30,10 @@ export const listMenuItems = () => async (dispatch) => {
 export const listMenuItemDetails = (sku) => async (dispatch) => {
   try {
     dispatch({ type: MENU_ITEM_DETAILS_REQUEST })
-    const res = await fetchMenuItemBySku(sku)
+    const res = await DataService.fetchMenuItemBySku(sku)
     dispatch({
       type: MENU_ITEM_DETAILS_SUCCESS,
-      payload: res.response.data.data,
+      payload: res,
     })
   } catch (error) {
     dispatch({

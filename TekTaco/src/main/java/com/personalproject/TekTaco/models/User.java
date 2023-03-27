@@ -8,11 +8,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,8 +41,9 @@ public class User {
     @Email
     private String email;
     private String roles;
-    @DocumentReference
-    private List<Order> orderList = new ArrayList<>();
+    @ReadOnlyProperty
+    @DocumentReference(lazy = true, lookup = "{'username' :?#{#self._username} }")
+    private List<Order> orderList;
 
     public void setUsername() {
         this.username = this.firstName.charAt(0) + this.lastName;
