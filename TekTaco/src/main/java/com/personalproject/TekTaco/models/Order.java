@@ -8,17 +8,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Collection;
 import java.util.Set;
 
 @Document(collection = "Orders")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-    public class Order {
+public class Order {
     @Id
     private ObjectId orderId;
     @DocumentReference
@@ -26,16 +24,40 @@ import java.util.Set;
     @DocumentReference
     private Set<MenuItem> orderedItems;
     //name, qty, image, price
-    private Object shippingAddress;
+    private Object deliveryAddress;
     //address, city, state, zipcode
     private String paymentMethod;
     private Object paymentResult;
-    private Integer taxPrice;
+    private int taxPrice;
     private Integer deliveryCharge;
     private Integer totalPrice;
     private Boolean isPaid;
     private LocalDate paidOn;
-    private Boolean isDelivered;
 
+    public Order(User user,
+                 Set<MenuItem> orderedItems,
+                 Object deliveryAddress,
+                 String paymentMethod,
+                 Object paymentResult,
+                 int taxPrice,
+                 Integer deliveryCharge,
+                 Integer totalPrice,
+                 Boolean isPaid,
+                 LocalDate paidOn) {
+        this.user = user;
+        this.orderedItems = orderedItems;
+        this.deliveryAddress = deliveryAddress;
+        this.paymentMethod = paymentMethod;
+        this.paymentResult = paymentResult;
+        this.taxPrice = taxPrice;
+        this.deliveryCharge = deliveryCharge;
+        this.totalPrice = totalPrice;
+        this.isPaid = isPaid;
+        this.paidOn = paidOn;
+    }
 
+    public Order(User user, Collection<Object> orderDetails) {
+        //TODO pool all properties of order into orderDetails without adding  it as a field
+        this.user = user;
+    }
 }

@@ -1,6 +1,6 @@
 package com.personalproject.TekTaco.controllers;
 
-import com.personalproject.TekTaco.controllers.exceptions.UsernameAlreadyExistsException;
+import com.personalproject.TekTaco.exceptions.UsernameAlreadyExistsException;
 import com.personalproject.TekTaco.models.User;
 import com.personalproject.TekTaco.payload.AppResponse;
 import com.personalproject.TekTaco.payload.AuthRequest;
@@ -17,15 +17,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT}, allowCredentials = "true")
+//@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT}, allowCredentials = "true")
 @RequestMapping("/api/v1/admin")
 public class UserController {
 

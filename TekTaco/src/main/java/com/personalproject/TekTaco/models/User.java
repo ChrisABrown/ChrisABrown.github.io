@@ -10,6 +10,10 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Document(collection = "Users")
@@ -37,6 +41,8 @@ public class User {
     @Email
     private String email;
     private String roles;
+    @DocumentReference
+    private List<Order> orderList = new ArrayList<>();
 
     public void setUsername() {
         this.username = this.firstName.charAt(0) + this.lastName;
