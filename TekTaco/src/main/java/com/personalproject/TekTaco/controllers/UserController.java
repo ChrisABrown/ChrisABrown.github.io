@@ -17,6 +17,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -72,9 +73,13 @@ public class UserController {
 
 
     @PostMapping("/user")
-    public ResponseEntity<Object> addNewUser(@RequestBody User user) {
-        userService.addUser(user);
-        return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New user created", true, user), HttpStatus.CREATED);
+    public ResponseEntity<Object> addNewUser(@RequestBody User user) throws UsernameAlreadyExistsException {
+        if (!userService.existsByUsername(user.getUsername())) {
+            userService.addUser(user);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New user created", true, user), HttpStatus.CREATED);
+        } else {
+throw new UsernameAlreadyExistsException();
+        }
     }
 
     @GetMapping("/users/{roles}")

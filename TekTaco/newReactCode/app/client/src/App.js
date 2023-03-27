@@ -14,11 +14,14 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import './index.css'
 import CartScreen from './screens/CartScreen'
+import DeliveryScreen from './screens/DeliveryScreen.js'
 import HomeScreen from './screens/HomeScreen'
-import MenuScreen from './screens/MenuScreen'
 import LoginScreen from './screens/LoginScreen.js'
-import RegisterScreen from './screens/RegisterScreen.js'
+import MenuScreen from './screens/MenuScreen'
+import PaymentMethodScreen from './screens/PaymentMethodScreen.js'
 import ProfileScreen from './screens/ProfileScreen.js'
+import RegisterScreen from './screens/RegisterScreen.js'
+import SubmitOrderScreen from './screens/SubmitOrderScreen.js'
 
 export default function App() {
   const location = useSearchParams()
@@ -75,6 +78,18 @@ export default function App() {
             <Route
               path='/profile'
               element={<ProfileScreen navigate={navigate} />}
+            />
+            <Route
+              path='/shipping'
+              element={<DeliveryScreen navigate={navigate} />}
+            />
+            <Route
+              path='/payment'
+              element={<PaymentMethodScreen navigate={navigate} />}
+            />
+            <Route
+              path='/submit-order'
+              element={<SubmitOrderScreen navigate={navigate} />}
             />
           </Routes>
         </Container>

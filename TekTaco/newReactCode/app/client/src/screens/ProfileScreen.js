@@ -68,7 +68,7 @@ const ProfileScreen = ({ navigate }) => {
         <h2>User Profile</h2>
         {message && <Message variant='danger'>{message}</Message>}
         {error && <Message variant='danger'>{error}</Message>}{' '}
-        {success && <Message variant='success'>{success}</Message>}
+        {success && <Message variant='success'>Profile Updated</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <FormGroup controlId='firstName'>

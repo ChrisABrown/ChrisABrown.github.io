@@ -23,6 +23,9 @@ const CartScreen = ({ location, navigate }) => {
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
     if (sku) {
       dispatch(addToCart(sku, qty))
@@ -32,8 +35,20 @@ const CartScreen = ({ location, navigate }) => {
   const removeFromCartHandler = (sku) => {
     dispatch(removeFromCart(sku))
   }
+
   const checkoutHandler = () => {
-    navigate('/login?redirect=shipping')
+    function isLoggedIn() {
+      if (userInfo === null) {
+        return false
+      } else {
+        return true
+      }
+    }
+    if (isLoggedIn()) {
+      navigate('/shipping')
+    } else {
+      navigate('/login')
+    }
   }
   return (
     <Row>
