@@ -15,7 +15,7 @@ const axiosInstance = axios.create({
 const userLogin = async (username, password) => {
   try {
     return await axiosInstance
-      .post('/login', {
+      .post('login', {
         username,
         password,
       })
@@ -27,9 +27,19 @@ const userLogin = async (username, password) => {
   }
 }
 
+const userLogout = async () => {
+  try {
+    return await axiosInstance.post('logout').then((res) => {
+      return res.data
+    })
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
 const userRegister = async (firstName, lastName, email, password) => {
   try {
-    return await axiosInstance.post('/user', {
+    return await axiosInstance.post('user', {
       firstName,
       lastName,
       email,
@@ -41,7 +51,7 @@ const userRegister = async (firstName, lastName, email, password) => {
 }
 
 const userDetails = async (username) => {
-  const userDetails = `/user/${username}/profile`
+  const userDetails = `user/${username}/profile`
   try {
     const res = await axiosInstance.get(userDetails)
     return res.data.data
@@ -51,7 +61,7 @@ const userDetails = async (username) => {
 }
 
 const newUserDetails = async (username, user) => {
-  const userDetails = `/user/${username}`
+  const userDetails = `user/${username}`
 
   const { firstName, lastName, email, password } = user
   try {
@@ -72,6 +82,7 @@ const AuthService = {
   userRegister,
   userDetails,
   userLogin,
+  userLogout,
   newUserDetails,
 }
 export default AuthService

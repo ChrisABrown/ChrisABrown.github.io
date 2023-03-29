@@ -14,15 +14,18 @@ export const createOrder = (order) => async (dispatch, getState) => {
     } = getState()
 
     const res = await DataService.createOrder(order).then((res) => {
-      if (res.username === `${userInfo.username}`) {
+      if (res.data.user.username === userInfo.username) {
+        console.log(res)
         return res
       }
     })
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,
-      payload: res,
+      payload: res.data,
     })
+
+    localStorage.setItem('order', JSON.stringify(res.data))
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,

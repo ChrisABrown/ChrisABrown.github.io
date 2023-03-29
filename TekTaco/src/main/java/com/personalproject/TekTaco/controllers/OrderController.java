@@ -1,16 +1,13 @@
 package com.personalproject.TekTaco.controllers;
 
 import com.personalproject.TekTaco.models.Order;
+import com.personalproject.TekTaco.models.User;
 import com.personalproject.TekTaco.payload.AppResponse;
-import com.personalproject.TekTaco.security.jwt.JwtService;
 import com.personalproject.TekTaco.services.OrderService;
+import com.personalproject.TekTaco.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,19 +19,25 @@ public class OrderController {
     OrderService orderService;
 
     @Autowired
-    private JwtService jwtService;
+    UserService userService;
 
-    @Autowired
-    private AuthenticationManager authManager;
 
     @PostMapping
-    public ResponseEntity<Object> createOrder(@RequestBody Order orderDetails, @) {
-        if (jwtService.validateJwtToken(jwt)) {
-            Order createdOrder = orderService.createOrder(orderDetails);
-            return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New Order created", true, createdOrder), HttpStatus.CREATED);
-        }
-        throw new UsernameNotFoundException("unable to authorize");
+    public ResponseEntity<Object> createOrder(@RequestBody Order orderDetails) {
+
+
+        Order createdOrder = orderService.createOrder(orderDetails);
+        return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New Order created", true, createdOrder), HttpStatus.CREATED);
+
+
     }
+//    @GetMapping("/{orderId}")
+//    public ResponseEntity<Object> getOrder(@PathVariable String orderId) {
+//
+//        return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New Order created", true, createdOrder), HttpStatus.CREATED);
+//
+//
+//    }
 
 
 }

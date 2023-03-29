@@ -3,12 +3,13 @@ package com.personalproject.TekTaco.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -18,24 +19,23 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
-    @Id
-    private String orderId;
 
+    @MongoId(FieldType.OBJECT_ID)
+    private String orderId;
     @CreatedBy
-    private String username;
+    @DocumentReference(lookup = "{ 'username' : ?#{usr} }", collection = "Users")
+    private User user;
     private Set<CartItem> orderedItems;
     //name, qty, image, price
     private Object deliveryAddress;
     //address, city, state, zipcode
     private String paymentMethod;
     private Object paymentResult;
-    private int taxPrice;
-    private Integer deliveryCharge;
-    private Integer totalPrice;
+    private double taxPrice;
+    private double deliveryCharge;
+    private int totalPrice;
     private Boolean isPaid;
-    @CreatedDate
     private LocalDate paidOn;
-
 
 
 }

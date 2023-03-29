@@ -17,6 +17,11 @@ import Message from '../components/Message'
 const SubmitOrderScreen = ({ navigate }) => {
   const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart)
+  const orderCreate = useSelector((state) => state.orderCreate)
+  const { order, success, error } = orderCreate
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   cart.itemsPrice = cart.cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -31,15 +36,10 @@ const SubmitOrderScreen = ({ navigate }) => {
     Number(cart.deliveryCharge) +
     Number(cart.taxPrice)
 
-  const orderCreate = useSelector((state) => state.orderCreate)
-  const { order, success, error } = orderCreate
-
-  const userLogin = useSelector((state) => state.userLogin)
-
   const submitOrderHandler = () => {
     dispatch(
       createOrder({
-        username: userLogin.username,
+        user: userInfo.username,
         orderedItems: cart.cartItems,
         deliveryAddress: cart.deliveryAddress,
         paymentMethod: cart.paymentMethod,

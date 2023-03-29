@@ -2,6 +2,7 @@ package com.personalproject.TekTaco.security;
 
 import com.personalproject.TekTaco.security.jwt.AuthEntryPointJwt;
 import com.personalproject.TekTaco.security.jwt.JwtAuthFilter;
+import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -63,18 +64,19 @@ public class SecurityConfig {
             "/api/v1/admin/users",
             "/api/v1/admin/user",
             "/api/v1/admin/login",
+            "/api/v1/admin/logout",
             "/v3/api-docs/**",
-            "swagger-resources/**",
+            "/swagger-resources/**",
             "/swagger-ui/**",
             "/webjars/**",
             "/"
     };
 
     private static final String[] authorizedRequests = {
-            "/api/v1/reviews",
+            "/api/v1/review",
             "/api/v1/admin/users/**",
             "/api/v1/admin/user/**",
-            "api/v1/order"
+            "/api/v1/order",
 
 
     };
@@ -95,11 +97,12 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(authorizedRequests).permitAll()
-                .anyRequest().authenticated();
+                .anyRequest()
+                .authenticated();
 
         http.authenticationProvider(authProvider());
 
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -112,7 +115,7 @@ public class SecurityConfig {
         cors.setAllowedOrigins(List.of(allowedOrigins));
         cors.setAllowedMethods(List.of(allowedMethods));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/", cors);
+        source.registerCorsConfiguration("/**", cors);
         return source;
     }
 

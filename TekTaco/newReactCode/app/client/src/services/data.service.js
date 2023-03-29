@@ -38,7 +38,8 @@ const fetchMenuItemBySku = async (sku) => {
     return console.log(error)
   }
 }
-const createOrder = async ({ order }) => {
+
+const createOrder = async (order) => {
   try {
     return orderAxios.post('order', order).then((res) => {
       return res.data
