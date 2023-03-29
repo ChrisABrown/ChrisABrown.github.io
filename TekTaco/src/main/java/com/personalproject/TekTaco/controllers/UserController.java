@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT}, allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT}, allowCredentials = "true")
 @RequestMapping("/api/v1/admin")
 public class UserController {
 
@@ -46,11 +46,17 @@ public class UserController {
         UserInfo userDetails = (UserInfo) authentication.getPrincipal();
 
         ResponseCookie jwtCookie = jwtService.generateJwtCookie(userDetails);
+
         if (authentication.isAuthenticated()) {
             return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(userService.getUserByUserName(userDetails.getUsername()));
         }
         return null;
 
+    }
+    @PostMapping("/logout")
+    public ResponseEntity<Object> logoutUser() {
+        ResponseCookie cookie = jwtService.getCleanJwtCookie();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(new AppResponse(HttpStatus.OK.value(), "You have been sign out!", true, null));
     }
 
     @GetMapping("/user/{username}/profile")

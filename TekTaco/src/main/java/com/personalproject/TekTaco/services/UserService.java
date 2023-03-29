@@ -30,7 +30,9 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepo.findAll();
     }
-
+    public User getUserUsernameByUsername(String username){
+        return userRepo.getUserUsernameByUsername(username);
+    }
     public Optional<User> getUserByUserName(String userName) {
         return userRepo.findByUserName(userName);
     }

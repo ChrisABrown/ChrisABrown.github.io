@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -63,22 +64,24 @@ public class SecurityConfig {
             "/api/v1/admin/users",
             "/api/v1/admin/user",
             "/api/v1/admin/login",
+            "/api/v1/admin/logout",
             "/v3/api-docs/**",
-            "swagger-resources/**",
+            "/swagger-resources/**",
             "/swagger-ui/**",
-            "/webjars/**"
+            "/webjars/**",
     };
 
     private static final String[] authorizedRequests = {
-            "/api/v1/reviews",
+            "/api/v1/review",
             "/api/v1/admin/users/**",
             "/api/v1/admin/user/**",
+            "/api/v1/order"
 
 
     };
 
-    String[] allowedOrigins = {"http://localhost:3000"};
-
+    String[] allowedOrigins = {"http://localhost:3000", "https://localhost:3000"};
+    String[] allowedHeaders = {"Access-Control-Allow-Origin"};
     String[] allowedMethods = {"POST", "PUT", "GET", "DELETE"};
 
 
@@ -89,12 +92,14 @@ public class SecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests().requestMatchers(allowedRequests).permitAll()
+                .and()
+                .authorizeHttpRequests()
                 .requestMatchers(authorizedRequests).permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authProvider());
 
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -102,6 +107,8 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigSource() {
         CorsConfiguration cors = new CorsConfiguration();
+        cors.setAllowCredentials(true);
+        cors.setAllowedHeaders(List.of(allowedHeaders));
         cors.setAllowedOrigins(List.of(allowedOrigins));
         cors.setAllowedMethods(List.of(allowedMethods));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

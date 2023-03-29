@@ -42,7 +42,10 @@ public class User {
     private String email;
     private String roles;
     @DocumentReference
-    private List<Order> orderList = new ArrayList<>();
+    private List<Order> orderList;
+    public User(String username) {
+        this.username = username;
+    }
 
     public void setUsername() {
         this.username = this.firstName.charAt(0) + this.lastName;

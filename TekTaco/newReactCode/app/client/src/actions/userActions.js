@@ -6,7 +6,9 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
-  USER_LOGOUT,
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGOUT_FAIL,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -38,8 +40,24 @@ export const login = (username, password) => async (dispatch) => {
 }
 
 export const logout = () => async (dispatch) => {
-  localStorage.removeItem('userInfo')
-  dispatch({ type: USER_LOGOUT })
+  try {
+    dispatch({ type: USER_LOGOUT_REQUEST })
+    const res = await AuthService.userLogout()
+
+    dispatch({
+      type: USER_LOGOUT_SUCCESS,
+      payload: res,
+    })
+    localStorage.removeItem('userInfo')
+  } catch (error) {
+    dispatch({
+      type: USER_LOGOUT_FAIL,
+      payload:
+        error.response && error.response.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
 }
 
 export const register =
@@ -55,7 +73,7 @@ export const register =
 
       dispatch({
         type: USER_REGISTER_SUCCESS,
-        payload: res,
+        payload: res.data.data,
       })
 
       dispatch({

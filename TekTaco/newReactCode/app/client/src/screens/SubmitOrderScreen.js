@@ -1,21 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Button,
-  Col,
-  Row,
-  ListGroup,
-  Image,
   Card,
+  Col,
+  Image,
+  ListGroup,
   ListGroupItem,
+  Row,
 } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { savePaymentMethod } from '../actions/cartActions'
+import { Link } from 'react-router-dom'
+import { createOrder } from '../actions/orderActions'
 import CheckoutProcess from '../components/CheckoutProcess'
 import Message from '../components/Message'
 
-const SubmitOrderScreen = () => {
+const SubmitOrderScreen = ({ navigate }) => {
+  const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart)
+  const orderCreate = useSelector((state) => state.orderCreate)
+  const { order, success, error } = orderCreate
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   cart.itemsPrice = cart.cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -31,8 +37,26 @@ const SubmitOrderScreen = () => {
     Number(cart.taxPrice)
 
   const submitOrderHandler = (e) => {
-    e.preventDefault()
+    dispatch(
+      createOrder({
+        user: userInfo.username,
+        orderedItems: cart.cartItems,
+        deliveryAddress: cart.deliveryAddress,
+        paymentMethod: cart.paymentMethod,
+        price: cart.itemsPrice,
+        deliveryCharge: cart.deliveryCharge,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    )
   }
+
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order.orderId}`)
+    }
+    // eslint-disable-next-line
+  }, [success, navigate])
 
   return (
     <>
@@ -60,35 +84,34 @@ const SubmitOrderScreen = () => {
 
             <ListGroupItem>
               <h2>Ordered Items</h2>
-              <p>
-                {cart.cartItems.length === 0 ? (
-                  <Message> Your cart is Empty</Message>
-                ) : (
-                  <ListGroup variant='flush'>
-                    {cart.cartItems.map((item, index) => (
-                      <ListGroupItem key={index}>
-                        <Row>
-                          <Col md={1}>
-                            <Link to={`/menuItems/${item.menuItem}`}>
-                              <Image
-                                src={item.image}
-                                alt={item.name}
-                                fluid
-                                rounded
-                              />
-                            </Link>
-                          </Col>
-                          <Col>{item.name}</Col>
-                          <Col md={4}>
-                            {item.quantity} x ${item.price.toFixed(2)} = $
-                            {(item.quantity * item.price).toFixed(2)}
-                          </Col>
-                        </Row>
-                      </ListGroupItem>
-                    ))}
-                  </ListGroup>
-                )}
-              </p>
+
+              {cart.cartItems.length === 0 ? (
+                <Message> Your cart is Empty</Message>
+              ) : (
+                <ListGroup variant='flush'>
+                  {cart.cartItems.map((item, index) => (
+                    <ListGroupItem key={index}>
+                      <Row>
+                        <Col md={1}>
+                          <Link to={`/menuItems/${item.menuItem}`}>
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              fluid
+                              rounded
+                            />
+                          </Link>
+                        </Col>
+                        <Col>{item.name}</Col>
+                        <Col md={4}>
+                          {item.quantity} x ${item.price.toFixed(2)} = $
+                          {(item.quantity * item.price).toFixed(2)}
+                        </Col>
+                      </Row>
+                    </ListGroupItem>
+                  ))}
+                </ListGroup>
+              )}
             </ListGroupItem>
           </ListGroup>
         </Col>
@@ -121,6 +144,9 @@ const SubmitOrderScreen = () => {
                   <Col>Total</Col>
                   <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroupItem>
+              <ListGroupItem>
+                {error && <Message variant='danger'>{error}</Message>}
               </ListGroupItem>
               <ListGroupItem>
                 <Button

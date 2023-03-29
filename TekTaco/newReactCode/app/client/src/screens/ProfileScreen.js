@@ -31,6 +31,7 @@ const ProfileScreen = ({ navigate }) => {
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
+  console.log(user)
 
   useEffect(() => {
     if (!userInfo) {

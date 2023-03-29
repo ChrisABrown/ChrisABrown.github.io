@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
 @RequestMapping("api/v1/menuItems")
 public class MenuItemController {
 
@@ -31,7 +31,7 @@ public class MenuItemController {
     public ResponseEntity<Object> getMenuItemBySku(@PathVariable String sku) {
         Optional<MenuItem> foundMenuItem = menuItemService.getMenuItemBySku(sku);
         if (foundMenuItem.isPresent() && Objects.equals(foundMenuItem.get().getSku(), sku)) {
-            return new ResponseEntity<>(new AppResponse(HttpStatus.FOUND.value(), "MenuItem with Sku: " + sku + " found", true, foundMenuItem), HttpStatus.FOUND);
+            return new ResponseEntity<>(new AppResponse(HttpStatus.OK.value(), "MenuItem with Sku: " + sku + " found", true, foundMenuItem), HttpStatus.OK);
         }
         return new ResponseEntity<>(new AppResponse(HttpStatus.NOT_FOUND.value(), "No data found", false, null), HttpStatus.NOT_FOUND);
     }

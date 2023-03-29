@@ -15,10 +15,10 @@ const DeliveryScreen = ({ navigate }) => {
   const cart = useSelector((state) => state.cart)
   const { deliveryAddress } = cart
 
-  const [address, setAddress] = useState(deliveryAddress.address)
-  const [city, setCity] = useState(deliveryAddress.city)
-  const [state, setState] = useState(deliveryAddress.state)
-  const [ZIPCode, setZIPCode] = useState(deliveryAddress.ZIPCode)
+  const [address, setAddress] = useState(deliveryAddress.address || '')
+  const [city, setCity] = useState(deliveryAddress.city || '')
+  const [state, setState] = useState(deliveryAddress.state || '')
+  const [ZIPCode, setZIPCode] = useState(deliveryAddress.ZIPCode || '')
 
   const dispatch = useDispatch()
 

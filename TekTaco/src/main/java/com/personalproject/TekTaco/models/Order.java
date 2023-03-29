@@ -7,6 +7,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -17,47 +19,24 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
-    @Id
-    private ObjectId orderId;
-    @DocumentReference
+    @MongoId(FieldType.OBJECT_ID)
+    private String orderId;
+    @DocumentReference(lookup = "{'username' : ?#{user} }", collection = "Users")
     private User user;
-    @DocumentReference
-    private Set<MenuItem> orderedItems;
+
+    private Set<CartItem> orderedItems;
     //name, qty, image, price
     private Object deliveryAddress;
     //address, city, state, zipcode
     private String paymentMethod;
     private Object paymentResult;
-    private int taxPrice;
-    private Integer deliveryCharge;
-    private Integer totalPrice;
+    private double taxPrice;
+    private double deliveryCharge;
+    private int totalPrice;
     private Boolean isPaid;
     private LocalDate paidOn;
 
-    public Order(User user,
-                 Set<MenuItem> orderedItems,
-                 Object deliveryAddress,
-                 String paymentMethod,
-                 Object paymentResult,
-                 int taxPrice,
-                 Integer deliveryCharge,
-                 Integer totalPrice,
-                 Boolean isPaid,
-                 LocalDate paidOn) {
-        this.user = user;
-        this.orderedItems = orderedItems;
-        this.deliveryAddress = deliveryAddress;
-        this.paymentMethod = paymentMethod;
-        this.paymentResult = paymentResult;
-        this.taxPrice = taxPrice;
-        this.deliveryCharge = deliveryCharge;
-        this.totalPrice = totalPrice;
-        this.isPaid = isPaid;
-        this.paidOn = paidOn;
-    }
 
-    public Order(User user, Collection<Object> orderDetails) {
-        //TODO pool all properties of order into orderDetails without adding  it as a field
-        this.user = user;
-    }
+
+
 }

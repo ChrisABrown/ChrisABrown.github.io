@@ -1,4 +1,4 @@
-import { fetchMenuItemBySku } from '../services/menuItemFunctions'
+import DataService from '../services/data.service'
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
@@ -7,8 +7,8 @@ import {
 } from '../constants/cartConstants'
 
 export const addToCart = (sku, quantity) => async (dispatch, getState) => {
-  const res = await fetchMenuItemBySku(sku)
-  const result = res.response.data.data
+  const res = await DataService.fetchMenuItemBySku(sku)
+  const result = res
 
   dispatch({
     type: CART_ADD_ITEM,
