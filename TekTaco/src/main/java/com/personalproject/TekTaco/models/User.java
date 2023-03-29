@@ -31,16 +31,13 @@ public class User {
 
     private String email;
     private String roles;
-<<<<<<< HEAD
-    @DocumentReference
-    private List<Order> orderList;
-=======
+
 
     @ReadOnlyProperty
     @DocumentReference(lazy = true, lookup = "{'username' :?#{#self._username} }")
     private List<Order> orderList;
 
->>>>>>> 4e1a793d41195dd0254a8570020632dfdc1698ec
+
     public User(String username) {
         this.username = username;
     }

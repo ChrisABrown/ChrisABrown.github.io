@@ -49,27 +49,7 @@ const SubmitOrderScreen = ({ navigate }) => {
         totalPrice: cart.totalPrice,
       })
     )
-  const submitOrderHandler = (e) => {
-    dispatch(
-      createOrder({
-        user: userInfo.username,
-        orderedItems: cart.cartItems,
-        deliveryAddress: cart.deliveryAddress,
-        paymentMethod: cart.paymentMethod,
-        price: cart.itemsPrice,
-        deliveryCharge: cart.deliveryCharge,
-        taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
-      })
-    )
   }
-
-  useEffect(() => {
-    if (success) {
-      navigate(`/order/${order.orderId}`)
-    }
-    // eslint-disable-next-line
-  }, [success, navigate])
 
   useEffect(() => {
     if (success) {

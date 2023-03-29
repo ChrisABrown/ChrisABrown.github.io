@@ -59,11 +59,7 @@ public class UserController {
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(new AppResponse(HttpStatus.OK.value(), "You have been sign out!", true, null));
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<Object> logoutUser() {
-        ResponseCookie cookie = jwtService.getCleanJwtCookie();
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(new AppResponse(HttpStatus.OK.value(), "You have been sign out!", true, null));
-    }
+
 
     @GetMapping("/user/{username}/profile")
     public ResponseEntity<Object> getUserDetails(@PathVariable String username) {
