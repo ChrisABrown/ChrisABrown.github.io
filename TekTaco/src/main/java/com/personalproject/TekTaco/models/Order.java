@@ -3,7 +3,8 @@ package com.personalproject.TekTaco.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
@@ -11,7 +12,6 @@ import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.Set;
 
 @Document(collection = "Orders")
@@ -21,9 +21,9 @@ import java.util.Set;
 public class Order {
     @MongoId(FieldType.OBJECT_ID)
     private String orderId;
+    @CreatedBy
     @DocumentReference(lookup = "{'username' : ?#{user} }", collection = "Users")
     private User user;
-
     private Set<CartItem> orderedItems;
     //name, qty, image, price
     private Object deliveryAddress;
@@ -35,8 +35,6 @@ public class Order {
     private int totalPrice;
     private Boolean isPaid;
     private LocalDate paidOn;
-
-
 
 
 }

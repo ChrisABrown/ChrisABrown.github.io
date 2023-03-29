@@ -23,7 +23,8 @@ public class ReviewService {
         Review review = reviewRepo.insert(new Review(reviewBody, LocalDateTime.now(), LocalDateTime.now()));
         mongoTemplate.update(MenuItem.class)
                 .matching(Criteria.where("sku")
-                        .is(sku)).apply(new Update().push("reviewIds").value(review))
+                        .is(sku))
+                .apply(new Update().push("reviewIds").value(review))
                 .first();
         return review;
 

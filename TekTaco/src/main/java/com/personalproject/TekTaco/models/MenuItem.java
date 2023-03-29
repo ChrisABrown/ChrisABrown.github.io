@@ -30,8 +30,8 @@ public class MenuItem {
 
     private Double rating;
     private String productType;
-    @DocumentReference
-    private List<Review> reviewIds = new ArrayList<>();
+    @DocumentReference(lazy = true)
+    private List<Review> reviewIds;
     private Integer numOfReviews;
 
     public MenuItem(String name, int price, int inStock, String description, String image, String sku, String productType) {

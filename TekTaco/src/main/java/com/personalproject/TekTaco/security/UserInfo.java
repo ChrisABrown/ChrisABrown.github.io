@@ -18,7 +18,11 @@ public class UserInfo implements UserDetails {
     private final ObjectId id;
 
     private final String userName;
+<<<<<<< HEAD
 
+=======
+    @JsonIgnore
+>>>>>>> 4e1a793d41195dd0254a8570020632dfdc1698ec
     private final String password;
     private final List<GrantedAuthority> authorities;
 

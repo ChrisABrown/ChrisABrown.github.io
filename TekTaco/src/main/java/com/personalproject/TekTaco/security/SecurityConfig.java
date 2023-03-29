@@ -2,6 +2,7 @@ package com.personalproject.TekTaco.security;
 
 import com.personalproject.TekTaco.security.jwt.AuthEntryPointJwt;
 import com.personalproject.TekTaco.security.jwt.JwtAuthFilter;
+import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -69,20 +70,33 @@ public class SecurityConfig {
             "/swagger-resources/**",
             "/swagger-ui/**",
             "/webjars/**",
+<<<<<<< HEAD
+=======
+            "/"
+>>>>>>> 4e1a793d41195dd0254a8570020632dfdc1698ec
     };
 
     private static final String[] authorizedRequests = {
             "/api/v1/review",
             "/api/v1/admin/users/**",
             "/api/v1/admin/user/**",
+<<<<<<< HEAD
             "/api/v1/order"
+=======
+            "/api/v1/order",
+>>>>>>> 4e1a793d41195dd0254a8570020632dfdc1698ec
 
 
     };
 
     String[] allowedOrigins = {"http://localhost:3000", "https://localhost:3000"};
+<<<<<<< HEAD
     String[] allowedHeaders = {"Access-Control-Allow-Origin"};
+=======
+
+>>>>>>> 4e1a793d41195dd0254a8570020632dfdc1698ec
     String[] allowedMethods = {"POST", "PUT", "GET", "DELETE"};
+    String[] allowedHeaders = {"Access-Control-Allow-Origin"};
 
 
     @Bean
@@ -95,7 +109,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(authorizedRequests).permitAll()
-                .anyRequest().authenticated();
+                .anyRequest()
+                .authenticated();
 
         http.authenticationProvider(authProvider());
 

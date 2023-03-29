@@ -31,7 +31,6 @@ export const listMenuItemDetails = (sku) => async (dispatch) => {
   try {
     dispatch({ type: MENU_ITEM_DETAILS_REQUEST })
     const res = await DataService.fetchMenuItemBySku(sku)
-    console.log(res)
     dispatch({
       type: MENU_ITEM_DETAILS_SUCCESS,
       payload: res,

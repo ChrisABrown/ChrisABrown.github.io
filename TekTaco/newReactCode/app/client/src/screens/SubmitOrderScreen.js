@@ -36,6 +36,19 @@ const SubmitOrderScreen = ({ navigate }) => {
     Number(cart.deliveryCharge) +
     Number(cart.taxPrice)
 
+  const submitOrderHandler = () => {
+    dispatch(
+      createOrder({
+        user: userInfo.username,
+        orderedItems: cart.cartItems,
+        deliveryAddress: cart.deliveryAddress,
+        paymentMethod: cart.paymentMethod,
+        price: cart.itemsPrice,
+        deliveryCharge: cart.deliveryCharge,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    )
   const submitOrderHandler = (e) => {
     dispatch(
       createOrder({
@@ -50,6 +63,13 @@ const SubmitOrderScreen = ({ navigate }) => {
       })
     )
   }
+
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order.orderId}`)
+    }
+    // eslint-disable-next-line
+  }, [success, navigate])
 
   useEffect(() => {
     if (success) {
@@ -84,34 +104,35 @@ const SubmitOrderScreen = ({ navigate }) => {
 
             <ListGroupItem>
               <h2>Ordered Items</h2>
-
-              {cart.cartItems.length === 0 ? (
-                <Message> Your cart is Empty</Message>
-              ) : (
-                <ListGroup variant='flush'>
-                  {cart.cartItems.map((item, index) => (
-                    <ListGroupItem key={index}>
-                      <Row>
-                        <Col md={1}>
-                          <Link to={`/menuItems/${item.menuItem}`}>
-                            <Image
-                              src={item.image}
-                              alt={item.name}
-                              fluid
-                              rounded
-                            />
-                          </Link>
-                        </Col>
-                        <Col>{item.name}</Col>
-                        <Col md={4}>
-                          {item.quantity} x ${item.price.toFixed(2)} = $
-                          {(item.quantity * item.price).toFixed(2)}
-                        </Col>
-                      </Row>
-                    </ListGroupItem>
-                  ))}
-                </ListGroup>
-              )}
+              <>
+                {cart.cartItems.length === 0 ? (
+                  <Message> Your cart is Empty</Message>
+                ) : (
+                  <ListGroup variant='flush'>
+                    {cart.cartItems.map((item, index) => (
+                      <ListGroupItem key={index}>
+                        <Row>
+                          <Col md={1}>
+                            <Link to={`/menuItems/${item.menuItem}`}>
+                              <Image
+                                src={item.image}
+                                alt={item.name}
+                                fluid
+                                rounded
+                              />
+                            </Link>
+                          </Col>
+                          <Col>{item.name}</Col>
+                          <Col md={4}>
+                            {item.quantity} x ${item.price.toFixed(2)} = $
+                            {(item.quantity * item.price).toFixed(2)}
+                          </Col>
+                        </Row>
+                      </ListGroupItem>
+                    ))}
+                  </ListGroup>
+                )}
+              </>
             </ListGroupItem>
           </ListGroup>
         </Col>
@@ -144,6 +165,9 @@ const SubmitOrderScreen = ({ navigate }) => {
                   <Col>Total</Col>
                   <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroupItem>
+              <ListGroupItem>
+                {error && <Message variant='danger'>{error}</Message>}
               </ListGroupItem>
               <ListGroupItem>
                 {error && <Message variant='danger'>{error}</Message>}

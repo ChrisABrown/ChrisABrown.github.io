@@ -59,6 +59,12 @@ public class UserController {
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(new AppResponse(HttpStatus.OK.value(), "You have been sign out!", true, null));
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<Object> logoutUser() {
+        ResponseCookie cookie = jwtService.getCleanJwtCookie();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(new AppResponse(HttpStatus.OK.value(), "You have been sign out!", true, null));
+    }
+
     @GetMapping("/user/{username}/profile")
     public ResponseEntity<Object> getUserDetails(@PathVariable String username) {
         List<User> userList = userService.getAllUsers();
@@ -82,9 +88,10 @@ public class UserController {
             userService.addUser(user);
             return new ResponseEntity<>(new AppResponse(HttpStatus.CREATED.value(), "New user created", true, user), HttpStatus.CREATED);
         } else {
-throw new UsernameAlreadyExistsException();
+            throw new UsernameAlreadyExistsException();
         }
     }
+
 
     @GetMapping("/users/{roles}")
     public ResponseEntity<Object> getUsersByRole(@PathVariable String roles) {
