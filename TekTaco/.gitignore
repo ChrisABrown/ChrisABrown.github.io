@@ -33,7 +33,10 @@ build/
 ### VS Code ###
 .vscode/
 
-ENV files
+### ENV files ###
 localhost.pem
 localhost-key.pem
 .env
+
+### Mac OS X ###
+.DS_Store
