@@ -41,7 +41,7 @@ export class TacosStack extends Stack {
       this.api,
       this.tacosPhotoBucket.bucketArn + '/*'
     )
-    new WebAppDeployment(this, this.suffix)
+    // new WebAppDeployment(this, this.suffix)
 
     // const helloLambdaNodeJS = new NodejsFunction(this, 'HelloLambdaNodeJS', {
     //   entry: join(__dirname, '..', 'services', 'node-lambda', 'hello.ts'),
