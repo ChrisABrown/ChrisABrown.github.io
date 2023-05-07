@@ -1,2 +1,6 @@
 ### CDK Generated files ###
 cdk.out
+
+
+### Dependency directories ###
+node_modules/

@@ -27,17 +27,7 @@ export class WebAppDeployment {
       destinationBucket: this.deploymentBucket,
       sources: [
         Source.asset(
-          join(
-            __dirname,
-            '..',
-            '..',
-            '..',
-            'application',
-            'web',
-            'source',
-            'frontend',
-            'build'
-          )
+          join(__dirname, '..', 'newReactCode', 'app', 'client', 'src', 'build')
         ),
       ],
     })
