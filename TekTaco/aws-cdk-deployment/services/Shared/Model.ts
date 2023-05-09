@@ -8,7 +8,7 @@ export interface MenuItem {
   price: number
   sku: string
   rating?: number
-  reviews?: Review
+  reviews?: Review[]
 }
 
 export interface Review {
