@@ -19,7 +19,6 @@ export class WebAppDeployment {
     const bucketName = 'tacos-app-web-id' + this.bucketSuffix
     this.deploymentBucket = new Bucket(this.stack, 'tacos-app-web', {
       bucketName: bucketName,
-      publicReadAccess: true,
       websiteIndexDocument: 'index.html',
     })
 
@@ -27,7 +26,7 @@ export class WebAppDeployment {
       destinationBucket: this.deploymentBucket,
       sources: [
         Source.asset(
-          join(__dirname, '..', 'newReactCode', 'app', 'client', 'src', 'build')
+          join(__dirname, '..', '..', 'newReactCode', 'app', 'client', 'build')
         ),
       ],
     })

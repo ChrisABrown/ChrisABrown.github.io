@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const userURL = 'http://localhost:8080/api/v1/admin/'
+export const userURL = ''
 
 const axiosInstance = axios.create({
   baseURL: userURL,
