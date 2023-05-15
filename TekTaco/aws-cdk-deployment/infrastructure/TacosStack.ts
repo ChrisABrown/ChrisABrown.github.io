@@ -17,7 +17,7 @@ import { Bucket, HttpMethods } from 'aws-cdk-lib/aws-s3'
 import { WebAppDeployment } from './WebDeployment'
 
 export class TacosStack extends Stack {
-  private api = new RestApi(this, 'tacosPetApi')
+  private api = new RestApi(this, 'tacosApi')
   private authorizer: AuthorizerWrapper
   private suffix: string
   private tacosPhotoBucket: Bucket
@@ -35,7 +35,7 @@ export class TacosStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props)
     this.initializeSuffix()
-    this.initializeTacosPetPhotosBucket()
+    this.initializeTacosPhotosBucket()
     this.authorizer = new AuthorizerWrapper(
       this,
       this.api,
@@ -81,9 +81,9 @@ export class TacosStack extends Stack {
     this.suffix = Suffix
   }
 
-  private initializeTacosPetPhotosBucket() {
+  private initializeTacosPhotosBucket() {
     this.tacosPhotoBucket = new Bucket(this, 'tacos-photos', {
-      bucketName: `tacos-pet-${this.suffix}-photos`,
+      bucketName: `tacos-${this.suffix}-photos`,
       cors: [
         {
           allowedMethods: [
